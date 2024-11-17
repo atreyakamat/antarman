@@ -2,77 +2,191 @@
 // Header.astro
 import ShimmerButton from "@/components/ui/shimmer-button";
 ---
-
 <header>
-<nav class="flex items-center justify-center gap-4 py-4 px-6 " style="background-color: #603A88;">
-  <ShimmerButton
-    shimmerColor="#F5EDF0"
-    background="#2F0147"
-    shimmerSize="2px"
-    shimmerDuration="1.5s"
-    className="text-white"
-  >
-    Home
-  </ShimmerButton>
+  <nav class="flex items-center justify-center gap-4 py-4 px-6 relative" style="background-color: #603A88;">
+    <div class="water-effect absolute inset-0 pointer-events-none">
+      <div class="water-ripple"></div>
+    </div>
 
-  <ShimmerButton 
-    shimmerColor="#F5EDF0"
-    background="#2F0147"
-    shimmerSize="2px"
-    shimmerDuration="1.5s"
-    className="text-white"
-  >
-    About
-  </ShimmerButton>
+    <a href="/home" class={`nav-button ${Astro.url.pathname === "/home" ? "active" : ""}`}>
+      Home
+    </a>
 
-  <ShimmerButton
-    shimmerColor="#F5EDF0" 
-    background="#2F0147"
-    shimmerSize="2px"
-    shimmerDuration="1.5s"
-    className="text-white"
-  >
-    Activities
-  </ShimmerButton>
+    <a href="/about" class={`nav-button ${Astro.url.pathname === "/about" ? "active" : ""}`}>
+      About
+    </a>
 
-  <ShimmerButton
-    shimmerColor="#F5EDF0"
-    background="#2F0147" 
-    shimmerSize="2px"
-    shimmerDuration="1.5s"
-    className="text-white"
-  >
-    Internship
-  </ShimmerButton>
+    <a href="/activities" class={`nav-button ${Astro.url.pathname === "/activities" ? "active" : ""}`}>
+      Activities
+    </a>
 
-  <ShimmerButton
-    shimmerColor="#F5EDF0"
-    background="#2F0147"
-    shimmerSize="2px"
-    shimmerDuration="1.5s"
-    className="text-white"
-  >
-    Fee
-  </ShimmerButton>
+    <a href="/internship" class={`nav-button ${Astro.url.pathname === "/internship" ? "active" : ""}`}>
+      Internship
+    </a>
 
-  <ShimmerButton
-    shimmerColor="#F5EDF0"
-    background="#2F0147"
-    shimmerSize="2px"
-    shimmerDuration="1.5s"
-    className="text-white"
-  >
-    Online Consult
-  </ShimmerButton>
+    <a href="/fee" class={`nav-button ${Astro.url.pathname === "/fee" ? "active" : ""}`}>
+      Fee
+    </a>
 
-  <ShimmerButton
-    shimmerColor="#F5EDF0"
-    background="#2F0147"
-    shimmerSize="2px"
-    shimmerDuration="1.5s"
-    className="text-white"
-  >
-    Media
-  </ShimmerButton>
-</nav>
+    <a href="/consult" class={`nav-button ${Astro.url.pathname === "/consult" ? "active" : ""}`}>
+      Online Consult
+    </a>
+
+    <style>
+      .nav-button {
+        background: #603A88;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        animation: slide-in 0.5s ease-out forwards;
+      }
+
+      .nav-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: 0.5s;
+      }
+
+      .nav-button:hover {
+        background: #603A88;
+        animation: pulse 1.5s infinite;
+      }
+
+      .nav-button:hover::before {
+        left: 100%;
+      }
+
+      .nav-button.active {
+        background: #7446A3;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        animation: border-dance 2s infinite linear;
+      }
+
+      /* Remove active styles when hovering over other buttons */
+      .nav-button:hover ~ .nav-button.active {
+        background: #603A88;
+        box-shadow: none;
+        animation: none;
+      }
+
+      .nav-button.active:hover {
+        background: #603A88;
+        box-shadow: none;
+        animation: pulse 1.5s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+        }
+      }
+
+      @keyframes border-dance {
+        0% {
+          border-radius: 0.5rem;
+        }
+        25% {
+          border-radius: 1rem 0.5rem 1rem 0.5rem;
+        }
+        50% {
+          border-radius: 0.5rem 1rem 0.5rem 1rem;
+        }
+        75% {
+          border-radius: 1rem 0.5rem 1rem 0.5rem;
+        }
+        100% {
+          border-radius: 0.5rem;
+        }
+      }
+
+      @keyframes slide-in {
+        0% {
+          transform: translateX(-20px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+    </style>
+
+    <style>
+      .water-effect {
+        overflow: hidden;
+      }
+      
+      .water-ripple {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transform: scale(0);
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .water-ripple.active {
+        transform: scale(50);
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-in {
+        animation: fade-in 0.5s ease-out forwards;
+      }
+    </style>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const nav = document.querySelector('nav');
+        const ripple = nav?.querySelector('.water-ripple');
+        
+        if (nav && ripple) {
+          nav.addEventListener('click', (e) => {
+            const rect = nav.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            (ripple as HTMLElement).style.left = `${x}px`;
+            (ripple as HTMLElement).style.top = `${y}px`;
+            ripple.classList.add('active');
+            
+            setTimeout(() => {
+              ripple.classList.remove('active');
+            }, 600);
+          });
+        }
+      });
+    </script>
+  </nav>
 </header>

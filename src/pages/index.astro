@@ -1,10 +1,17 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/HomeLayout.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import Particles from "../components/ui/particles.tsx";
 import FlickeringGrid from "../components/ui/flickering-grid.tsx";
 
+import ClinicLocations from './homepage/ClinicLocations.astro';
+import ClinicSpecialisation from './homepage/ClinicSpecialisation.astro';
+import DoctorList from './homepage/DoctorList.astro';
+import Services from './homepage/Services.astro';
+import Internship from './homepage/Internship.astro';
+import MediaSection from './homepage/MediaSection.astro';
+import Feedback from './homepage/Feedback.astro';
 ---
 
 <Layout title="My Astro Project">
@@ -39,6 +46,20 @@ import FlickeringGrid from "../components/ui/flickering-grid.tsx";
       <p class="mt-4">This is a simple static site built with Astro and Magic UI.</p>
       <a href="#about" class="btn btn-primary mt-4">Learn More</a>
     </section>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="card bg-base-100 shadow-xl text-white">
+        <div class="card-body">
+          <ClinicSpecialisation />
+        </div>
+      </div>
+      
+      <div class="card bg-base-100 shadow-xl text-white">
+        <div class="card-body">
+          <ClinicLocations />
+        </div>
+      </div>
+    </div>
 
     <section id="about" class="about mb-6 text-white">
       <h2 class="text-3xl font-semibold">About Us</h2>
