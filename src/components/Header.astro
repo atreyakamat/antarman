@@ -1,0 +1,42 @@
+---
+// Header.astro
+import { Dock, DockIcon } from 'src/components/ui/dock'; // Adjust import based on actual Magic UI component usage
+---
+
+<header>
+  <Dock direction="bottom" magnification={60} distance={140} className="bg-gray-800 text-white">
+    <DockIcon>
+      <a href="#hero" className="text-center">Home</a>
+    </DockIcon>
+    <DockIcon>
+      <a href="#about" className="text-center">About</a>
+    </DockIcon>
+    <DockIcon>
+      <a href="#activities" className="text-center">Activities</a>
+    </DockIcon>
+    <DockIcon>
+      <a href="#blog" className="text-center">Blog</a>
+    </DockIcon>
+    <DockIcon>
+      <a href="#internship" className="text-center">Internship</a>
+    </DockIcon>
+    <DockIcon>
+      <a href="#fee-schedule" className="text-center">Fee Schedule</a>
+    </DockIcon>
+    <DockIcon>
+      <div className="relative group">
+        <button className="text-center">More</button>
+        <div className="absolute hidden group-hover:block bg-gray-700 text-white mt-2 rounded shadow-lg">
+          <ul className="py-2">
+            <li><a href="#appointment-request" className="block px-4 py-2 hover:bg-gray-600">Appointment Request</a></li>
+            <li><a href="#available-online" className="block px-4 py-2 hover:bg-gray-600">We Are Available Online</a></li>
+            <li><a href="#consultation-fees" className="block px-4 py-2 hover:bg-gray-600">Consultation Fees of Dr. Ravindra Agarwal</a></li>
+            <li><a href="#media-and-entertainment" className="block px-4 py-2 hover:bg-gray-600">Media and Entertainment</a></li>
+            <li><a href="#feedback" className="block px-4 py-2 hover:bg-gray-600">Feedback</a></li>
+            <li><a href="#contact-us" className="block px-4 py-2 hover:bg-gray-600">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </DockIcon>
+  </Dock>
+</header>
