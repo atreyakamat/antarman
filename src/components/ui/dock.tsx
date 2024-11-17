@@ -1,120 +1,79 @@
 "use client";
 
-import React, { useRef } from "react";
-import type { PropsWithChildren } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-
+import React, { useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export interface DockProps extends VariantProps<typeof dockVariants> {
+interface DockProps {
   className?: string;
-  magnification?: number;
-  distance?: number;
-  direction?: "top" | "middle" | "bottom";
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-const DEFAULT_MAGNIFICATION = 60;
-const DEFAULT_DISTANCE = 140;
-
-const dockVariants = cva(
-  "supports-backdrop-blur:bg-white/10 supports-backdrop-blur:dark:bg-black/10 mx-auto mt-8 flex h-[58px] w-max gap-2 rounded-2xl border p-2 backdrop-blur-md"
-);
+interface DockIconProps {
+  className?: string;
+  children?: React.ReactNode;
+}
 
 const Dock = React.forwardRef<HTMLDivElement, DockProps>(
-  (
-    {
-      className,
-      children,
-      magnification = DEFAULT_MAGNIFICATION,
-      distance = DEFAULT_DISTANCE,
-      direction = "bottom",
-      ...props
-    },
-    ref
-  ) => {
-    const mouseX = useMotionValue(0);
-
-    const renderChildren = () => {
-      return React.Children.map(children, (child) => {
-        if (React.isValidElement(child) && child.type === DockIcon) {
-          return React.cloneElement(child, {
-            ...child.props,
-            mouseX,
-            magnification,
-            distance,
-          });
-        }
-        return child;
-      });
-    };
+  ({ className, children, ...props }, ref) => {
+    const [mouseX, setMouseX] = useState(0);
 
     return (
-      <motion.div
+      <div
         ref={ref}
-        onMouseMove={(e) => mouseX.set(e.pageX)}
-        onMouseLeave={() => mouseX.set(0)} // Set a safe value when leaving
+        onMouseMove={(e) => setMouseX(e.pageX)}
+        onMouseLeave={() => setMouseX(0)}
+        className={cn(
+          "fixed top-4 left-1/2 -translate-x-1/2 flex h-16 items-start gap-4 rounded-2xl bg-gray-800/50 px-4 backdrop-blur-md",
+          className
+        )}
         {...props}
-        className={cn(dockVariants({ className }), {
-          "items-start": direction === "top",
-          "items-center": direction === "middle",
-          "items-end": direction === "bottom",
-        })}
       >
-        {renderChildren()}
-      </motion.div>
+        {React.Children.map(children, (child) => {
+          if (React.isValidElement(child)) {
+            return React.cloneElement(child, {
+              ...child.props,
+              mouseX,
+            });
+          }
+          return child;
+        })}
+      </div>
     );
   }
 );
 
 Dock.displayName = "Dock";
 
-export interface DockIconProps {
-  size?: number;
-  magnification?: number;
-  distance?: number;
-  mouseX?: any;
-  className?: string;
-  children?: React.ReactNode;
-}
-
-const DockIcon = ({
-  size,
-  magnification = DEFAULT_MAGNIFICATION,
-  distance = DEFAULT_DISTANCE,
-  mouseX,
-  className,
-  children,
-  ...props
-}: DockIconProps) => {
+const DockIcon = ({ className, children, mouseX, ...props }: DockIconProps & { mouseX?: number }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const distanceCalc = useTransform(mouseX, (val: number) => {
-    if (!ref.current) return 0;
+  const calculateHeight = () => {
+    if (!ref.current || !mouseX) return 40;
     const bounds = ref.current.getBoundingClientRect();
     const center = bounds.x + bounds.width / 2;
-    return Math.min(Math.max(val - center, -distance), distance); // Clamp to prevent extremes
-  });
+    const distance = mouseX - center;
+    
+    if (Math.abs(distance) > 150) return 40;
+    return 48 - (Math.abs(distance) / 150) * 8;
+  };
 
-  const widthSync = useTransform(
-    distanceCalc,
-    [-distance, 0, distance],
-    [40, magnification, 40]
-  );
-
-  const width = useSpring(widthSync, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
+  const height = calculateHeight();
 
   return (
     <motion.div
       ref={ref}
-      style={{ width }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{ 
+        height: `${height}px`,
+        width: `${height}px`,
+      }}
+      whileHover={{ scale: 1.2 }}
+      transition={{ type: "spring", stiffness: 400, damping: 17 }}
       className={cn(
-        "flex aspect-square cursor-pointer items-center justify-center rounded-full",
+        "min-w-[40px] min-h-[40px] relative flex items-center justify-center rounded-full bg-gray-700/50 text-white/50 hover:text-white/75 transition-colors",
         className
       )}
       {...props}
@@ -126,4 +85,4 @@ const DockIcon = ({
 
 DockIcon.displayName = "DockIcon";
 
-export { Dock, DockIcon, dockVariants };
+export { Dock, DockIcon };
