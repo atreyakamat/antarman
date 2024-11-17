@@ -2,47 +2,89 @@
 // Header.astro
 import ShimmerButton from "@/components/ui/shimmer-button";
 ---
-<header>
-  <nav class="flex items-center justify-center gap-4 py-4 px-6 relative" style="background-color: #603A88;">
-    <div class="water-effect absolute inset-0 pointer-events-none">
-      <div class="water-ripple"></div>
+<header class="fixed top-0 left-0 right-0 z-50">
+  <nav class="flex items-center justify-between py-4 px-6 relative backdrop-blur-lg" style="background-color: rgba(96, 58, 136, 0.4);">
+    <!-- Mobile Menu Button -->
+    <button id="mobile-menu-button" class="lg:hidden text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+
+    <!-- Navigation Links -->
+    <div id="nav-links" class="hidden lg:flex lg:items-center lg:gap-4 absolute lg:relative top-full left-0 right-0 lg:top-auto bg-purple-900/90 lg:bg-transparent p-4 lg:p-0">
+      <a href="/" class={`nav-button ${Astro.url.pathname === "/" ? "active" : ""}`}>
+        Home
+      </a>
+
+      <a href="/about" class={`nav-button ${Astro.url.pathname === "/about" ? "active" : ""}`}>
+        About
+      </a>
+
+      <a href="/activities" class={`nav-button ${Astro.url.pathname === "/activities" ? "active" : ""}`}>
+        Activities
+      </a>
+
+      <a href="/internship" class={`nav-button ${Astro.url.pathname === "/internship" ? "active" : ""}`}>
+        Internship
+      </a>
+
+      <a href="/feeschedule" class={`nav-button ${Astro.url.pathname === "/feeschedule" ? "active" : ""}`}>
+        Fee Schedule
+      </a>
+
+      <a href="/consult" class={`nav-button ${Astro.url.pathname === "/consult" ? "active" : ""}`}>
+        Online Consult
+      </a>
+
+      <a href="/bookappointment" class={`nav-button ${Astro.url.pathname === "/bookappointment" ? "active" : ""}`}>
+        Book An Appointment
+      </a>
     </div>
 
-    <a href="/home" class={`nav-button ${Astro.url.pathname === "/home" ? "active" : ""}`}>
-      Home
-    </a>
-
-    <a href="/about" class={`nav-button ${Astro.url.pathname === "/about" ? "active" : ""}`}>
-      About
-    </a>
-
-    <a href="/activities" class={`nav-button ${Astro.url.pathname === "/activities" ? "active" : ""}`}>
-      Activities
-    </a>
-
-    <a href="/internship" class={`nav-button ${Astro.url.pathname === "/internship" ? "active" : ""}`}>
-      Internship
-    </a>
-
-    <a href="/fee" class={`nav-button ${Astro.url.pathname === "/fee" ? "active" : ""}`}>
-      Fee
-    </a>
-
-    <a href="/consult" class={`nav-button ${Astro.url.pathname === "/consult" ? "active" : ""}`}>
-      Online Consult
-    </a>
+    <button id="theme-toggle" class="theme-toggle-btn">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sun-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 moon-icon hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+      </svg>
+    </button>
 
     <style>
       .nav-button {
-        background: #603A88;
+        background: rgba(96, 58, 136, 0.4);
         color: white;
         padding: 0.75rem 1.5rem;
-        border-radius: 0.5rem;
+        border-radius: 9999px;
         font-weight: 500;
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
         animation: slide-in 0.5s ease-out forwards;
+        display: block;
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+
+      @media (min-width: 1024px) {
+        .nav-button {
+          width: auto;
+          margin-bottom: 0;
+        }
+      }
+
+      .theme-toggle-btn {
+        background: rgba(96, 58, 136, 0.2);
+        color: white;
+        padding: 0.75rem;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+      }
+
+      .theme-toggle-btn:hover {
+        background: rgba(96, 58, 136, 0.9);
       }
 
       .nav-button::before {
@@ -62,7 +104,7 @@ import ShimmerButton from "@/components/ui/shimmer-button";
       }
 
       .nav-button:hover {
-        background: #603A88;
+        background: rgba(96, 58, 136, 0.9);
         animation: pulse 1.5s infinite;
       }
 
@@ -71,20 +113,19 @@ import ShimmerButton from "@/components/ui/shimmer-button";
       }
 
       .nav-button.active {
-        background: #7446A3;
+        background: rgba(116, 70, 163, 0.9);
         box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
         animation: border-dance 2s infinite linear;
       }
 
-      /* Remove active styles when hovering over other buttons */
       .nav-button:hover ~ .nav-button.active {
-        background: #603A88;
+        background: rgba(96, 58, 136, 0.8);
         box-shadow: none;
         animation: none;
       }
 
       .nav-button.active:hover {
-        background: #603A88;
+        background: rgba(96, 58, 136, 0.9);
         box-shadow: none;
         animation: pulse 1.5s infinite;
       }
@@ -103,19 +144,19 @@ import ShimmerButton from "@/components/ui/shimmer-button";
 
       @keyframes border-dance {
         0% {
-          border-radius: 0.5rem;
+          border-radius: 9999px;
         }
         25% {
-          border-radius: 1rem 0.5rem 1rem 0.5rem;
+          border-radius: 9999px;
         }
         50% {
-          border-radius: 0.5rem 1rem 0.5rem 1rem;
+          border-radius: 9999px;
         }
         75% {
-          border-radius: 1rem 0.5rem 1rem 0.5rem;
+          border-radius: 9999px;
         }
         100% {
-          border-radius: 0.5rem;
+          border-radius: 9999px;
         }
       }
 
@@ -131,61 +172,38 @@ import ShimmerButton from "@/components/ui/shimmer-button";
       }
     </style>
 
-    <style>
-      .water-effect {
-        overflow: hidden;
-      }
-      
-      .water-ripple {
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        transform: scale(0);
-        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .water-ripple.active {
-        transform: scale(50);
-      }
-
-      @keyframes fade-in {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .animate-fade-in {
-        animation: fade-in 0.5s ease-out forwards;
-      }
-    </style>
-
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const nav = document.querySelector('nav');
-        const ripple = nav?.querySelector('.water-ripple');
+        const themeToggle = document.getElementById('theme-toggle');
+        const sunIcon = themeToggle?.querySelector('.sun-icon');
+        const moonIcon = themeToggle?.querySelector('.moon-icon');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const navLinks = document.getElementById('nav-links');
         
-        if (nav && ripple) {
-          nav.addEventListener('click', (e) => {
-            const rect = nav.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            (ripple as HTMLElement).style.left = `${x}px`;
-            (ripple as HTMLElement).style.top = `${y}px`;
-            ripple.classList.add('active');
-            
-            setTimeout(() => {
-              ripple.classList.remove('active');
-            }, 600);
-          });
+        // Mobile menu toggle
+        mobileMenuButton?.addEventListener('click', () => {
+          navLinks?.classList.toggle('hidden');
+        });
+
+        // Initialize theme
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        if (currentTheme === 'dark') {
+          sunIcon?.classList.add('hidden');
+          moonIcon?.classList.remove('hidden');
         }
+
+        // Theme toggle functionality
+        themeToggle?.addEventListener('click', () => {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+          
+          document.documentElement.setAttribute('data-theme', newTheme);
+          localStorage.setItem('theme', newTheme);
+          
+          sunIcon?.classList.toggle('hidden');
+          moonIcon?.classList.toggle('hidden');
+        });
       });
     </script>
   </nav>

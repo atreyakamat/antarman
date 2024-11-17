@@ -1,74 +1,115 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /* Global Styles */
+:root,
+[data-theme='light'] {
+  /* Light mode colors */
+  --background: #f9f9f9;
+  --text-primary: #333;
+  --text-secondary: #666;
+  --accent-purple: rgba(96, 58, 136, 0.9);
+  --accent-purple-light: rgba(96, 58, 136, 0.6);
+  --accent-purple-transparent: rgba(96, 58, 136, 0.25);
+  --container-bg: rgba(255, 255, 255, 0.8);
+}
+
+[data-theme='dark'] {
+  /* Dark mode colors */
+  --background: #0f0f0f;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --accent-purple: rgba(116, 70, 163, 0.9);
+  --accent-purple-light: rgba(96, 58, 136, 0.8);
+  --accent-purple-transparent: rgba(96, 58, 136, 0.4);
+  --container-bg: rgba(30, 30, 30, 0.8);
+}
+
 body {
-  font-family: Arial, sans-serif; /* Set a default font */
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-  background-color: #ffffff; /* Light background color for the body */
-  color: #ffffff; /* Default text color */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background);
+  color: var(--text-primary);
 }
 
-/* Container for main content */
 .container {
-  max-width: 1200px; /* Maximum width of the container */
-  margin: 0 auto; /* Center the container */
-  padding: 20px; /* Add padding around the container */
-}
-
-/* Hero Section Styles */
-.hero {
-  background-image: linear-gradient(to right, #4A90E2, #9013FE); /* Gradient background */
-  border-radius: 8px; /* Rounded corners */
-}
-
-/* Button Styles */
-.btn {
-  display: inline-block; /* Make buttons inline-block */
-  padding: 10px 20px; /* Padding inside the button */
-  background-color: #FF6347; /* Button background color */
-  color: white; /* Button text color */
-  border-radius: 5px; /* Rounded corners for buttons */
-  text-decoration: none; /* Remove underline from links */
-}
-
-.btn:hover {
-  background-color: #FF4500; /* Darker shade on hover */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: var(--container-bg);
+  backdrop-filter: blur(10px);
 }
 
 /* Section Styles */
 section {
-  margin-bottom: 40px; /* Space between sections */
+  margin-bottom: 40px;
 }
 
 h2 {
-  margin-top: 0; /* Remove top margin from headings */
+  margin-top: 0;
+  color: var(--text-primary);
+}
+
+/* Button Styles */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--accent-purple);
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--accent-purple-light);
 }
 
 /* List Styles */
 ul {
-  list-style-type: disc; /* Use disc bullets for lists */
+  list-style-type: disc;
+  color: var(--text-secondary);
 }
 
 .list-disc {
-  padding-left: 20px; /* Indent list items */
+  padding-left: 20px;
 }
 
-/* Responsive Design Adjustments */
+/* Responsive Design */
 @media (max-width: 768px) {
   .container {
-    padding: 10px; /* Reduce padding on smaller screens */
+    padding: 10px;
     margin-left: 10px;
     margin-right: 10px;
   }
 
   .hero h1 {
-    font-size: 2.5rem; /* Smaller font size for hero heading on mobile */
+    font-size: 2.5rem;
   }
 
   .btn {
-    padding: 8px 16px; /* Adjust button size for mobile devices */
+    padding: 8px 16px;
     font-size: smaller;
   }
+}
+
+/* Dock Styles */
+.dock {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--accent-purple-transparent);
+  backdrop-filter: blur(8px);
+}
+
+.dock-icon {
+  transition: transform 0.2s ease;
+  color: var(--text-primary);
+}
+
+.dock-icon:hover {
+  transform: scale(1.2);
 }

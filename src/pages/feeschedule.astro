@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/HomeLayout.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import ParticleBG from "../components/ParticleBG.astro";
+import GridBG from "../components/GridBG.astro";
+---
+<Layout title="Fee Schedule">
+    <Header />
+    <ParticleBG />
+    <GridBG />
+    <main class="container mx-auto p-4 mt-24">
+        <h2 class="text-4xl font-bold text-white text-center mb-12 relative">
+            Our Doctors & Fee Structure
+            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-purple-500"></span>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {[...Array(11)].map((_, index) => {
+                const doctors = [
+                    {name: "Dr. Sarah Johnson", image: "/doctor1.jpg", fees: {consultation: "$150", therapy: "$200", homeVisit: "$300", medicalReport: "$250"}},
+                    {name: "Dr. Michael Chen", image: "/doctor2.jpg", fees: {consultation: "$160", therapy: "$220", homeVisit: "$320", medicalReport: "$270"}},
+                    {name: "Dr. Emily Williams", image: "/doctor3.jpg", fees: {consultation: "$140", therapy: "$190", homeVisit: "$280", medicalReport: "$240"}},
+                    {name: "Dr. James Wilson", image: "/doctor4.jpg", fees: {consultation: "$155", therapy: "$210", homeVisit: "$310", medicalReport: "$260"}},
+                    {name: "Dr. Priya Patel", image: "/doctor5.jpg", fees: {consultation: "$145", therapy: "$195", homeVisit: "$290", medicalReport: "$245"}},
+                    {name: "Dr. Robert Brown", image: "/doctor6.jpg", fees: {consultation: "$165", therapy: "$225", homeVisit: "$330", medicalReport: "$275"}},
+                    {name: "Dr. Lisa Anderson", image: "/doctor7.jpg", fees: {consultation: "$150", therapy: "$205", homeVisit: "$305", medicalReport: "$255"}},
+                    {name: "Dr. David Kim", image: "/doctor8.jpg", fees: {consultation: "$155", therapy: "$215", homeVisit: "$315", medicalReport: "$265"}},
+                    {name: "Dr. Maria Garcia", image: "/doctor9.jpg", fees: {consultation: "$145", therapy: "$200", homeVisit: "$295", medicalReport: "$250"}},
+                    {name: "Dr. Thomas Lee", image: "/doctor10.jpg", fees: {consultation: "$160", therapy: "$220", homeVisit: "$325", medicalReport: "$270"}},
+                    {name: "Dr. Rachel Murphy", image: "/doctor11.jpg", fees: {consultation: "$150", therapy: "$210", homeVisit: "$300", medicalReport: "$260"}}
+                ];
+                const doctor = doctors[index];
+                return (
+                    <div class="group relative">
+                        <div class="doctor-card bg-purple-900/30 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 cursor-pointer
+                                group-hover:scale-105 group-hover:z-10 peer">
+                            <img src={doctor.image} alt={doctor.name} class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <h3 class="text-xl font-semibold text-white mb-2">{doctor.name}</h3>
+                                
+                                <div class="fee-structure opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <div class="text-gray-300 space-y-2">
+                                        <p>Consultation: {doctor.fees.consultation}</p>
+                                        <p>Therapy Session: {doctor.fees.therapy}</p>
+                                        <p>Home Visit: {doctor.fees.homeVisit}</p>
+                                        <p>Medical Report: {doctor.fees.medicalReport}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            })}
+        </div>
+
+        <style>
+            .doctor-card {
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .grid:has(.group:hover) .group:not(:hover) .doctor-card {
+                filter: blur(2px);
+                transform: scale(0.95);
+            }
+        </style>
+    </main>
+    <Footer />
+</Layout>
