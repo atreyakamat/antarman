@@ -1,0 +1,363 @@
+import NeonGradientCard from '../../../components/ui/NeonGradientCard.astro';
+
+<style>
+  .doctor-card {
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    height: 450px; /* Increased height from 400px to 450px */
+    background-color: #631D76;
+    margin: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+    cursor: pointer;
+    opacity: 0.9;
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .doctor-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: skewX(-25deg);
+    transition: left 0.3s ease;
+  }
+
+  .doctor-card:hover::after {
+    left: 100%;
+  }
+
+  .doctor-card:hover {
+    transform: scale(1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    opacity: 1;
+    z-index: 2;
+  }
+
+  .doctor-list:hover .doctor-card {
+    opacity: 0.7;
+    filter: blur(2px);
+  }
+
+  .doctor-list:hover .doctor-card:hover {
+    opacity: 1;
+    filter: none;
+  }
+
+  .doctor-list {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+
+  .doctor-image {
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+  }
+
+  .doctor-info {
+    padding: 10px;
+    position: relative;
+  }
+
+  .doctor-extra-info {
+    display: none;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 0 0 15px 15px;
+  }
+
+  .doctor-card:hover .doctor-extra-info {
+    display: block;
+  }
+
+  .view-more-button {
+    display: block;
+    margin: 5px auto;
+    padding: 5px 10px;
+    background-color: #631D76;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    transition: opacity 0.3s ease;
+    font-size: 0.8rem;
+  }
+
+  .doctor-card:hover .view-more-button {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    .view-more-button {
+      display: block;
+    }
+  }
+
+  h1 {
+    text-align: center;
+    font-size: x-large;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .doctor-card {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .doctor-card.active .doctor-extra-info {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const doctorCards = document.querySelectorAll('.doctor-card');
+    doctorCards.forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('active');
+      });
+    });
+  });
+</script>
+
+<h1>Our Doctors</h1>
+<div class="doctor-list">
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 1" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 1</h3>
+      <p>Specialty: Cardiology</p>
+      <a href="https://example.com/doctor1" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 10 years</p>
+      <p>Location: New York</p>
+      <p>Contact: doctor1@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 2" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 2</h3>
+      <p>Specialty: Neurology</p>
+      <a href="https://example.com/doctor2" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 8 years</p>
+      <p>Location: Los Angeles</p>
+      <p>Contact: doctor2@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 3" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 3</h3>
+      <p>Specialty: Pediatrics</p>
+      <a href="https://example.com/doctor3" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 12 years</p>
+      <p>Location: Chicago</p>
+      <p>Contact: doctor3@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 4" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>MA Psychology</h3>
+      <p>
+        a
+      </p>
+      <a href="https://example.com/doctor4" class="view-more-button">View More</a>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 5" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Samir</h3>
+      <p>M.A. Psychology</p>
+      <a href="https://example.com/doctor5" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Samir is a psychologist, psychotherapist and leadership trainer.
+        He is a trained REBT therapist and has industry experience in team handling skills. </p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 6" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 6</h3>
+      <p>Specialty: Orthopedics</p>
+      <a href="https://example.com/doctor6" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 11 years</p>
+      <p>Location: Philadelphia</p>
+      <p>Contact: doctor6@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 7" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 7</h3>
+      <p>Specialty: Psychiatry</p>
+      <a href="https://example.com/doctor7" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 7 years</p>
+      <p>Location: San Antonio</p>
+      <p>Contact: doctor7@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 8" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 8</h3>
+      <p>Specialty: Gastroenterology</p>
+      <a href="https://example.com/doctor8" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 13 years</p>
+      <p>Location: San Diego</p>
+      <p>Contact: doctor8@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 9" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 9</h3>
+      <p>Specialty: Endocrinology</p>
+      <a href="https://example.com/doctor9" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 6 years</p>
+      <p>Location: Dallas</p>
+      <p>Contact: doctor9@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 10" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 10</h3>
+      <p>Specialty: Nephrology</p>
+      <a href="https://example.com/doctor10" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 14 years</p>
+      <p>Location: San Jose</p>
+      <p>Contact: doctor10@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 11" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 11</h3>
+      <p>Specialty: Rheumatology</p>
+      <a href="https://example.com/doctor11" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 5 years</p>
+      <p>Location: Austin</p>
+      <p>Contact: doctor11@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 12" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 12</h3>
+      <p>Specialty: Urology</p>
+      <a href="https://example.com/doctor12" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 10 years</p>
+      <p>Location: Jacksonville</p>
+      <p>Contact: doctor12@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 13" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 13</h3>
+      <p>Specialty: Ophthalmology</p>
+      <a href="https://example.com/doctor13" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 8 years</p>
+      <p>Location: Fort Worth</p>
+      <p>Contact: doctor13@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 14" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 14</h3>
+      <p>Specialty: Otolaryngology</p>
+      <a href="https://example.com/doctor14" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 12 years</p>
+      <p>Location: Columbus</p>
+      <p>Contact: doctor14@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 15" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 15</h3>
+      <p>Specialty: Pulmonology</p>
+      <a href="https://example.com/doctor15" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 9 years</p>
+      <p>Location: Charlotte</p>
+      <p>Contact: doctor15@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 16" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 16</h3>
+      <p>Specialty: Hematology</p>
+      <a href="https://example.com/doctor16" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 11 years</p>
+      <p>Location: San Francisco</p>
+      <p>Contact: doctor16@example.com</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 17" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Doctor 17</h3>
+      <p>Specialty: Immunology</p>
+      <a href="https://example.com/doctor17" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <p>Experience: 13 years</p>
+      <p>Location: Indianapolis</p>
+      <p>Contact: doctor17@example.com</p>
+    </div>
+  </div>
+</div>
