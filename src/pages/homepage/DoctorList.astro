@@ -1,4 +1,4 @@
-import NeonGradientCard from '../../../components/ui/NeonGradientCard.astro';
+
 
 <style>
   .doctor-card {
@@ -40,14 +40,10 @@ import NeonGradientCard from '../../../components/ui/NeonGradientCard.astro';
     z-index: 2;
   }
 
-  .doctor-list:hover .doctor-card {
+  /* Only blur other cards when one is being hovered */
+  .doctor-list:has(.doctor-card:hover) .doctor-card:not(:hover) {
     opacity: 0.7;
     filter: blur(2px);
-  }
-
-  .doctor-list:hover .doctor-card:hover {
-    opacity: 1;
-    filter: none;
   }
 
   .doctor-list {

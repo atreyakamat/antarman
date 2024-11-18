@@ -9,5 +9,51 @@ import GridBG from "../components/GridBG.astro";
     <Header />
     <ParticleBG />
     <GridBG />
+    
+    <div class="form-container">
+        <form id="userForm" class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+            <div class="mb-4">
+                <label for="name" class="block text-gray-700 font-bold mb-2">Name:</label>
+                <input type="text" id="name" name="name" required
+                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="mb-4">
+                <label for="age" class="block text-gray-700 font-bold mb-2">Age:</label>
+                <input type="number" id="age" name="age" required min="0"
+                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+            </div>
+            <button type="submit"
+                class="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors">
+                Submit
+            </button>
+        </form>
+    </div>
+
+    <style>
+        .form-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+    </style>
+
+    <script>
+        let userData = {
+            name: '',
+            age: 0
+        };
+
+        document.getElementById('userForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            userData.name = document.getElementById('name').value;
+            userData.age = parseInt(document.getElementById('age').value);
+            
+            console.log('Stored user data:', userData);
+            // You can now use userData.name and userData.age as needed
+        });
+    </script>
     <Footer />
 </Layout>
