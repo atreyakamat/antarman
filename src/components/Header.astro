@@ -61,7 +61,6 @@ import ShimmerButton from "@/components/ui/shimmer-button";
         transition: all 0.3s ease;
         position: relative;
         overflow: hidden;
-        animation: slide-in 0.5s ease-out forwards;
         display: block;
         width: 100%;
         text-align: center;
@@ -157,17 +156,6 @@ import ShimmerButton from "@/components/ui/shimmer-button";
         }
         100% {
           border-radius: 9999px;
-        }
-      }
-
-      @keyframes slide-in {
-        0% {
-          transform: translateX(-20px);
-          opacity: 0;
-        }
-        100% {
-          transform: translateX(0);
-          opacity: 1;
         }
       }
     </style>
