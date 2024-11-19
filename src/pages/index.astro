@@ -20,11 +20,9 @@ import Feedback from './homepage/Feedback.astro';
 
   <Header />
   <section class="container mx-auto p-4 mt-24">  
-    <img src="/seV9PRm.webp" alt="Header image" class="w-full h-auto">
+    <img src="/homepage/hero.png" alt="Header image" loading="lazy" class="w-full h-auto" onerror="this.onerror=null; this.src='/fallback-image.png';" />
   </section>
   <main class="container mx-auto p-4 mt-24">
-
-    
     <ClinicLocation />
     <DoctorList />
     <Services />
