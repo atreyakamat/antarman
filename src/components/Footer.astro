@@ -1,9 +1,19 @@
 ---
-// Footer.astro
+import NumberTicker from './ui/number-ticker';
 ---
-
-<footer class="bg-gray-800 text-white p-4 mt-6">
-    <div class="container mx-auto text-center">
+<footer style="background: linear-gradient(to right, var(--color-start, #2F0147), var(--color-end, #603a88));" class="text-white p-6 mt-6 rounded-lg shadow-lg">
+    <div class="container mx-auto grid grid-cols-1 md:grid-cols-4 text-center">
+      
+      <div class="mb-4">
+        <h3 class="text-lg font-semibold">Connect With Us</h3>
+        <ul class="flex justify-center space-x-4">
+          <li><a href="#" class="hover:underline text-blue-400">Facebook</a></li>
+          <li><a href="#" class="hover:underline text-blue-400">Twitter</a></li>
+          <li><a href="#" class="hover:underline text-blue-400">Instagram</a></li>
+          <li><a href="#" class="hover:underline text-blue-400">LinkedIn</a></li>
+        </ul>
+      </div>
+  
       <div class="mb-4">
         <h3 class="text-lg font-semibold">Contact Us</h3>
         <p>Email: info@example.com</p>
@@ -11,17 +21,21 @@
       </div>
   
       <div class="mb-4">
-        <h3 class="text-lg font-semibold">Follow Us</h3>
-        <ul class="flex justify-center space-x-4">
-          <li><a href="#" class="hover:underline">Facebook</a></li>
-          <li><a href="#" class="hover:underline">Twitter</a></li>
-          <li><a href="#" class="hover:underline">Instagram</a></li>
-          <li><a href="#" class="hover:underline">LinkedIn</a></li>
-        </ul>
+        <h3 class="text-lg font-semibold">Get to Know Us</h3>
+        <p>Learn more about our services and team.</p>
       </div>
   
-      <div>
-        <p>&copy; {new Date().getFullYear()} My Astro Project. All rights reserved.</p>
+      <div class="mb-4">
+        <h3 class="text-lg font-semibold">Opportunities</h3>
+        <p>Explore career opportunities with us.</p>
       </div>
+  
+      <div class="mb-4">
+        <h3 class="text-lg font-semibold">Visitor Count</h3>
+        <NumberTicker direction="up" delay={0} decimalPlaces={0} />
+      </div>
+    </div>
+    <div style="text-align: center;">
+      <p>&copy; {new Date().getFullYear()} My Astro Project. All rights reserved.</p>
     </div>
   </footer>

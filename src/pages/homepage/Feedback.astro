@@ -1,0 +1,61 @@
+---
+import Marquee from "@/components/ui/marquee"
+import ShineBorder from "../../components/ui/shine-border" // Importing the ShineBorder component
+---
+<Marquee class="p-4" pauseOnHover reverse fade>
+  <div class="flex space-x-4">
+    {[
+      { color: 'red-300', text: "Great service, will definitely come back!", user: "User123" },
+      { color: 'green-300', text: "I had an amazing experience, thank you!", user: "User456" },
+      { color: 'yellow-300', text: "The team was very helpful and attentive.", user: "User789" },
+      { color: 'purple-300', text: "Loved the atmosphere, highly recommend!", user: "User101" },
+      { color: 'orange-300', text: "Fantastic experience, will return!", user: "User202" },
+      { color: 'pink-300', text: "The staff was incredibly friendly!", user: "User303" },
+      { color: 'teal-300', text: "A wonderful place to relax and unwind.", user: "User404" },
+      { color: 'indigo-300', text: "I felt very welcomed and valued.", user: "User505" },
+      { color: 'gray-300', text: "The food was delicious and well presented!", user: "User606" },
+      { color: 'brown-300', text: "An unforgettable experience, thank you!", user: "User707" },
+    ].map(({ color, text, user }) => (
+      <ShineBorder>
+        <div class="relative w-64 cursor-pointer overflow-hidden rounded-xl bg-[#603A88] hover:bg-[#7E01B3] transition-colors duration-300 ease-in-out dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15] border-none">
+          <div class="flex flex-row items-center gap-2">
+            <div class={`w-10 h-10 rounded-full bg-${color} mr-4`}></div>
+            <div class="flex flex-col">
+              <figcaption class="text-md font-semibold text-gray-800">"{text}"</figcaption>
+              <p class="text-sm text-gray-600">- {user}</p>
+            </div>
+          </div>
+          <blockquote class="mt-2 text-sm">"{text}"</blockquote>
+        </div>
+      </ShineBorder>
+    ))}
+  </div>
+</Marquee>
+<Marquee class="p-4" pauseOnHover fade>
+  <div class="flex space-x-4">
+    {[
+      { color: 'red-300', text: "I will recommend this place to everyone!", user: "User808" },
+      { color: 'green-300', text: "The ambiance was perfect for a night out.", user: "User909" },
+      { color: 'yellow-300', text: "I appreciate the attention to detail!", user: "User1010" },
+      { color: 'purple-300', text: "A great place for family gatherings!", user: "User1111" },
+      { color: 'orange-300', text: "The service was quick and efficient!", user: "User1212" },
+      { color: 'pink-300', text: "I loved the variety of options available!", user: "User1313" },
+      { color: 'teal-300', text: "A hidden gem, I will be back!", user: "User1414" },
+      { color: 'indigo-300', text: "The best experience I've had in a long time!", user: "User1515" },
+      { color: 'gray-300', text: "I can't wait to come back and try more!", user: "User1616" },
+    ].map(({ color, text, user }) => (
+      <ShineBorder>
+        <div class="relative w-64 cursor-pointer overflow-hidden rounded-xl bg-[#603A88] hover:bg-[#7E01B3] transition-colors duration-300 ease-in-out dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15] border-none">
+          <div class="flex flex-row items-center gap-2">
+            <div class={`w-10 h-10 rounded-full bg-${color} mr-4`}></div>
+            <div class="flex flex-col">
+              <figcaption class="text-md font-semibold text-gray-800">"{text}"</figcaption>
+              <p class="text-sm text-gray-600">- {user}</p>
+            </div>
+          </div>
+          <blockquote class="mt-2 text-sm">"{text}"</blockquote>
+        </div>
+      </ShineBorder>
+    ))}
+  </div>
+</Marquee>
