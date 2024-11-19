@@ -20,26 +20,33 @@ const locations = [
     phone: "+1 (555) 345-6789", 
     hours: "Mon-Sat: 9AM-5PM",
     image: "/images/west-clinic.jpg"
+  },
+  {
+    name: "Eastside Branch",
+    address: "321 East Avenue, Eastside",
+    phone: "+1 (555) 456-7890",
+    hours: "Mon-Fri: 8AM-7PM, Sat: 9AM-3PM",
+    image: "/images/east-clinic.jpg"
   }
 ];
 ---
 
-<section class="py-12 px-4">
-  <h2 class="text-3xl font-bold text-center text-white mb-8">Our Clinic Locations</h2>
+<section class="py-12 w-full bg-gradient-to-b from-purple-900/40 to-transparent">
+  <h2 class="text-3xl font-bold text-center text-white mb-12">Our Clinic Locations</h2>
   
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto px-4">
     {locations.map((location) => (
-      <div class="bg-white/10 backdrop-blur-lg rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <div class="h-48 overflow-hidden">
+      <div class="bg-white/10 backdrop-blur-lg rounded-lg overflow-hidden shadow-lg hover:transform hover:scale-105 transition-all duration-300 min-w-[280px]">
+        <div class="h-56 overflow-hidden">
           <img 
             src={location.image} 
             alt={`${location.name} building`}
             class="w-full h-full object-cover"
           />
         </div>
-        <div class="p-6">
-          <h3 class="text-xl font-semibold text-white mb-2">{location.name}</h3>
-          <div class="space-y-2 text-gray-200">
+        <div class="p-8">
+          <h3 class="text-2xl font-semibold text-white mb-3">{location.name}</h3>
+          <div class="space-y-3 text-gray-200">
             <p class="flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

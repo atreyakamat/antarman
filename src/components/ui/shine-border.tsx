@@ -24,8 +24,8 @@ interface ShineBorderProps {
  * @param children contains react node elements.
  */
 export default function ShineBorder({
-  borderRadius = 6,
-  borderWidth = 50,
+  borderRadius = 3,
+  borderWidth = 2,
   duration = 14,
   color = "#603a88",
   className,
