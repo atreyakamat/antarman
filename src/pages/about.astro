@@ -3,11 +3,123 @@ import Layout from '../layouts/HomeLayout.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
-import GridBG from "../components/GridBG.astro";
 ---
-<Layout title="about">
-    <Header />
+
+<Layout title="About Antarman">
     <ParticleBG />
-    <GridBG />
+    <Header />
+    
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section class="relative min-h-[40vh] flex items-center justify-center mb-20 bg-gradient-to-b from-purple-900/40 to-transparent">
+            <div class="text-center text-white px-4">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">About Antarman</h1>
+                <p class="text-xl md:text-2xl max-w-2xl mx-auto text-gray-200">
+                    Your Partner in Mental Wellness Journey
+                </p>
+            </div>
+        </section>
+
+        <div class="container mx-auto px-4">
+            <!-- About Us Section -->
+            <section class="mb-32">
+                <h2 class="text-4xl font-bold text-white mb-12 text-center">Our Mission</h2>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-8 hover:transform hover:scale-105 transition-all duration-300">
+                        <div class="mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-purple-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                            </svg>
+                            <p class="text-gray-200 leading-relaxed">
+                                Antarman is a premier mental health welfare organization dedicated to delivering the highest standards of mental health care. We provide a safe and supportive space for individuals to explore their inner experiences and foster personal growth. At Antarman, we emphasize the importance of self-awareness in enhancing logical thinking, emotional regulation, and overall well-being.                            </p>
+                        </div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-8 hover:transform hover:scale-105 transition-all duration-300">
+                        <div class="mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-purple-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                            </svg>
+                            <p class="text-gray-200 leading-relaxed">
+                                Our multidisciplinary team of psychiatrists and psychologists adopts a holistic and integrated approach to mental health. By working collaboratively, our specialists offer a wide range of evidence-based therapeutic options tailored to each individual’s needs. This team-based approach ensures comprehensive diagnoses and effective management plans, maximizing the benefits for our clients.                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Brand Name Meaning Section -->
+            <section class="mb-32 bg-gradient-to-r from-purple-900/40 via-transparent to-purple-900/40 py-20">
+                <div class="max-w-4xl mx-auto text-center px-4">
+                    <h2 class="text-4xl font-bold text-white mb-12">The Meaning Behind Antarman</h2>
+                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-12 transform hover:scale-105 transition-all duration-300">
+                        <p class="text-2xl text-purple-300 mb-8 font-semibold">
+                            "अंतर्मन" - The Inner Mind
+                        </p>
+                        <p class="text-gray-200 leading-relaxed mb-6">
+                            Rooted in Sanskrit, Antarman translates to "inner mind." The inner mind serves as the foundation of our emotions, thoughts, decisions, and perceptions. By nurturing and strengthening this core aspect of ourselves, we can build resilience—the ability to adapt and thrive in the face of adversity.                        </p>
+                        <p class="text-gray-200 leading-relaxed">
+                            Scientific research underscores the profound impact of resilience on mental and physical health. Resilient individuals not only cope better with challenges but also experience faster recovery and improved overall well-being. At Antarman, we strive to empower individuals to harness their inner strength and lead healthier, more fulfilling lives.                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="mb-20">
+                <h2 class="text-4xl font-bold text-white mb-12 text-center">Begin Your Journey Today</h2>
+                <div class="bg-white/10 backdrop-blur-lg rounded-lg p-12 max-w-4xl mx-auto">
+                    <div class="text-center mb-12">
+                        <div class="text-4xl font-bold text-purple-300 mb-4 hover:text-purple-400 transition-colors">
+                            <a href="tel:+1234567890">+1 (234) 567-890</a>
+                        </div>
+                        <p class="text-gray-300">Available 24/7 for your support</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-6">
+                            <h3 class="text-2xl font-semibold text-white mb-6">What to Expect</h3>
+                            <div class="space-y-4">
+                                {[
+                                    "A team member will receive your call and gather basic information about your concerns and the help you seek.",
+                                    "You will be asked to provide contact details, language preferences, and the urgency of your appointment.",
+                                    "Based on your needs, you will receive a follow-up call with an appointment for the most suitable doctor or counselor."
+                                ].map(text => (
+                                    <div class="flex items-center space-x-4 bg-purple-900/30 p-4 rounded-lg">
+                                        <div class="bg-purple-500 rounded-full p-2 flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                            </svg>
+                                        </div>
+                                        <p class="text-gray-200">{text}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div class="bg-purple-900/30 p-8 rounded-lg">
+                            <h3 class="text-2xl font-semibold text-white mb-6">Our Commitment</h3>
+                            <ul class="space-y-4 text-gray-200">
+                                <li class="flex items-center space-x-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    </svg>
+                                    <span>Confidential and secure environment</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <span>Flexible scheduling options</span>
+                                </li>
+                                <li class="flex items-center space-x-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                    <span>Expert team of professionals</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
     <Footer />
 </Layout>
