@@ -3,6 +3,7 @@ import Layout from '../layouts/HomeLayout.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
+import HeroSection from './homepage/HeroSection.astro';
 //import GridBG from "../components/GridBG.astro";
 
 
@@ -19,9 +20,8 @@ import Feedback from './homepage/Feedback.astro';
   <!-- <GridBG /> -->
 
   <Header />
-  <section class="container mx-auto p-4 mt-24">  
-    <img src="/homepage/hero.png" alt="Header image" loading="lazy" class="w-full h-auto" onerror="this.onerror=null; this.src='/fallback-image.png';" />
-  </section>
+  <HeroSection />
+  
   <main class="container mx-auto p-4 mt-24">
     <ClinicLocation />
     <DoctorList />

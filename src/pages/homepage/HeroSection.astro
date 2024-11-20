@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '../../../public/hero.png';
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden w-screen -ml-4">
+  <div class="absolute inset-0 z-0 w-screen">
+    <Image 
+      src={heroImage}
+      alt="Hero background"
+      width={1920}
+      height={1080}
+      class:list={["w-screen h-full object-cover object-center"]}
+    />
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+  </div>
+
+  <div class="relative z-10 text-center text-white px-4">
+    <h1 class="text-5xl md:text-7xl font-bold mb-6">Welcome to Antarman</h1>
+    <p class="text-xl md:text-2xl max-w-2xl mx-auto">
+      Your journey to mental wellness begins here
+    </p>
+  </div>
+</section>
