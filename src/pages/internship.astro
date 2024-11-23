@@ -3,11 +3,165 @@ import Layout from '../layouts/HomeLayout.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
-import GridBG from "../components/GridBG.astro";
+import Marquee from "../components/ui/marquee";
+
+const internImages = [
+    "/images/intern1.jpg",
+    "/images/intern2.jpg", 
+    "/images/intern3.jpg",
+    "/images/intern4.jpg",
+    "/images/intern5.jpg"
+].map((src) => ({
+    src,
+    alt: "Intern working at Antarman"
+}));
 ---
 <Layout title="internship">
     <Header />
     <ParticleBG />
-    <GridBG />
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section class="relative min-h-[40vh] flex items-center justify-center mb-20 bg-gradient-to-b from-purple-900/40 to-transparent">
+            <div class="text-center text-white px-4">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6">Internship</h1>
+                <p class="text-xl md:text-2xl max-w-2xl mx-auto text-gray-200">
+                    Join Our Team and Make a Difference
+                </p>
+            </div>
+        </section>
+
+        <div class="container mx-auto px-4">
+            <!-- Metadata Section -->
+            <section class="mb-32 bg-gradient-to-r from-purple-900/40 via-transparent to-purple-900/40 py-20">
+                <div class="bg-white/10 backdrop-blur-lg rounded-lg p-12 max-w-4xl mx-auto hover:transform hover:scale-105 transition-all duration-300">
+                    <h2 class="text-3xl font-bold text-white mb-8 text-center">About Our Internship Program</h2>
+                    <div class="space-y-6 text-gray-200">
+                        <p>Join Antarman's internship program to gain hands-on experience in mental health care and counseling. Our program offers:</p>
+                        <ul class="list-disc pl-6 space-y-3">
+                            <li>Direct exposure to clinical practices and patient care</li>
+                            <li>Mentorship from experienced professionals</li>
+                            <li>Research opportunities in mental health</li>
+                            <li>Duration: 3-6 months</li>
+                            <li>Certificate upon successful completion</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Image Marquee Section -->
+            <section class="mb-32">
+                <h2 class="text-3xl font-bold text-white mb-8 text-center">Our Interns at Work</h2>
+                <Marquee className="py-4" pauseOnHover={true} client:load>
+                    {internImages.map((image) => (
+                        <div class="w-[300px] h-[200px] mx-4">
+                            <img
+                                src={image.src}
+                                alt={image.alt}
+                                class="w-full h-full object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+                            />
+                        </div>
+                    ))}
+                </Marquee>
+            </section>
+
+            <!-- Application Form -->
+            <section class="mb-32">
+                <div class="max-w-4xl mx-auto">
+                    <h2 class="text-3xl font-bold text-white mb-8 text-center">Apply Now</h2>
+                    <form class="bg-white/10 backdrop-blur-lg rounded-lg p-8 space-y-6 hover:transform hover:scale-105 transition-all duration-300">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-200 mb-2" for="firstName">First Name</label>
+                                <input 
+                                    type="text" 
+                                    id="firstName" 
+                                    class="w-full bg-purple-900/30 border border-purple-500/50 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label class="block text-gray-200 mb-2" for="lastName">Last Name</label>
+                                <input 
+                                    type="text" 
+                                    id="lastName" 
+                                    class="w-full bg-purple-900/30 border border-purple-500/50 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-200 mb-2" for="email">Email</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    class="w-full bg-purple-900/30 border border-purple-500/50 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label class="block text-gray-200 mb-2" for="phone">Phone Number</label>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    class="w-full bg-purple-900/30 border border-purple-500/50 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-gray-200 mb-2" for="course">Course</label>
+                                <select 
+                                    id="course" 
+                                    class="w-full bg-purple-900/70 border border-purple-500/50 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 [&>option]:bg-purple-900"
+                                    required
+                                >
+                                    <option value="">Select a course</option>
+                                    <option value="ma-psych-2">MA in Psychology - 2nd Year</option>
+                                    <option value="ma-psych-1">MA in Psychology - 1st year</option>
+                                    <option value="msc-psych-2">MSC in Psychology - 2nd year</option>
+                                    <option value="msc-psych-1">MSC in Psychology - 1st year</option>
+                                    <option value="msw">Masters in Social work</option>
+                                    <option value="ba-psych">BA in Psychology</option>
+                                    <option value="others">Others</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-gray-200 mb-2" for="college">Name of College</label>
+                                <input 
+                                    type="text" 
+                                    id="college" 
+                                    class="w-full bg-purple-900/30 border border-purple-500/50 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-gray-200 mb-2" for="startDate">Expected Start Date</label>
+                            <input 
+                                type="date" 
+                                id="startDate" 
+                                class="w-full bg-purple-900/30 border border-purple-500/50 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500"
+                                required
+                            />
+                        </div>
+
+                        <div class="text-center">
+                            <button 
+                                type="submit"
+                                class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-lg transition-colors duration-300"
+                            >
+                                Submit Application
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
     <Footer />
 </Layout>
