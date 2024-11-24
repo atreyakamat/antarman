@@ -5,74 +5,96 @@ import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
 import ShimmerButton from "../components/ui/shimmer-button";
 ---
+
 <Layout title="Activities | Antarman">
-    <ParticleBG />
-    <Header />
-    
-    <main class="relative z-10">
-        <!-- Hero Section -->
-        <section class="relative min-h-[40vh] flex items-center justify-center mb-20 bg-gradient-to-b from-purple-900/40 to-transparent">
-            <div class="text-center text-white px-4">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6">Activities</h1>
-                <p class="text-xl md:text-2xl max-w-2xl mx-auto text-gray-200">
-                    Engage in Our Wellness Programs
-                </p>
+  <ParticleBG />
+  <Header />
+
+  <main class="relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-purple-900/50 via-purple-800/30 to-transparent"></div>
+    <div class="relative z-10">
+      <div class="container mx-auto px-6 py-16 text-center md:py-20 lg:px-0 lg:py-28">
+        <h1 class="text-5xl font-extrabold leading-tight text-white md:text-6xl lg:text-7xl animate-fade-in">
+          Activities
+        </h1>
+        <p class="mx-auto mt-6 max-w-3xl text-xl text-purple-100 md:text-2xl animate-slide-up">
+          Engage in Our Wellness Programs and Workshops
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <div class="container mx-auto px-4">
+    <section class="workshops">
+      <h2 class="text-4xl font-bold text-white text-center mb-12 relative">
+        Our Workshops
+        <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-purple-500"></span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Workshop Card 1 -->
+        <div class="workshop-card bg-purple-900/30 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:transform hover:scale-105">
+          <img src="/workshop1.jpg" alt="Workshop 1" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">Mental Health Workshop</h3>
+            <p class="text-gray-300 mb-4">A comprehensive workshop on understanding and managing mental health.</p>
+            <div class="w-full">
+              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Resources</ShimmerButton>
             </div>
-        </section>
-
-        <div class="container mx-auto px-4">
-            <section class="workshops">
-                <h2 class="text-4xl font-bold text-white text-center mb-12 relative">
-                    Our Workshops
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-purple-500"></span>
-                </h2>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    <!-- Workshop Card 1 -->
-                    <div class="workshop-card bg-purple-900/30 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:transform hover:scale-105">
-                        <img src="/workshop1.jpg" alt="Workshop 1" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-white mb-2">Mental Health Workshop</h3>
-                            <p class="text-gray-300 mb-4">A comprehensive workshop on understanding and managing mental health.</p>
-                            <div class="w-full">
-                                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Resources</ShimmerButton>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Workshop Card 2 -->
-                    <div class="workshop-card bg-purple-900/30 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:transform hover:scale-105">
-                        <img src="/workshop2.jpg" alt="Workshop 2" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-white mb-2">Stress Management</h3>
-                            <p class="text-gray-300 mb-4">Learn effective techniques for managing stress in daily life.</p>
-                            <div class="w-full">
-                                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Resources</ShimmerButton>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Workshop Card 3 -->
-                    <div class="workshop-card bg-purple-900/30 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:transform hover:scale-105">
-                        <img src="/workshop3.jpg" alt="Workshop 3" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-semibold text-white mb-2">Mindfulness Practice</h3>
-                            <p class="text-gray-300 mb-4">Discover the power of mindfulness and meditation techniques.</p>
-                            <div class="w-full">
-                                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Resources</ShimmerButton>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <style>
-                .workshop-card {
-                    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                }
-            </style>
+          </div>
         </div>
-    </main>
-    <Footer />
+
+        <!-- Workshop Card 2 -->
+        <div class="workshop-card bg-purple-900/30 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:transform hover:scale-105">
+          <img src="/workshop2.jpg" alt="Workshop 2" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">Stress Management</h3>
+            <p class="text-gray-300 mb-4">Learn effective techniques for managing stress in daily life.</p>
+            <div class="w-full">
+              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Resources</ShimmerButton>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workshop Card 3 -->
+        <div class="workshop-card bg-purple-900/30 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-300 hover:transform hover:scale-105">
+          <img src="/workshop3.jpg" alt="Workshop 3" class="w-full h-48 object-cover">
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">Mindfulness Practice</h3>
+            <p class="text-gray-300 mb-4">Discover the power of mindfulness and meditation techniques.</p>
+            <div class="w-full">
+              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Resources</ShimmerButton>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+
+      .animate-fade-in {
+        animation: fadeIn 1s ease-out;
+      }
+
+      .animate-slide-up {
+        animation: slideUp 1s ease-out;
+      }
+
+      .workshop-card {
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+    </style>
+  </div>
+
+  <Footer />
 </Layout>
