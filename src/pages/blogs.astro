@@ -1,0 +1,223 @@
+---
+import Layout from '../layouts/HomeLayout.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import ParticleBG from "../components/ParticleBG.astro";
+import { marked } from 'marked';
+import fs from 'fs/promises';
+import path from 'path';
+
+// Import markdown content
+interface BlogPost {
+  title: string;
+  date: string;
+  image: string;
+  excerpt: string;
+  slug: string;
+  content?: string;
+}
+
+// Import blog content
+const blog1Path = path.join(process.cwd(), 'public/content/blogs/blogs1.md');
+const blog2Path = path.join(process.cwd(), 'public/content/blogs/blogs2.md');
+
+const blog1Content = await fs.readFile(blog1Path, 'utf-8');
+const blog2Content = await fs.readFile(blog2Path, 'utf-8');
+
+const posts: BlogPost[] = [
+  {
+    title: "Nurturing Mental Wellness: A Holistic Approach to Mental Health",
+    date: "July 15, 2023",
+    image: "/images/mental-wellness.jpg",
+    excerpt: "Discover comprehensive strategies for maintaining and improving your mental well-being through lifestyle changes, self-care practices, and professional support.",
+    slug: "/blogs/blogs1.md",
+    content: await marked(blog1Content)
+  },
+  {
+    title: "Understanding Depression and Coping Strategies",
+    date: "June 1, 2023", 
+    image: "https://via.placeholder.com/600x400",
+    excerpt: "Depression is a common but serious mental health condition that affects millions of people worldwide. This guide aims to help you understand depression better and provide practical coping strategies.",
+    slug: "/blogs/blogs2.md",
+    content: await marked(blog2Content)
+  }
+];
+---
+
+<Layout title="Blogs | Antarman">
+  <ParticleBG />
+  <Header />
+
+  <main class="relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-purple-900/50 via-purple-800/30 to-transparent"></div>
+    <div class="relative z-10">
+      <div class="container mx-auto px-6 py-16 text-center md:py-20 lg:px-0 lg:py-28">
+        <h1 class="text-5xl font-extrabold leading-tight text-white md:text-6xl lg:text-7xl animate-fade-in">
+          Our Blog
+        </h1>
+        <p class="mx-auto mt-6 max-w-3xl text-xl text-purple-100 md:text-2xl animate-slide-up">
+          Insights, Stories and Mental Health Resources
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <div class="container mx-auto px-4">
+    <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+      {posts.map((post) => (
+        <article class="blog-card bg-white/10 backdrop-blur-lg rounded-lg overflow-hidden transition-all duration-500 cursor-pointer">
+          <div class="card-front">
+            <img 
+              src={post.image}
+              alt={post.title}
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-6">
+              <div class="flex items-center text-purple-300 text-sm mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <span>{post.date}</span>
+              </div>
+              <h2 class="text-xl font-bold text-white mb-4">{post.title}</h2>
+              <p class="text-gray-300 mb-4">{post.excerpt}</p>
+              <button class="read-more inline-flex items-center text-purple-400 hover:text-purple-300">
+                Read More
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="card-back hidden p-6">
+            <button class="close-btn absolute top-4 right-4 text-white hover:text-purple-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            <div class="prose prose-invert max-w-none blog-content" set:html={post.content} />
+          </div>
+        </article>
+      ))}
+    </section>
+  </div>
+
+  <Footer />
+</Layout>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 1s ease-out;
+  }
+
+  .blog-card {
+    height: fit-content;
+    transition: all 0.5s ease;
+  }
+
+  .blog-card.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    height: 90vh;
+    max-width: 1200px;
+    z-index: 50;
+    overflow-y: auto;
+  }
+
+  .blog-card.expanded .card-front {
+    display: none;
+  }
+
+  .blog-card.expanded .card-back {
+    display: block;
+  }
+
+  .blog-content {
+    color: #fff;
+  }
+
+  .blog-content h1, 
+  .blog-content h2, 
+  .blog-content h3 {
+    color: #fff;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+
+  .blog-content p {
+    margin-bottom: 1em;
+    line-height: 1.6;
+  }
+
+  .blog-content ul {
+    list-style-type: disc;
+    padding-left: 1.5em;
+    margin-bottom: 1em;
+  }
+
+  .blog-content li {
+    margin-bottom: 0.5em;
+  }
+
+  .blog-content a {
+    color: #c084fc;
+    text-decoration: underline;
+  }
+
+  .blog-content blockquote {
+    border-left: 4px solid #c084fc;
+    padding-left: 1em;
+    margin: 1em 0;
+    font-style: italic;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const blogCards = document.querySelectorAll('.blog-card');
+    const overlay = document.createElement('div');
+    overlay.className = 'fixed inset-0 bg-black/50 hidden z-40';
+    document.body.appendChild(overlay);
+    
+    blogCards.forEach(card => {
+      const readMoreBtn = card.querySelector('.read-more');
+      const closeBtn = card.querySelector('.close-btn');
+      
+      readMoreBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        card.classList.add('expanded');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      });
+      
+      closeBtn?.addEventListener('click', () => {
+        card.classList.remove('expanded');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      });
+
+      overlay.addEventListener('click', () => {
+        card.classList.remove('expanded');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      });
+    });
+  });
+</script>
