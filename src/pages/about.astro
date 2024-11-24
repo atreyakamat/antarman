@@ -8,17 +8,19 @@ import ParticleBG from "../components/ParticleBG.astro";
 <Layout title="About | Antarman">
     <ParticleBG />
     <Header />
-    
-    <main class="relative z-10">
-        <!-- Hero Section -->
-        <section class="relative min-h-[40vh] flex items-center justify-center mb-20 bg-gradient-to-b from-purple-900/40 to-transparent">
-            <div class="text-center text-white px-4">
-                <h1 class="text-5xl md:text-7xl font-bold mb-6">About Antarman</h1>
-                <p class="text-xl md:text-2xl max-w-2xl mx-auto text-gray-200">
-                    Your Partner in Mental Wellness Journey
-                </p>
-            </div>
-        </section>
+    <main class="relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-purple-900/50 via-purple-800/30 to-transparent"></div>
+        <div class="relative z-10">
+          <div class="container mx-auto px-6 py-16 text-center md:py-20 lg:px-0 lg:py-28">
+            <h1 class="text-5xl font-extrabold leading-tight text-white md:text-6xl lg:text-7xl animate-fade-in">
+              About Antarman
+            </h1>
+            <p class="mx-auto mt-6 max-w-3xl text-xl text-purple-100 md:text-2xl animate-slide-up">
+              Your Partner in Mental Wellness Journey
+            </p>
+          </div>
+        </div>
+    </main>
 
         <div class="container mx-auto px-4">
             <!-- About Us Section -->
@@ -119,7 +121,30 @@ import ParticleBG from "../components/ParticleBG.astro";
                     </div>
                 </div>
             </section>
+            <style>
+                @keyframes fadeIn {
+                  from { opacity: 0; }
+                  to { opacity: 1; }
+                }
+          
+                @keyframes slideUp {
+                  from { transform: translateY(20px); opacity: 0; }
+                  to { transform: translateY(0); opacity: 1; }
+                }
+          
+                .animate-fade-in {
+                  animation: fadeIn 1s ease-out;
+                }
+          
+                .animate-slide-up {
+                  animation: slideUp 1s ease-out;
+                }
+          
+                .workshop-card {
+                  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+                  border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+              </style>
         </div>
-    </main>
     <Footer />
 </Layout>
