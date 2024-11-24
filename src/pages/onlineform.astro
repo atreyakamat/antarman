@@ -5,9 +5,142 @@ import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
 
 ---
-<Layout title="onlineform">
+<Layout title="Online Consultation | Antarman">
     <Header />
     <ParticleBG />
-   
+
+    <main class="relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-purple-900/50 via-purple-800/30 to-transparent"></div>
+        <div class="relative z-10">
+            <div class="container mx-auto px-6 py-16 text-center md:py-20 lg:px-0 lg:py-28">
+                <h1 class="text-5xl font-extrabold leading-tight text-white md:text-6xl lg:text-7xl animate-fade-in">
+                    Online Consultation
+                </h1>
+                <p class="mx-auto mt-6 max-w-3xl text-xl text-purple-100 md:text-2xl animate-slide-up">
+                    Get professional mental health support from the comfort of your home. Our online consultations offer privacy, convenience, and the same quality care as in-person visits.
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <div class="container mx-auto px-4 py-12">
+        <!-- Contact Information -->
+        <div class="grid md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-white/10 backdrop-blur-lg p-6 rounded-lg shadow-xl hover:transform hover:scale-105 transition-all duration-300">
+                <h3 class="text-2xl font-bold text-white mb-4">Administrative Contact</h3>
+                <p class="text-purple-100">Ms. Priya Sharma</p>
+                <p class="text-purple-100">Head Secretary</p>
+                <p class="text-purple-100">Email: priya.sharma@antarman.com</p>
+                <p class="text-purple-100">Phone: +91 98765 43210</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-lg p-6 rounded-lg shadow-xl hover:transform hover:scale-105 transition-all duration-300">
+                <h3 class="text-2xl font-bold text-white mb-4">Clinical Director</h3>
+                <p class="text-purple-100">Dr. Rajesh Kumar</p>
+                <p class="text-purple-100">Senior Psychiatrist</p>
+                <p class="text-purple-100">Email: dr.rajesh@antarman.com</p>
+                <p class="text-purple-100">Phone: +91 98765 43211</p>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 transform scale-0 transition-transform duration-300" id="modalContent">
+                <h3 class="text-2xl font-bold text-purple-900 mb-4">Request Submitted Successfully!</h3>
+                <p class="text-gray-700 mb-6">Thank you for your consultation request. We will contact you soon to confirm your appointment.</p>
+                <button id="okayButton" class="w-full bg-purple-600 text-white font-bold py-3 px-8 rounded-full hover:bg-purple-700 transition-colors">
+                    Okay
+                </button>
+            </div>
+        </div>
+
+        <!-- Consultation Form -->
+        <form id="consultationForm" class="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg p-8 rounded-lg shadow-xl">
+            <h2 class="text-3xl font-bold text-white mb-8 text-center">Request Online Consultation</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="group">
+                    <input type="text" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Full Name">
+                </div>
+                <div class="group">
+                    <input type="email" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Email Address">
+                </div>
+                <div class="group">
+                    <input type="tel" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Phone Number">
+                </div>
+                <div class="group">
+                    <input type="date" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                </div>
+                <div class="group md:col-span-2">
+                    <select required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                        <option value="" disabled selected class="text-gray-700">Select Consultation Type</option>
+                        <option value="initial" class="text-gray-700">Initial Consultation</option>
+                        <option value="followup" class="text-gray-700">Follow-up Session</option>
+                        <option value="emergency" class="text-gray-700">Emergency Consultation</option>
+                    </select>
+                </div>
+                <div class="group md:col-span-2">
+                    <textarea required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="4" placeholder="Brief description of your concerns"></textarea>
+                </div>
+            </div>
+
+            <div class="mt-8 text-center">
+                <button type="submit" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-8 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+                    Submit Request
+                </button>
+            </div>
+        </form>
+    </div>
+
     <Footer />
 </Layout>
+
+<style>
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    .animate-fade-in {
+        animation: fadeIn 1s ease-out;
+    }
+
+    .animate-slide-up {
+        animation: slideUp 1s ease-out;
+    }
+
+    input::placeholder, textarea::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+</style>
+
+<script>
+    const form = document.getElementById('consultationForm') as HTMLFormElement;
+    const modal = document.getElementById('successModal');
+    const modalContent = document.getElementById('modalContent');
+    const okayButton = document.getElementById('okayButton');
+
+    if (form && modal && modalContent && okayButton) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-0');
+                modalContent.classList.add('scale-100');
+            }, 100);
+        });
+
+        okayButton.addEventListener('click', () => {
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                form.reset();
+            }, 300);
+        });
+    }
+</script>

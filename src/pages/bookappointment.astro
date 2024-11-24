@@ -1,0 +1,404 @@
+---
+import Layout from '../layouts/HomeLayout.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import ParticleBG from "../components/ParticleBG.astro";
+---
+
+<Layout title="Book Appointment | Antarman">
+  <ParticleBG />
+  <Header />
+
+  <main class="relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-purple-900/50 via-purple-800/30 to-transparent"></div>
+    <div class="relative z-10">
+      <div class="container mx-auto px-6 py-16 text-center md:py-20 lg:px-0 lg:py-28">
+        <h1 class="text-5xl font-extrabold leading-tight text-white md:text-6xl lg:text-7xl animate-fade-in">
+          Book an Appointment
+        </h1>
+        <p class="mx-auto mt-6 max-w-3xl text-xl text-purple-100 md:text-2xl animate-slide-up">
+          Schedule your visit with our mental health professionals. Take the first step towards better mental wellbeing.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <div class="container mx-auto px-4 py-12">
+    <form id="appointmentForm" class="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl">
+      <h2 class="text-3xl font-bold text-white mb-8 text-center">Appointment Request Form</h2>
+      
+      <div class="form-steps">
+        <!-- Step 1: Basic Information -->
+        <div class="step" data-step="1">
+          <h3 class="text-2xl text-white mb-6">Basic Information</h3>
+          <div class="space-y-6">
+            <div class="group">
+              <label class="block text-white mb-2">Email <span class="text-red-500">*</span></label>
+              <input type="email" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Enter your email address">
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">What is your name? (or name of the client in case you are filling this form on behalf of someone else) <span class="text-red-500">*</span></label>
+              <input type="text" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Please indicate your name and relationship with the client (in case you are filling this form on behalf of someone else)</label>
+              <input type="text" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Please indicate your (client's) gender <span class="text-red-500">*</span></label>
+              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose your gender</option>
+                <option value="male" class="text-gray-700">Male</option>
+                <option value="female" class="text-gray-700">Female</option>
+                <option value="prefer-not-to-say" class="text-gray-700">Prefer not to say</option>
+              </select>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Please tell us your (client's) age <span class="text-red-500">*</span></label>
+              <input type="number" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Please give us your phone number so that we can get back to you <span class="text-red-500">*</span></label>
+              <input type="tel" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Medical History -->
+        <div class="step hidden" data-step="2">
+          <h3 class="text-2xl text-white mb-6">Medical History</h3>
+          <div class="space-y-6">
+            <div class="group">
+              <label class="block text-white mb-2">What bothers you? Please tell us about the problem which made you seek help. How long it has been and whether you have sought help earlier. <span class="text-red-500">*</span></label>
+              <textarea required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="4"></textarea>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">How long has the problem been affecting you? <span class="text-red-500">*</span></label>
+              <input type="text" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Have you received help for this in past? Please give details. (Leave blank if not received help in past)</label>
+              <textarea class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Is any family member affected with similar problems? (Leave blank if not so)</label>
+              <textarea class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Please tell us about any drug/ medicine allergies</label>
+              <textarea class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Please write below any other important information we have not yet asked you.</label>
+              <textarea class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Appointment Preferences -->
+        <div class="step hidden" data-step="3">
+          <h3 class="text-2xl text-white mb-6">Appointment Preferences</h3>
+          <div class="space-y-6">
+            <div class="group">
+              <label class="block text-white mb-2">How urgent is your appointment need? <span class="text-red-500">*</span></label>
+              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose an option</option>
+                <option value="2days" class="text-gray-700">I need appointment within the next 2 days</option>
+                <option value="week" class="text-gray-700">I need appointment within the next week</option>
+                <option value="15days" class="text-gray-700">I need an appointment within the next 15 days</option>
+              </select>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">What time suits you? <span class="text-red-500">*</span></label>
+              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose an option</option>
+                <option value="morning" class="text-gray-700">I prefer only mornings (10 am - 1pm)</option>
+                <option value="afternoon" class="text-gray-700">I prefer only afternoons (3pm - 6pm)</option>
+                <option value="after-hours" class="text-gray-700">I can come only after office hours</option>
+                <option value="anytime" class="text-gray-700">I have no restriction to timings. Give me appointment any time</option>
+              </select>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Please indicate where would you like to attend clinic <span class="text-red-500">*</span></label>
+              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose an option</option>
+                <option value="panaji" class="text-gray-700">Clinic at Panaji</option>
+                <option value="margao" class="text-gray-700">Clinic at Margao</option>
+                <option value="vasco" class="text-gray-700">Clinic at Vasco</option>
+                <option value="ponda" class="text-gray-700">Clinic at Ponda</option>
+                <option value="any" class="text-gray-700">I have no preference and will attend wherever the earliest appointment is available</option>
+              </select>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Have you already decided on which professional from the Antarman team you are seeking help from?</label>
+              <div class="flex flex-col space-y-2">
+                <textarea class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+                <a href="/feeschedule" onclick="window.open('/feeschedule', '_blank')" class="text-purple-300 hover:text-purple-400 transition-colors duration-300">View ANTARMAN TEAM and Fee Schedule</a>
+              </div>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Many times appointments get missed and this could affect your continued treatment. We would like to reach-out to you to remind you of missed appointments. <span class="text-red-500">*</span></label>
+              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose an option</option>
+                <option value="yes" class="text-gray-700">Yes, Please contact and remind me if I miss my appointment</option>
+                <option value="no" class="text-gray-700">No, do not contact me. If I miss an appointment, I will call and fix an appointment myself</option>
+              </select>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Would you like to receive mental health resources and information about Antarman' activities? <span class="text-red-500">*</span></label>
+              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose an option</option>
+                <option value="yes" class="text-gray-700">Yes, I would like to receive</option>
+                <option value="no" class="text-gray-700">No, I do not wish to receive</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between mt-8">
+          <button type="button" id="prevBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 hidden">
+            Previous
+          </button>
+          <button type="button" id="nextBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+            Next
+          </button>
+          <button type="submit" id="submitBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 hidden">
+            Submit
+          </button>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="mt-6 flex justify-center gap-2">
+          <span class="h-2 w-2 rounded-full bg-purple-500"></span>
+          <span class="h-2 w-2 rounded-full bg-purple-300"></span>
+          <span class="h-2 w-2 rounded-full bg-purple-300"></span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div id="modalContent" class="bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl transform scale-0 transition-transform duration-300">
+      <h3 class="text-2xl font-bold text-white mb-4">Thank you!</h3>
+      <p class="text-purple-100 mb-6">Your appointment request has been submitted. We will contact you shortly to confirm.</p>
+      <button id="okayButton" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+        Okay
+      </button>
+    </div>
+  </div>
+
+  <!-- Validation Modal -->
+  <div id="validationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div id="validationContent" class="bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl transform scale-0 transition-transform duration-300">
+      <h3 class="text-2xl font-bold text-white mb-4">Required Fields</h3>
+      <p class="text-purple-100 mb-6">Please fill in all required fields before proceeding.</p>
+      <button id="validationOkayButton" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+        Okay
+      </button>
+    </div>
+  </div>
+
+  <Footer />
+</Layout>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 1s ease-out;
+  }
+
+  .step {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .step.hidden {
+    display: none;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+</style>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 3;
+
+  const form = document.getElementById('appointmentForm');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  const steps = document.querySelectorAll('.step');
+  const progressDots = document.querySelectorAll('.mt-6 span');
+
+  // Modal elements
+  const successModal = document.getElementById('successModal');
+  const successContent = document.getElementById('modalContent');
+  const okayButton = document.getElementById('okayButton');
+  const validationModal = document.getElementById('validationModal');
+  const validationContent = document.getElementById('validationContent');
+  const validationOkayButton = document.getElementById('validationOkayButton');
+
+  function validateCurrentStep() {
+    const currentStepElement = document.querySelector(`.step[data-step="${currentStep}"]`);
+    if (!currentStepElement) return false;
+
+    const requiredFields = currentStepElement.querySelectorAll('[required]');
+    let isValid = true;
+
+    requiredFields.forEach(field => {
+      if (!(field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).value) {
+        isValid = false;
+      }
+    });
+
+    return isValid;
+  }
+
+  function showValidationMessage() {
+    if (validationModal && validationContent) {
+      validationModal.classList.remove('hidden');
+      setTimeout(() => {
+        validationContent.classList.remove('scale-0');
+        validationContent.classList.add('scale-100');
+      }, 100);
+    }
+  }
+
+  function updateButtons() {
+    if (!prevBtn || !nextBtn || !submitBtn) return;
+    
+    if (currentStep === 1) {
+      prevBtn.classList.add('hidden');
+    } else {
+      prevBtn.classList.remove('hidden');
+    }
+
+    if (currentStep === totalSteps) {
+      nextBtn.classList.add('hidden');
+      submitBtn.classList.remove('hidden');
+    } else {
+      nextBtn.classList.remove('hidden');
+      submitBtn.classList.add('hidden');
+    }
+  }
+
+  function updateProgress() {
+    progressDots.forEach((dot, index) => {
+      if (index < currentStep) {
+        dot.classList.remove('bg-purple-300');
+        dot.classList.add('bg-purple-500');
+      } else {
+        dot.classList.remove('bg-purple-500');
+        dot.classList.add('bg-purple-300');
+      }
+    });
+  }
+
+  function showStep(stepNum: number) {
+    steps.forEach((s, index) => {
+      if (index + 1 === stepNum) {
+        s.classList.remove('hidden');
+      } else {
+        s.classList.add('hidden');
+      }
+    });
+    updateButtons();
+    updateProgress();
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (!validateCurrentStep()) {
+        showValidationMessage();
+        return;
+      }
+      
+      if (currentStep < totalSteps) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+  }
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!validateCurrentStep()) {
+        showValidationMessage();
+        return;
+      }
+      if (successModal && successContent) {
+        successModal.classList.remove('hidden');
+        setTimeout(() => {
+          successContent.classList.remove('scale-0');
+          successContent.classList.add('scale-100');
+        }, 100);
+      }
+    });
+  }
+
+  if (okayButton && successModal && successContent) {
+    okayButton.addEventListener('click', () => {
+      successContent.classList.remove('scale-100');
+      successContent.classList.add('scale-0');
+      setTimeout(() => {
+        successModal.classList.add('hidden');
+        if (form) {
+          (form as HTMLFormElement).reset();
+          currentStep = 1;
+          showStep(1);
+        }
+      }, 300);
+    });
+  }
+
+  if (validationOkayButton && validationModal && validationContent) {
+    validationOkayButton.addEventListener('click', () => {
+      validationContent.classList.remove('scale-100');
+      validationContent.classList.add('scale-0');
+      setTimeout(() => {
+        validationModal.classList.add('hidden');
+      }, 300);
+    });
+  }
+</script>
