@@ -1,32 +1,28 @@
 ---
 const locations = [
   {
-    name: "Main Branch",
-    address: "123 Healthcare Avenue, Medical District",
-    phone: "+1 (555) 123-4567",
-    hours: "Mon-Fri: 9AM-6PM, Sat: 9AM-2PM",
-    image: "/images/main-clinic.jpg"
+    name: "PANAJI",
+    address: "401/B ( 4th floor, B Wing) Sunteck Kanaka Towers Patto Plaza(Opp. Shramshakti Bhavan), Panaji",
+    phone: "7028784807",
+    email: "antarman.goa@gmail.com"
   },
   {
-    name: "Downtown Clinic", 
-    address: "456 Central Street, Downtown",
-    phone: "+1 (555) 234-5678",
-    hours: "Mon-Fri: 8AM-8PM, Sat-Sun: 10AM-4PM",
-    image: "/images/downtown-clinic.jpg"
+    name: "VASCO", 
+    address: "C/o Mesquita Hospital Vasco City Centre, Nr. Vasco Railway station (Opposite Saibaba temple) Vasco",
+    phone: "0832-2513696",
+    email: "antarman.goa@gmail.com"
   },
   {
-    name: "Westside Location",
-    address: "789 West Boulevard, Westside",
-    phone: "+1 (555) 345-6789", 
-    hours: "Mon-Sat: 9AM-5PM",
-    image: "/images/west-clinic.jpg"
+    name: "MARGAO",
+    address: "Behind Kiran EnterprisesNext to Lawande Hospital ​Nr. Powerhouse Junction ​Aquem - Margao",
+    phone: "9689283726",
+    email: "antarman.margao@gmail.com"
   },
   {
-    name: "Eastside Branch",
-    address: "321 East Avenue, Eastside",
-    phone: "+1 (555) 456-7890",
-    hours: "Mon-Fri: 8AM-7PM, Sat: 9AM-3PM",
-    image: "/images/east-clinic.jpg"
+    name: "PONDA",
+    address: "C/O Savaikar Nsg Home Warkhandem Ponda",
+    phone: "0832-2311031",
+    email: "NONE"
   }
 ];
 ---
@@ -37,13 +33,6 @@ const locations = [
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto px-4">
     {locations.map((location) => (
       <div class="bg-white/10 backdrop-blur-lg rounded-lg overflow-hidden shadow-lg hover:transform hover:scale-105 transition-all duration-300 min-w-[280px]">
-        <div class="h-56 overflow-hidden">
-          <img 
-            src={location.image} 
-            alt={`${location.name} building`}
-            class="w-full h-full object-cover"
-          />
-        </div>
         <div class="p-8">
           <h3 class="text-2xl font-semibold text-white mb-3">{location.name}</h3>
           <div class="space-y-3 text-gray-200">
@@ -62,9 +51,9 @@ const locations = [
             </p>
             <p class="flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              {location.hours}
+              {location.email}
             </p>
           </div>
         </div>
