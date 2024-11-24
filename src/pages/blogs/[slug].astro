@@ -1,0 +1,90 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Layout from '../../layouts/HomeLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ParticleBG from "../../components/ParticleBG.astro";
+
+// Generate static paths for all blog posts
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('blogs');
+  return blogPosts.map((post: CollectionEntry<'blogs'>) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as { post: CollectionEntry<'blogs'> };
+const { Content } = await post.render();
+---
+
+<Layout title={`${post.data.title} | Antarman`}>
+  <ParticleBG />
+  <Header />
+  <main class="container mx-auto px-4 py-16">
+    <article class="prose prose-invert lg:prose-xl mx-auto">
+      <h1>{post.data.title}</h1>
+      <p class="text-purple-300">{post.data.date}</p>
+      {post.data.image && (
+        <img 
+          src={post.data.image}
+          alt={post.data.title}
+          class="w-full rounded-lg"
+        />
+      )}
+      <Content />
+    </article>
+  </main>
+  <Footer />
+</Layout>
+
+<style is:global>
+  /* Default text color for markdown content */
+  .prose {
+    color: #ffffff;
+  }
+  
+  /* Headers */
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    color: #ffffff;
+  }
+  
+  /* Lists */
+  .prose ul,
+  .prose ol,
+  .prose li {
+    color: #ffffff;
+  }
+  
+  /* Links */
+  .prose a {
+    color: #a855f7; /* Purple link color */
+  }
+  
+  .prose a:hover {
+    color: #c084fc;
+  }
+  
+  /* Blockquotes */
+  .prose blockquote {
+    color: #e2e8f0;
+    border-left-color: #a855f7;
+  }
+  
+  /* Code blocks */
+  .prose code {
+    color: #f8fafc;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Emphasis */
+  .prose em,
+  .prose strong {
+    color: #ffffff;
+  }
+</style>
