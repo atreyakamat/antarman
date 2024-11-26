@@ -4,6 +4,16 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
 
+const GOOGLE_FORM_URL = "YOUR_GOOGLE_FORM_URL";
+const FORM_FIELD_IDS = {
+    name: "entry.123456789", // Replace with actual entry IDs
+    email: "entry.987654321",
+    phone: "entry.456789123", 
+    date: "entry.789123456",
+    consultationType: "entry.321654987",
+    concerns: "entry.147258369"
+};
+
 ---
 <Layout title="Online Consultation | Antarman">
     <Header />
@@ -59,19 +69,19 @@ import ParticleBG from "../components/ParticleBG.astro";
             
             <div class="grid md:grid-cols-2 gap-6">
                 <div class="group">
-                    <input type="text" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Full Name">
+                    <input type="text" name="name" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Full Name">
                 </div>
                 <div class="group">
-                    <input type="email" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Email Address">
+                    <input type="email" name="email" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Email Address">
                 </div>
                 <div class="group">
-                    <input type="tel" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Phone Number">
+                    <input type="tel" name="phone" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Phone Number">
                 </div>
                 <div class="group">
-                    <input type="date" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                    <input type="date" name="date" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 </div>
                 <div class="group md:col-span-2">
-                    <select required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                    <select name="consultationType" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                         <option value="" disabled selected class="text-gray-700">Select Consultation Type</option>
                         <option value="initial" class="text-gray-700">Initial Consultation</option>
                         <option value="followup" class="text-gray-700">Follow-up Session</option>
@@ -79,7 +89,7 @@ import ParticleBG from "../components/ParticleBG.astro";
                     </select>
                 </div>
                 <div class="group md:col-span-2">
-                    <textarea required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="4" placeholder="Brief description of your concerns"></textarea>
+                    <textarea name="concerns" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="4" placeholder="Brief description of your concerns"></textarea>
                 </div>
             </div>
 
@@ -125,13 +135,39 @@ import ParticleBG from "../components/ParticleBG.astro";
     const okayButton = document.getElementById('okayButton');
 
     if (form && modal && modalContent && okayButton) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modalContent.classList.remove('scale-0');
-                modalContent.classList.add('scale-100');
-            }, 100);
+            
+            // Get form data
+            const formData = new FormData(form);
+            
+            // Create URL with parameters for Google Form
+            const url = new URL('YOUR_GOOGLE_FORM_URL');
+            url.searchParams.append('entry.123456789', formData.get('name') as string);
+            url.searchParams.append('entry.987654321', formData.get('email') as string);
+            url.searchParams.append('entry.456789123', formData.get('phone') as string);
+            url.searchParams.append('entry.789123456', formData.get('date') as string);
+            url.searchParams.append('entry.321654987', formData.get('consultationType') as string);
+            url.searchParams.append('entry.147258369', formData.get('concerns') as string);
+
+            try {
+                // Send data to Google Form
+                const response = await fetch(url.toString(), {
+                    method: 'POST',
+                    mode: 'no-cors'
+                });
+
+                // Show success modal
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-0');
+                    modalContent.classList.add('scale-100');
+                }, 100);
+
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('There was an error submitting your form. Please try again.');
+            }
         });
 
         okayButton.addEventListener('click', () => {

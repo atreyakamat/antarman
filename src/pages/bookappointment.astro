@@ -34,22 +34,22 @@ import ParticleBG from "../components/ParticleBG.astro";
           <div class="space-y-6">
             <div class="group">
               <label class="block text-white mb-2">Email <span class="text-red-500">*</span></label>
-              <input type="email" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Enter your email address">
+              <input type="email" name="email" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" placeholder="Enter your email address">
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">What is your name? (or name of the client in case you are filling this form on behalf of someone else) <span class="text-red-500">*</span></label>
-              <input type="text" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <input type="text" name="client_name" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Please indicate your name and relationship with the client (in case you are filling this form on behalf of someone else)</label>
-              <input type="text" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <input type="text" name="relationship" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Please indicate your (client's) gender <span class="text-red-500">*</span></label>
-              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name="gender" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose your gender</option>
                 <option value="male" class="text-gray-700">Male</option>
                 <option value="female" class="text-gray-700">Female</option>
@@ -59,12 +59,12 @@ import ParticleBG from "../components/ParticleBG.astro";
 
             <div class="group">
               <label class="block text-white mb-2">Please tell us your (client's) age <span class="text-red-500">*</span></label>
-              <input type="number" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <input type="number" name="age" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Please give us your phone number so that we can get back to you <span class="text-red-500">*</span></label>
-              <input type="tel" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <input type="tel" name="phone" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
           </div>
         </div>
@@ -75,32 +75,32 @@ import ParticleBG from "../components/ParticleBG.astro";
           <div class="space-y-6">
             <div class="group">
               <label class="block text-white mb-2">What bothers you? Please tell us about the problem which made you seek help. How long it has been and whether you have sought help earlier. <span class="text-red-500">*</span></label>
-              <textarea required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="4"></textarea>
+              <textarea name="problem_description" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="4"></textarea>
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">How long has the problem been affecting you? <span class="text-red-500">*</span></label>
-              <input type="text" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <input type="text" name="problem_duration" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Have you received help for this in past? Please give details. (Leave blank if not received help in past)</label>
-              <textarea class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <textarea name="past_help" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Is any family member affected with similar problems? (Leave blank if not so)</label>
-              <textarea class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <textarea name="family_history" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Please tell us about any drug/ medicine allergies</label>
-              <textarea class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <textarea name="allergies" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Please write below any other important information we have not yet asked you.</label>
-              <textarea class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <textarea name="additional_info" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
             </div>
           </div>
         </div>
@@ -111,7 +111,7 @@ import ParticleBG from "../components/ParticleBG.astro";
           <div class="space-y-6">
             <div class="group">
               <label class="block text-white mb-2">How urgent is your appointment need? <span class="text-red-500">*</span></label>
-              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name="urgency" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose an option</option>
                 <option value="2days" class="text-gray-700">I need appointment within the next 2 days</option>
                 <option value="week" class="text-gray-700">I need appointment within the next week</option>
@@ -121,7 +121,7 @@ import ParticleBG from "../components/ParticleBG.astro";
 
             <div class="group">
               <label class="block text-white mb-2">What time suits you? <span class="text-red-500">*</span></label>
-              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name="preferred_time" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose an option</option>
                 <option value="morning" class="text-gray-700">I prefer only mornings (10 am - 1pm)</option>
                 <option value="afternoon" class="text-gray-700">I prefer only afternoons (3pm - 6pm)</option>
@@ -132,7 +132,7 @@ import ParticleBG from "../components/ParticleBG.astro";
 
             <div class="group">
               <label class="block text-white mb-2">Please indicate where would you like to attend clinic <span class="text-red-500">*</span></label>
-              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name="preferred_location" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose an option</option>
                 <option value="panaji" class="text-gray-700">Clinic at Panaji</option>
                 <option value="margao" class="text-gray-700">Clinic at Margao</option>
@@ -145,14 +145,14 @@ import ParticleBG from "../components/ParticleBG.astro";
             <div class="group">
               <label class="block text-white mb-2">Have you already decided on which professional from the Antarman team you are seeking help from?</label>
               <div class="flex flex-col space-y-2">
-                <textarea class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+                <textarea name="preferred_professional" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
                 <a href="/feeschedule" onclick="window.open('/feeschedule', '_blank')" class="text-purple-300 hover:text-purple-400 transition-colors duration-300">View ANTARMAN TEAM and Fee Schedule</a>
               </div>
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Many times appointments get missed and this could affect your continued treatment. We would like to reach-out to you to remind you of missed appointments. <span class="text-red-500">*</span></label>
-              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name="reminder_consent" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose an option</option>
                 <option value="yes" class="text-gray-700">Yes, Please contact and remind me if I miss my appointment</option>
                 <option value="no" class="text-gray-700">No, do not contact me. If I miss an appointment, I will call and fix an appointment myself</option>
@@ -161,7 +161,7 @@ import ParticleBG from "../components/ParticleBG.astro";
 
             <div class="group">
               <label class="block text-white mb-2">Would you like to receive mental health resources and information about Antarman' activities? <span class="text-red-500">*</span></label>
-              <select required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name="newsletter_consent" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose an option</option>
                 <option value="yes" class="text-gray-700">Yes, I would like to receive</option>
                 <option value="no" class="text-gray-700">No, I do not wish to receive</option>
@@ -254,6 +254,9 @@ import ParticleBG from "../components/ParticleBG.astro";
   let currentStep = 1;
   const totalSteps = 3;
 
+  // Google Form URL - Replace with your actual Google Form URL
+  const GOOGLE_FORM_URL = 'YOUR_GOOGLE_FORM_URL_HERE';
+
   const form = document.getElementById('appointmentForm');
   const nextBtn = document.getElementById('nextBtn');
   const prevBtn = document.getElementById('prevBtn');
@@ -337,6 +340,20 @@ import ParticleBG from "../components/ParticleBG.astro";
     updateProgress();
   }
 
+  async function submitToGoogleForm(formData: FormData) {
+    try {
+      const response = await fetch(GOOGLE_FORM_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: formData
+      });
+      return true;
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      return false;
+    }
+  }
+
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
       if (!validateCurrentStep()) {
@@ -361,13 +378,17 @@ import ParticleBG from "../components/ParticleBG.astro";
   }
 
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!validateCurrentStep()) {
         showValidationMessage();
         return;
       }
-      if (successModal && successContent) {
+
+      const formData = new FormData(form as HTMLFormElement);
+      const success = await submitToGoogleForm(formData);
+
+      if (success && successModal && successContent) {
         successModal.classList.remove('hidden');
         setTimeout(() => {
           successContent.classList.remove('scale-0');
