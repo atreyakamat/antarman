@@ -1,0 +1,467 @@
+---
+import Layout from '../layouts/HomeLayout.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import ParticleBG from "../components/ParticleBG.astro";
+
+
+
+
+---
+
+<Layout title="Antarman | Feedback Form">
+  <ParticleBG />
+  <Header />
+
+  <main class="relative">
+    <div class="absolute inset-0 bg-gradient-to-b from-purple-900/50 via-purple-800/30 to-transparent"></div>
+    <div class="relative z-10">
+      <div class="container mx-auto px-6 py-16 text-center md:py-20 lg:px-0 lg:py-28">
+        <h1 class="text-5xl font-extrabold leading-tight text-white md:text-6xl lg:text-7xl animate-fade-in">
+          Client Feedback Form
+        </h1>
+        <p class="mx-auto mt-6 max-w-3xl text-xl text-purple-100 md:text-2xl animate-slide-up">
+          Your feedback helps us improve our services and better serve our community.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <div class="container mx-auto px-4 py-12">
+    <form id="feedbackForm" class="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl">
+      <div class="form-steps">
+        <!-- Step 1: Basic Information -->
+        <div class="step" data-step="1">
+          <h3 class="text-2xl text-white mb-6">Basic Information</h3>
+          <div class="space-y-6">
+            <div class="group">
+              <label class="block text-white mb-2">Email <span class="text-red-500">*</span></label>
+              <input type="email" name="email" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">How did you come to know about Antarman Centre? <span class="text-red-500">*</span></label>
+              <select name="source" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose an option</option>
+                <option value="whatsapp" class="text-gray-700">Whatsapp</option>
+                <option value="facebook" class="text-gray-700">Facebook</option>
+                <option value="twitter" class="text-gray-700">Twitter</option>
+                <option value="word-of-mouth" class="text-gray-700">Word-of-mouth (someone told me about this)</option>
+                <option value="news-media" class="text-gray-700">News Media</option>
+                <option value="other" class="text-gray-700">Other</option>
+              </select>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Please indicate which services did you receive at Antarman <span class="text-red-500">*</span></label>
+              <div class="space-y-2">
+                <label class="flex items-center text-white">
+                  <input type="checkbox" name="services" value="psychotherapy" class="mr-2">
+                  Psychotherapy sessions with an Antarman Psychologist/Counsellor
+                </label>
+                <label class="flex items-center text-white">
+                  <input type="checkbox" name="services" value="psychiatrist-therapy" class="mr-2">
+                  Psychotherapy sessions with an Antarman Psychiatrist
+                </label>
+                <label class="flex items-center text-white">
+                  <input type="checkbox" name="services" value="consultation" class="mr-2">
+                  Consultation sessions with an Antarman Psychiatrist
+                </label>
+                <label class="flex items-center text-white">
+                  <input type="checkbox" name="services" value="assessment" class="mr-2">
+                  Psychological Assessment Services
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Treatment Details -->
+        <div class="step hidden" data-step="2">
+          <h3 class="text-2xl text-white mb-6">Treatment Details</h3>
+          <div class="space-y-6">
+            <div class="group">
+              <label class="block text-white mb-2">What are the reasons that brought you to Antarman? <span class="text-red-500">*</span></label>
+              <textarea name="reasons" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">What was the name of the clinician assigned to you? If there was more than one, please list them all: <span class="text-red-500">*</span></label>
+              <input type="text" name="clinician_name" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Please indicate which of the Antarman's offices you attended: <span class="text-red-500">*</span></label>
+              <select name="office_location" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose an option</option>
+                <option value="panaji" class="text-gray-700">Panaji</option>
+                <option value="vasco" class="text-gray-700">Vasco</option>
+                <option value="margao" class="text-gray-700">Margao</option>
+                <option value="online" class="text-gray-700">I only had online appointments</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Treatment Evaluation -->
+        <div class="step hidden" data-step="3">
+          <h3 class="text-2xl text-white mb-6">Treatment Evaluation</h3>
+          <div class="space-y-6">
+            <div class="group">
+              <label class="block text-white mb-2">To what degree have the issues you came to Antarman with been resolved? <span class="text-red-500">*</span></label>
+              <select name="resolution_level" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose an option</option>
+                <option value="completely" class="text-gray-700">They are completely resolved</option>
+                <option value="somewhat" class="text-gray-700">They are somewhat resolved</option>
+                <option value="same" class="text-gray-700">They are about the same</option>
+                <option value="worse" class="text-gray-700">They have become worse</option>
+                <option value="other" class="text-gray-700">Other</option>
+              </select>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">How would you rate your experience in terms of ease of discussing your issues with the assigned Clinician? <span class="text-red-500">*</span></label>
+              <select name="discussion_ease" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose an option</option>
+                <option value="excellent" class="text-gray-700">Excellent</option>
+                <option value="good" class="text-gray-700">Good</option>
+                <option value="moderate" class="text-gray-700">Moderate</option>
+                <option value="poor" class="text-gray-700">Poor</option>
+                <option value="unknown" class="text-gray-700">I don't know</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Clinician Rating -->
+        <div class="step hidden" data-step="4">
+          <h3 class="text-2xl text-white mb-6">Rate Your Clinician</h3>
+          <div class="space-y-6">
+            {['Respect', 'Safety', 'Trust', 'Careful listening', 'Clarity', 'Professional', 'Easy to speak to', 'Friendly'].map((quality) => (
+              <div class="group">
+                <label class="block text-white mb-2">{quality} <span class="text-red-500">*</span></label>
+                <div class="flex justify-between items-center">
+                  <span class="text-white">Bad</span>
+                  <div class="flex gap-4">
+                    {[1, 2, 3, 4, 5].map((rating) => (
+                      <label class="flex items-center">
+                        <input 
+                          type="radio" 
+                          name={quality.toLowerCase().replace(' ', '_')} 
+                          value={rating}
+                          required
+                          class="form-radio text-purple-500 focus:ring-purple-500"
+                        >
+                      </label>
+                    ))}
+                  </div>
+                  <span class="text-white">Excellent</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Step 5: Final Feedback -->
+        <div class="step hidden" data-step="5">
+          <h3 class="text-2xl text-white mb-6">Additional Feedback</h3>
+          <div class="space-y-6">
+            <div class="group">
+              <label class="block text-white mb-2">What was the most valuable aspect of your experience at Antarman? <span class="text-red-500">*</span></label>
+              <textarea name="valuable_aspect" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">What was the least valuable aspect of your experience at Antarman? <span class="text-red-500">*</span></label>
+              <textarea name="least_valuable" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Do you have any suggestions for the improvement of service delivery by the clinician? <span class="text-red-500">*</span></label>
+              <textarea name="suggestions" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Did you take in-person or online consultation with Antarman Clinician? <span class="text-red-500">*</span></label>
+              <select name="consultation_type" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="" disabled selected class="text-gray-700">Choose an option</option>
+                <option value="in-person" class="text-gray-700">In-Person</option>
+                <option value="online" class="text-gray-700">Online</option>
+                <option value="both" class="text-gray-700">Both In-person as well as Online</option>
+              </select>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Do you give your consent for the feedback to be published as testimonial on the Centre's website in anonymised form?</label>
+              <select name="consent" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+                <option value="yes" class="text-gray-700">Yes</option>
+                <option value="no" class="text-gray-700">No</option>
+              </select>
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Your Name (optional)</label>
+              <input type="text" name="name" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+            </div>
+
+            <div class="group">
+              <label class="block text-white mb-2">Your Phone Number (optional)</label>
+              <input type="tel" name="phone" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between mt-8">
+          <button type="button" id="prevBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50 hidden">
+            Previous
+          </button>
+          <button type="button" id="nextBtn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+            Next
+          </button>
+          <button type="submit" id="submitBtn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 hidden">
+            Submit
+          </button>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="mt-6 flex justify-center gap-2">
+          {[...Array(5)].map((_, i) => (
+            <span class={`h-2 w-2 rounded-full ${i === 0 ? 'bg-purple-500' : 'bg-purple-300'}`}></span>
+          ))}
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div id="modalContent" class="bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl transform scale-0 transition-transform duration-300">
+      <h3 class="text-2xl font-bold text-white mb-4">Thank you for your feedback!</h3>
+      <p class="text-purple-100 mb-6">Your feedback has been submitted successfully.</p>
+      <button id="okayButton" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+        Okay
+      </button>
+    </div>
+  </div>
+
+  <!-- Validation Modal -->
+  <div id="validationModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div id="validationContent" class="bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl transform scale-0 transition-transform duration-300">
+      <h3 class="text-2xl font-bold text-white mb-4">Required Fields</h3>
+      <p class="text-purple-100 mb-6">Please fill in all required fields before proceeding.</p>
+      <button id="validationOkayButton" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full transform transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">
+        Okay
+      </button>
+    </div>
+  </div>
+
+  <Footer />
+</Layout>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 1s ease-out;
+  }
+
+  .step {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .step.hidden {
+    display: none;
+  }
+
+  input::placeholder, textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+</style>
+
+<script>
+  let currentStep = 1;
+  const totalSteps = 5;
+
+  // Google Form URL - Replace with your actual Google Form URL
+  const GOOGLE_FORM_URL = 'YOUR_GOOGLE_FORM_URL_HERE';
+
+  const form = document.getElementById('feedbackForm');
+  const nextBtn = document.getElementById('nextBtn');
+  const prevBtn = document.getElementById('prevBtn');
+  const submitBtn = document.getElementById('submitBtn');
+  const steps = document.querySelectorAll('.step');
+  const progressDots = document.querySelectorAll('.mt-6 span');
+
+  // Modal elements
+  const successModal = document.getElementById('successModal');
+  const successContent = document.getElementById('modalContent');
+  const okayButton = document.getElementById('okayButton');
+  const validationModal = document.getElementById('validationModal');
+  const validationContent = document.getElementById('validationContent');
+  const validationOkayButton = document.getElementById('validationOkayButton');
+
+  function validateCurrentStep() {
+    const currentStepElement = document.querySelector(`.step[data-step="${currentStep}"]`);
+    if (!currentStepElement) return false;
+
+    const requiredFields = currentStepElement.querySelectorAll('[required]');
+    let isValid = true;
+
+    requiredFields.forEach((field: Element) => {
+      if ((field as HTMLInputElement).type === 'radio') {
+        const name = (field as HTMLInputElement).name;
+        const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
+        if (!checked) isValid = false;
+      } else if ((field as HTMLInputElement).type === 'checkbox') {
+        const name = (field as HTMLInputElement).name;
+        const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
+        if (!checked) isValid = false;
+      } else if (!(field as HTMLInputElement).value) {
+        isValid = false;
+      }
+    });
+
+    return isValid;
+  }
+
+  function showValidationMessage() {
+    if (validationModal && validationContent) {
+      validationModal.classList.remove('hidden');
+      setTimeout(() => {
+        validationContent.classList.remove('scale-0');
+        validationContent.classList.add('scale-100');
+      }, 100);
+    }
+  }
+
+  function updateButtons() {
+    if (!prevBtn || !nextBtn || !submitBtn) return;
+    
+    if (currentStep === 1) {
+      prevBtn.classList.add('hidden');
+    } else {
+      prevBtn.classList.remove('hidden');
+    }
+
+    if (currentStep === totalSteps) {
+      nextBtn.classList.add('hidden');
+      submitBtn.classList.remove('hidden');
+    } else {
+      nextBtn.classList.remove('hidden');
+      submitBtn.classList.add('hidden');
+    }
+  }
+
+  function updateProgress() {
+    progressDots.forEach((dot, index) => {
+      if (index < currentStep) {
+        dot.classList.remove('bg-purple-300');
+        dot.classList.add('bg-purple-500');
+      } else {
+        dot.classList.remove('bg-purple-500');
+        dot.classList.add('bg-purple-300');
+      }
+    });
+  }
+
+  function showStep(stepNum: number) {
+    steps.forEach((s, index) => {
+      if (index + 1 === stepNum) {
+        s.classList.remove('hidden');
+      } else {
+        s.classList.add('hidden');
+      }
+    });
+    updateButtons();
+    updateProgress();
+  }
+
+  // Event Listeners
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      if (!validateCurrentStep()) {
+        showValidationMessage();
+        return;
+      }
+      
+      if (currentStep < totalSteps) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    });
+  }
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validateCurrentStep()) {
+        showValidationMessage();
+        return;
+      }
+
+      const formData = new FormData(form as HTMLFormElement);
+      
+      try {
+        // Here you would typically send the data to your backend
+        // For now, we'll just show the success message
+        if (successModal && successContent) {
+          successModal.classList.remove('hidden');
+          setTimeout(() => {
+            successContent.classList.remove('scale-0');
+            successContent.classList.add('scale-100');
+          }, 100);
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
+    });
+  }
+
+  // Modal button handlers
+  if (okayButton && successModal && successContent) {
+    okayButton.addEventListener('click', () => {
+      successContent.classList.remove('scale-100');
+      successContent.classList.add('scale-0');
+      setTimeout(() => {
+        successModal.classList.add('hidden');
+        if (form) {
+          (form as HTMLFormElement).reset();
+          currentStep = 1;
+          showStep(1);
+        }
+      }, 300);
+    });
+  }
+
+  if (validationOkayButton && validationModal && validationContent) {
+    validationOkayButton.addEventListener('click', () => {
+      validationContent.classList.remove('scale-100');
+      validationContent.classList.add('scale-0');
+      setTimeout(() => {
+        validationModal.classList.add('hidden');
+      }, 300);
+    });
+  }
+</script>

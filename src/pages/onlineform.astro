@@ -4,14 +4,14 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
 
-const GOOGLE_FORM_URL = "YOUR_GOOGLE_FORM_URL";
+const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfHpA4HsE9q4X9JX8yPPCXQZDZ938iq_2jO9y7xaneD-n6efA/formResponse";
 const FORM_FIELD_IDS = {
-    name: "entry.123456789", // Replace with actual entry IDs
-    email: "entry.987654321",
-    phone: "entry.456789123", 
-    date: "entry.789123456",
-    consultationType: "entry.321654987",
-    concerns: "entry.147258369"
+    name: "entry.1549106635",         // For "Full name"
+    email: "entry.1878925108",        // For "Email Address"
+    phone: "entry.1330557638",        // For "Phone Number"
+    date: "entry.121312166",          // For "Date" (this will have _year, _month, _day components)
+    consultationType: "entry.1204165876",  // For "Select Consultation type"
+    concerns: "entry.1017908469"
 };
 
 ---
@@ -83,9 +83,9 @@ const FORM_FIELD_IDS = {
                 <div class="group md:col-span-2">
                     <select name="consultationType" required class="w-full bg-transparent border-b-2 border-purple-300 px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                         <option value="" disabled selected class="text-gray-700">Select Consultation Type</option>
-                        <option value="initial" class="text-gray-700">Initial Consultation</option>
-                        <option value="followup" class="text-gray-700">Follow-up Session</option>
-                        <option value="emergency" class="text-gray-700">Emergency Consultation</option>
+                        <option value="Initial Consultation" class="text-gray-700">Initial Consultation</option>
+                        <option value="Follow-up Session" class="text-gray-700">Follow-up Session</option>
+                        <option value="Emergency Consultation" class="text-gray-700">Emergency Consultation</option>
                     </select>
                 </div>
                 <div class="group md:col-span-2">
@@ -141,20 +141,34 @@ const FORM_FIELD_IDS = {
             // Get form data
             const formData = new FormData(form);
             
-            // Create URL with parameters for Google Form
-            const url = new URL('YOUR_GOOGLE_FORM_URL');
-            url.searchParams.append('entry.123456789', formData.get('name') as string);
-            url.searchParams.append('entry.987654321', formData.get('email') as string);
-            url.searchParams.append('entry.456789123', formData.get('phone') as string);
-            url.searchParams.append('entry.789123456', formData.get('date') as string);
-            url.searchParams.append('entry.321654987', formData.get('consultationType') as string);
-            url.searchParams.append('entry.147258369', formData.get('concerns') as string);
+            // Get the date and split it into components
+            const fullDate = new Date(formData.get('date') as string);
+            const year = fullDate.getFullYear();
+            const month = fullDate.getMonth() + 1;
+            const day = fullDate.getDate();
 
             try {
-                // Send data to Google Form
-                const response = await fetch(url.toString(), {
+                const formUrl = 'https://docs.google.com/forms/d/e/1FAIpQLSfHpA4HsE9q4X9JX8yPPCXQZDZ938iq_2jO9y7xaneD-n6efA/formResponse';
+                
+                const data = new URLSearchParams({
+                    'entry.1549106635': formData.get('name') as string,
+                    'entry.1878925108': formData.get('email') as string,
+                    'entry.1330557638': formData.get('phone') as string,
+                    'entry.121312166_year': year.toString(),
+                    'entry.121312166_month': month.toString(),
+                    'entry.121312166_day': day.toString(),
+                    'entry.1204165876': formData.get('consultationType') as string,
+                    'entry.1017908469': formData.get('concerns') as string
+                });
+
+                // Send the form data using fetch
+                await fetch(formUrl, {
                     method: 'POST',
-                    mode: 'no-cors'
+                    mode: 'no-cors', // This is important
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: data.toString()
                 });
 
                 // Show success modal
@@ -163,6 +177,9 @@ const FORM_FIELD_IDS = {
                     modalContent.classList.remove('scale-0');
                     modalContent.classList.add('scale-100');
                 }, 100);
+
+                // Reset the form
+                form.reset();
 
             } catch (error) {
                 console.error('Error submitting form:', error);
@@ -175,7 +192,6 @@ const FORM_FIELD_IDS = {
             modalContent.classList.add('scale-0');
             setTimeout(() => {
                 modal.classList.add('hidden');
-                form.reset();
             }, 300);
         });
     }
