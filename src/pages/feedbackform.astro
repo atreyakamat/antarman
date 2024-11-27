@@ -4,8 +4,35 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
 
+// Google Form field IDs - Replace these with your actual Google Form field IDs
+const FORM_FIELDS = {
+  email: 'entry.1065296662',
+  source: 'entry.1717749115', 
+  services: 'entry.954375816',
+  reasons: 'entry.2031395604',
+  clinician_name: 'entry.1847498742',
+  office_location: 'entry.127231035',
+  resolution_level: 'entry.1912564881',
+  discussion_ease: 'entry.1467337270',
+  respect: 'entry.1490215668',
+  safety: 'entry.1307318965',
+  trust: 'entry.326249819',
+  careful_listening: 'entry.1751086219',
+  clarity: 'entry.705675417',
+  professional: 'entry.250264551',
+  easy_to_speak: 'entry.526599448',
+  friendly: 'entry.1385893685',
+  valuable_aspect: 'entry.1561104659',
+  least_valuable: 'entry.2106496763',
+  suggestions: 'entry.481565254',
+  consultation_type: 'entry.1780359139',
+  consent: 'entry.1080574740',
+  name: 'entry.2144741573',
+  phone: 'entry.861970532'
+};
 
-
+// Google Form URL - Replace with your actual Google Form URL
+const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2VVj8fkkyH7mnOAZC8qeclj_ZjyI79t2frdww/formResponse';
 
 ---
 
@@ -28,7 +55,7 @@ import ParticleBG from "../components/ParticleBG.astro";
   </main>
 
   <div class="container mx-auto px-4 py-12">
-    <form id="feedbackForm" class="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl">
+    <form id="feedbackForm" class="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl" method="POST" action={GOOGLE_FORM_URL} target="_blank">
       <div class="form-steps">
         <!-- Step 1: Basic Information -->
         <div class="step" data-step="1">
@@ -36,12 +63,12 @@ import ParticleBG from "../components/ParticleBG.astro";
           <div class="space-y-6">
             <div class="group">
               <label class="block text-white mb-2">Email <span class="text-red-500">*</span></label>
-              <input type="email" name="email" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <input type="email" name={FORM_FIELDS.email} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">How did you come to know about Antarman Centre? <span class="text-red-500">*</span></label>
-              <select name="source" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name={FORM_FIELDS.source} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose an option</option>
                 <option value="whatsapp" class="text-gray-700">Whatsapp</option>
                 <option value="facebook" class="text-gray-700">Facebook</option>
@@ -56,19 +83,19 @@ import ParticleBG from "../components/ParticleBG.astro";
               <label class="block text-white mb-2">Please indicate which services did you receive at Antarman <span class="text-red-500">*</span></label>
               <div class="space-y-2">
                 <label class="flex items-center text-white">
-                  <input type="checkbox" name="services" value="psychotherapy" class="mr-2">
+                  <input type="checkbox" name={FORM_FIELDS.services} value="psychotherapy" class="mr-2">
                   Psychotherapy sessions with an Antarman Psychologist/Counsellor
                 </label>
                 <label class="flex items-center text-white">
-                  <input type="checkbox" name="services" value="psychiatrist-therapy" class="mr-2">
+                  <input type="checkbox" name={FORM_FIELDS.services} value="psychiatrist-therapy" class="mr-2">
                   Psychotherapy sessions with an Antarman Psychiatrist
                 </label>
                 <label class="flex items-center text-white">
-                  <input type="checkbox" name="services" value="consultation" class="mr-2">
+                  <input type="checkbox" name={FORM_FIELDS.services} value="consultation" class="mr-2">
                   Consultation sessions with an Antarman Psychiatrist
                 </label>
                 <label class="flex items-center text-white">
-                  <input type="checkbox" name="services" value="assessment" class="mr-2">
+                  <input type="checkbox" name={FORM_FIELDS.services} value="assessment" class="mr-2">
                   Psychological Assessment Services
                 </label>
               </div>
@@ -82,17 +109,17 @@ import ParticleBG from "../components/ParticleBG.astro";
           <div class="space-y-6">
             <div class="group">
               <label class="block text-white mb-2">What are the reasons that brought you to Antarman? <span class="text-red-500">*</span></label>
-              <textarea name="reasons" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <textarea name={FORM_FIELDS.reasons} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">What was the name of the clinician assigned to you? If there was more than one, please list them all: <span class="text-red-500">*</span></label>
-              <input type="text" name="clinician_name" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <input type="text" name={FORM_FIELDS.clinician_name} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Please indicate which of the Antarman's offices you attended: <span class="text-red-500">*</span></label>
-              <select name="office_location" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name={FORM_FIELDS.office_location} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose an option</option>
                 <option value="panaji" class="text-gray-700">Panaji</option>
                 <option value="vasco" class="text-gray-700">Vasco</option>
@@ -109,7 +136,7 @@ import ParticleBG from "../components/ParticleBG.astro";
           <div class="space-y-6">
             <div class="group">
               <label class="block text-white mb-2">To what degree have the issues you came to Antarman with been resolved? <span class="text-red-500">*</span></label>
-              <select name="resolution_level" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name={FORM_FIELDS.resolution_level} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose an option</option>
                 <option value="completely" class="text-gray-700">They are completely resolved</option>
                 <option value="somewhat" class="text-gray-700">They are somewhat resolved</option>
@@ -121,7 +148,7 @@ import ParticleBG from "../components/ParticleBG.astro";
 
             <div class="group">
               <label class="block text-white mb-2">How would you rate your experience in terms of ease of discussing your issues with the assigned Clinician? <span class="text-red-500">*</span></label>
-              <select name="discussion_ease" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name={FORM_FIELDS.discussion_ease} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose an option</option>
                 <option value="excellent" class="text-gray-700">Excellent</option>
                 <option value="good" class="text-gray-700">Good</option>
@@ -147,7 +174,7 @@ import ParticleBG from "../components/ParticleBG.astro";
                       <label class="flex items-center">
                         <input 
                           type="radio" 
-                          name={quality.toLowerCase().replace(' ', '_')} 
+                          name={FORM_FIELDS[quality.toLowerCase().replace(/ /g, '_') as keyof typeof FORM_FIELDS]} 
                           value={rating}
                           required
                           class="form-radio text-purple-500 focus:ring-purple-500"
@@ -168,22 +195,22 @@ import ParticleBG from "../components/ParticleBG.astro";
           <div class="space-y-6">
             <div class="group">
               <label class="block text-white mb-2">What was the most valuable aspect of your experience at Antarman? <span class="text-red-500">*</span></label>
-              <textarea name="valuable_aspect" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <textarea name={FORM_FIELDS.valuable_aspect} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">What was the least valuable aspect of your experience at Antarman? <span class="text-red-500">*</span></label>
-              <textarea name="least_valuable" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <textarea name={FORM_FIELDS.least_valuable} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Do you have any suggestions for the improvement of service delivery by the clinician? <span class="text-red-500">*</span></label>
-              <textarea name="suggestions" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <textarea name={FORM_FIELDS.suggestions} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Did you take in-person or online consultation with Antarman Clinician? <span class="text-red-500">*</span></label>
-              <select name="consultation_type" required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name={FORM_FIELDS.consultation_type} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="" disabled selected class="text-gray-700">Choose an option</option>
                 <option value="in-person" class="text-gray-700">In-Person</option>
                 <option value="online" class="text-gray-700">Online</option>
@@ -193,7 +220,7 @@ import ParticleBG from "../components/ParticleBG.astro";
 
             <div class="group">
               <label class="block text-white mb-2">Do you give your consent for the feedback to be published as testimonial on the Centre's website in anonymised form?</label>
-              <select name="consent" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <select name={FORM_FIELDS.consent} class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
                 <option value="yes" class="text-gray-700">Yes</option>
                 <option value="no" class="text-gray-700">No</option>
               </select>
@@ -201,12 +228,12 @@ import ParticleBG from "../components/ParticleBG.astro";
 
             <div class="group">
               <label class="block text-white mb-2">Your Name (optional)</label>
-              <input type="text" name="name" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <input type="text" name={FORM_FIELDS.name} class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Your Phone Number (optional)</label>
-              <input type="tel" name="phone" class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
+              <input type="tel" name={FORM_FIELDS.phone} class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
           </div>
         </div>
@@ -291,12 +318,9 @@ import ParticleBG from "../components/ParticleBG.astro";
   }
 </style>
 
-<script>
+<script define:vars={{ FORM_FIELDS }}>
   let currentStep = 1;
   const totalSteps = 5;
-
-  // Google Form URL - Replace with your actual Google Form URL
-  const GOOGLE_FORM_URL = 'YOUR_GOOGLE_FORM_URL_HERE';
 
   const form = document.getElementById('feedbackForm');
   const nextBtn = document.getElementById('nextBtn');
@@ -320,16 +344,27 @@ import ParticleBG from "../components/ParticleBG.astro";
     const requiredFields = currentStepElement.querySelectorAll('[required]');
     let isValid = true;
 
-    requiredFields.forEach((field: Element) => {
-      if ((field as HTMLInputElement).type === 'radio') {
-        const name = (field as HTMLInputElement).name;
+    if (currentStep === 4) {
+      // Special handling for radio button groups in step 4
+      const qualities = ['respect', 'safety', 'trust', 'careful_listening', 'clarity', 'professional', 'easy_to_speak', 'friendly'];
+      qualities.forEach(quality => {
+        const radioGroup = currentStepElement.querySelectorAll(`input[name="${FORM_FIELDS[quality]}"]`);
+        const checked = Array.from(radioGroup).some(radio => radio.checked);
+        if (!checked) isValid = false;
+      });
+      return isValid;
+    }
+
+    requiredFields.forEach((field) => {
+      if (field.type === 'radio') {
+        const name = field.name;
         const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
         if (!checked) isValid = false;
-      } else if ((field as HTMLInputElement).type === 'checkbox') {
-        const name = (field as HTMLInputElement).name;
+      } else if (field.type === 'checkbox') {
+        const name = field.name;
         const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
         if (!checked) isValid = false;
-      } else if (!(field as HTMLInputElement).value) {
+      } else if (!field.value) {
         isValid = false;
       }
     });
@@ -377,7 +412,7 @@ import ParticleBG from "../components/ParticleBG.astro";
     });
   }
 
-  function showStep(stepNum: number) {
+  function showStep(stepNum) {
     steps.forEach((s, index) => {
       if (index + 1 === stepNum) {
         s.classList.remove('hidden');
@@ -421,20 +456,16 @@ import ParticleBG from "../components/ParticleBG.astro";
         return;
       }
 
-      const formData = new FormData(form as HTMLFormElement);
+      // Submit the form using standard JS
+      form.submit();
       
-      try {
-        // Here you would typically send the data to your backend
-        // For now, we'll just show the success message
-        if (successModal && successContent) {
-          successModal.classList.remove('hidden');
-          setTimeout(() => {
-            successContent.classList.remove('scale-0');
-            successContent.classList.add('scale-100');
-          }, 100);
-        }
-      } catch (error) {
-        console.error('Error submitting form:', error);
+      // Show success modal
+      if (successModal && successContent) {
+        successModal.classList.remove('hidden');
+        setTimeout(() => {
+          successContent.classList.remove('scale-0');
+          successContent.classList.add('scale-100');
+        }, 100);
       }
     });
   }
@@ -447,7 +478,7 @@ import ParticleBG from "../components/ParticleBG.astro";
       setTimeout(() => {
         successModal.classList.add('hidden');
         if (form) {
-          (form as HTMLFormElement).reset();
+          form.reset();
           currentStep = 1;
           showStep(1);
         }
