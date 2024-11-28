@@ -1,24 +1,44 @@
 ---
-import { Image } from 'astro:assets';
-import heroImage from '../../../public/hero.png';
+import Brain from '../../components/brain';
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden w-screen -ml-4">
-  <div class="absolute inset-0 z-0 w-screen">
-    <Image 
-      src={heroImage}
-      alt="Hero background"
-      width={1920}
-      height={1080}
-      class:list={["w-screen h-full object-cover object-center"]}
-    />
-    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+<section class="relative min-h-screen flex items-center overflow-hidden w-screen -ml-4">
+  <div class="absolute inset-0 bg-gradient-to-b from-purple-900/50 via-purple-800/30 to-transparent"></div>
+  <div class="absolute inset-0 z-0 w-screen bg-black/1">
+    <div class="w-screen h-screen absolute right-0 animate-fade-in">
+      <Brain client:load />
+    </div>
+    <div class="absolute inset-0 bg-black/1 backdrop-blur-sm"></div>
   </div>
 
-  <div class="relative z-10 text-center text-white px-4">
-    <h1 class="text-5xl md:text-7xl font-bold mb-6">Welcome to Antarman</h1>
-    <p class="text-xl md:text-2xl max-w-2xl mx-auto">
-      Your journey to mental wellness begins here
-    </p>
+  <div class="relative z-10 flex flex-col md:flex-row items-center w-full max-w-7xl mx-4 md:ml-[80px]">
+    <div class="text-white md:w-1/2 mb-8 md:mb-0 text-center md:text-left">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 md:mb-6 animate-fade-in">Welcome to</h1>
+      <h2 class="text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-bold mb-3 md:mb-4 animate-slide-up">Antarman</h2>
+      <p class="text-lg sm:text-xl md:text-2xl lg:text-3xl max-w-2xl italic animate-slide-up px-4 md:px-0">
+        Nourishing and nurturing the human spirit.
+      </p>
+    </div>
+    <div class="md:w-1/2"></div> <!-- Spacer for the brain model -->
   </div>
 </section>
+
+<style>
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 1s ease-out;
+  }
+</style>
