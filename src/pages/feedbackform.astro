@@ -88,22 +88,22 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2V
             <div class="group">
               <label class="block text-white mb-2">Please indicate which services did you receive at Antarman <span class="text-red-500">*</span></label>
               <div class="space-y-2">
-                <label class="flex items-center text-white">
-                  <input type="checkbox" name={FORM_FIELDS.services} value="psychotherapy" class="mr-2">
-                  Psychotherapy sessions with an Antarman Psychologist/Counsellor
-                </label>
-                <label class="flex items-center text-white">
-                  <input type="checkbox" name={FORM_FIELDS.services} value="psychiatrist-therapy" class="mr-2">
-                  Psychotherapy sessions with an Antarman Psychiatrist
-                </label>
-                <label class="flex items-center text-white">
-                  <input type="checkbox" name={FORM_FIELDS.services} value="consultation" class="mr-2">
-                  Consultation sessions with an Antarman Psychiatrist
-                </label>
-                <label class="flex items-center text-white">
-                  <input type="checkbox" name={FORM_FIELDS.services} value="assessment" class="mr-2">
-                  Psychological Assessment Services
-                </label>
+                {[
+                  { value: "psychotherapy", label: "Psychotherapy sessions with an Antarman Psychologist/Counsellor" },
+                  { value: "psychiatrist-therapy", label: "Psychotherapy sessions with an Antarman Psychiatrist" },
+                  { value: "consultation", label: "Consultation sessions with an Antarman Psychiatrist" },
+                  { value: "assessment", label: "Psychological Assessment Services" }
+                ].map(({ value, label }) => (
+                  <div class="flex items-center">
+                    <input 
+                      type="checkbox" 
+                      name={FORM_FIELDS.services}
+                      value={value}
+                      class="w-4 h-4 text-purple-600 bg-transparent border-2 border-purple-300 rounded focus:ring-purple-500"
+                    />
+                    <label class="ml-2 text-white">{label}</label>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2V
           <div class="space-y-6">
             <div class="group">
               <label class="block text-white mb-2">What are the reasons that brought you to Antarman? <span class="text-red-500">*</span></label>
-              <textarea name={FORM_FIELDS.reasons} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <input type="text" name={FORM_FIELDS.reasons} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
@@ -211,17 +211,17 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2V
           <div class="space-y-6">
             <div class="group">
               <label class="block text-white mb-2">What was the most valuable aspect of your experience at Antarman? <span class="text-red-500">*</span></label>
-              <textarea name={FORM_FIELDS.valuable_aspect} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <input type="text" name={FORM_FIELDS.valuable_aspect} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">What was the least valuable aspect of your experience at Antarman? <span class="text-red-500">*</span></label>
-              <textarea name={FORM_FIELDS.least_valuable} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <input type="text" name={FORM_FIELDS.least_valuable} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
               <label class="block text-white mb-2">Do you have any suggestions for the improvement of service delivery by the clinician? <span class="text-red-500">*</span></label>
-              <textarea name={FORM_FIELDS.suggestions} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all" rows="3"></textarea>
+              <input type="text" name={FORM_FIELDS.suggestions} required class="w-full bg-transparent border-2 border-purple-300 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-purple-500 transition-all">
             </div>
 
             <div class="group">
@@ -542,8 +542,34 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2V
         return;
       }
       
-      // Submit the form directly
-      form.submit();
+      // Create a FormData object
+      const formData = new FormData(form);
+      
+      // Handle multiple checkbox values
+      const services = formData.getAll(FORM_FIELDS.services);
+      if (services.length > 0) {
+        formData.set(FORM_FIELDS.services, services.join(', '));
+      }
+      
+      // Create a new form for submission
+      const submitForm = document.createElement('form');
+      submitForm.method = 'POST';
+      submitForm.action = GOOGLE_FORM_URL;
+      submitForm.target = '_blank';
+      
+      // Add all form data as hidden inputs
+      for (const [name, value] of formData.entries()) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = name;
+        input.value = value;
+        submitForm.appendChild(input);
+      }
+      
+      // Submit the form
+      document.body.appendChild(submitForm);
+      submitForm.submit();
+      document.body.removeChild(submitForm);
       
       // Show success modal
       if (successModal && successContent) {
