@@ -1,20 +1,69 @@
-
-
 <style>
   .doctor-card {
     position: relative;
     width: 100%;
     max-width: 300px;
-    height: 450px; /* Increased height from 400px to 450px */
+    height: 450px;
     background-color: #631D76;
     margin: 10px;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
     opacity: 0.9;
     overflow: hidden;
     z-index: 1;
+  }
+
+  .doctor-card.expanded {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    max-width: 800px;
+    width: 90%;
+    height: 80vh;
+    background-color: #ffffff;
+    z-index: 1000;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .doctor-card.expanded .doctor-image {
+    height: 300px;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .doctor-card.expanded .doctor-info {
+    background: white;
+    color: #333;
+    padding: 20px;
+  }
+
+  .doctor-card.expanded h3 {
+    color: #631D76;
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .modal-overlay.active {
+    display: block;
+    opacity: 1;
   }
 
   .doctor-card::after {
@@ -33,14 +82,13 @@
     left: 100%;
   }
 
-  .doctor-card:hover {
+  .doctor-card:hover:not(.expanded) {
     transform: scale(1);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     opacity: 1;
     z-index: 2;
   }
 
-  /* Only blur other cards when one is being hovered */
   .doctor-list:has(.doctor-card:hover) .doctor-card:not(:hover) {
     opacity: 0.7;
     filter: blur(2px);
@@ -66,25 +114,51 @@
   .doctor-info {
     padding: 10px;
     position: relative;
+    color: white;
   }
 
   .doctor-extra-info {
     display: none;
-    padding: 10px;
-    background-color: #fff;
+    padding: 30px;
+    background-color: white;
+    color: #333;
     border-radius: 0 0 15px 15px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
   }
 
-  .doctor-card:hover .doctor-extra-info {
+  .doctor-card.expanded .doctor-extra-info {
     display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .doctor-extra-info h4 {
+    color: #631D76;
+    margin: 15px 0 10px;
+  }
+
+  .doctor-extra-info p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+
+  .doctor-extra-info ul {
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+
+  .doctor-extra-info li {
+    margin: 5px 0;
   }
 
   .view-more-button {
     display: block;
     margin: 5px auto;
-    padding: 5px 10px;
-    background-color: #631D76;
-    color: #fff;
+    padding: 8px 15px;
+    background-color: white;
+    color: #631D76;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -92,24 +166,44 @@
     position: absolute;
     top: 10px;
     right: 10px;
-    transition: opacity 0.3s ease;
-    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: bold;
   }
 
-  .doctor-card:hover .view-more-button {
-    opacity: 1;
+  .view-more-button:hover {
+    background-color: #631D76;
+    color: white;
   }
 
-  @media (max-width: 768px) {
-    .view-more-button {
-      display: block;
-    }
+  .close-button {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #631D76;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 1001;
+    font-size: 20px;
+    transition: all 0.3s ease;
   }
 
-  h1 {
-    text-align: center;
-    font-size: x-large;
-    font-weight: 500;
+  .close-button:hover {
+    background: #4a1657;
+    transform: rotate(90deg);
+  }
+
+  .doctor-card.expanded .close-button {
+    display: block;
+  }
+
+  .doctor-card.expanded .view-more-button {
+    display: none;
   }
 
   @media (max-width: 768px) {
@@ -117,11 +211,11 @@
       max-width: 100%;
       height: auto;
     }
-  }
 
-  @media (max-width: 768px) {
-    .doctor-card.active .doctor-extra-info {
-      display: block;
+    .doctor-card.expanded {
+      width: 95%;
+      height: 90vh;
+      max-width: none;
     }
   }
 </style>
@@ -129,9 +223,57 @@
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const doctorCards = document.querySelectorAll('.doctor-card');
+    const body = document.body;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    body.appendChild(overlay);
+
     doctorCards.forEach(card => {
-      card.addEventListener('click', () => {
-        card.classList.toggle('active');
+      const closeBtn = document.createElement('button');
+      closeBtn.className = 'close-button';
+      closeBtn.innerHTML = '×';
+      card.appendChild(closeBtn);
+
+      const viewMoreBtn = card.querySelector('.view-more-button');
+      
+      viewMoreBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        card.classList.add('expanded');
+        overlay.classList.add('active');
+        body.style.overflow = 'hidden';
+        
+      });
+
+      const closeCard = () => {
+        const expandedCard = document.querySelector('.doctor-card.expanded');
+        if (expandedCard) {
+          expandedCard.classList.remove('expanded');
+          overlay.classList.remove('active');
+          body.style.overflow = 'auto';
+        }
+      };
+
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeCard();
+      });
+
+      // Close when clicking outside the card
+      document.addEventListener('click', (e) => {
+        const expandedCard = document.querySelector('.doctor-card.expanded');
+        if (expandedCard && !expandedCard.contains(e.target as Node)) {
+          closeCard();
+        }
+      });
+
+      // Close on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeCard();
+        }
       });
     });
   });
@@ -142,14 +284,95 @@
   <div class="doctor-card">
     <img src="https://via.placeholder.com/300x400" alt="Doctor 1" class="doctor-image" width="300" height="400">
     <div class="doctor-info">
-      <h3>Doctor 1</h3>
+      <h3>Dr. John Smith</h3>
       <p>Specialty: Cardiology</p>
-      <a href="https://example.com/doctor1" class="view-more-button">View More</a>
+      <a href="#" class="view-more-button">View More</a>
     </div>
     <div class="doctor-extra-info">
-      <p>Experience: 10 years</p>
-      <p>Location: New York</p>
-      <p>Contact: doctor1@example.com</p>
+      <h4>Professional Background</h4>
+      <p>Dr. Smith is a board-certified cardiologist with over 10 years of experience in treating complex cardiac conditions.</p>
+      
+      <h4>Education</h4>
+      <p>MD from Harvard Medical School</p>
+      <p>Residency at Mayo Clinic</p>
+      <p>Fellowship in Interventional Cardiology at Cleveland Clinic</p>
+      
+      <h4>Areas of Expertise</h4>
+      <ul>
+        <li>Interventional Cardiology</li>
+        <li>Heart Disease Prevention</li>
+        <li>Cardiac Rehabilitation</li>
+        <li>Advanced Cardiac Imaging</li>
+      </ul>
+
+      <h4>Languages</h4>
+      <p>English, Spanish</p>
+
+      <h4>Publications & Research</h4>
+      <p>Author of numerous peer-reviewed articles in leading cardiology journals</p>
+      
+      <h4>Contact Information</h4>
+      <p>Email: dr.smith@example.com</p>
+      <p>Office: New York Medical Center</p>
+      <p>Phone: (555) 123-4567</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 2" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Dr. Sarah Johnson</h3>
+      <p>Specialty: Neurology</p>
+      <a href="#" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <h4>Professional Background</h4>
+      <p>Dr. Johnson is a renowned neurologist specializing in movement disorders and neurodegenerative diseases.</p>
+      
+      <h4>Education</h4>
+      <p>MD from Johns Hopkins University</p>
+      <p>Neurology Residency at Stanford Medical Center</p>
+      
+      <h4>Areas of Expertise</h4>
+      <ul>
+        <li>Movement Disorders</li>
+        <li>Parkinson's Disease</li>
+        <li>Multiple Sclerosis</li>
+        <li>Neurological Rehabilitation</li>
+      </ul>
+      
+      <h4>Contact Information</h4>
+      <p>Email: dr.johnson@example.com</p>
+      <p>Office: Los Angeles Neurology Center</p>
+      <p>Phone: (555) 987-6543</p>
+    </div>
+  </div>
+  <div class="doctor-card">
+    <img src="https://via.placeholder.com/300x400" alt="Doctor 3" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Dr. Michael Chen</h3>
+      <p>Specialty: Pediatrics</p>
+      <a href="#" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <h4>Professional Background</h4>
+      <p>Dr. Chen is a compassionate pediatrician with extensive experience in child healthcare and development.</p>
+      
+      <h4>Education</h4>
+      <p>MD from Yale School of Medicine</p>
+      <p>Pediatric Residency at Children's Hospital of Philadelphia</p>
+      
+      <h4>Areas of Expertise</h4>
+      <ul>
+        <li>General Pediatrics</li>
+        <li>Child Development</li>
+        <li>Preventive Care</li>
+        <li>Adolescent Medicine</li>
+      </ul>
+      
+      <h4>Contact Information</h4>
+      <p>Email: dr.chen@example.com</p>
+      <p>Office: Chicago Children's Clinic</p>
+      <p>Phone: (555) 234-5678</p>
     </div>
   </div>
   <div class="doctor-card">
@@ -356,4 +579,5 @@
       <p>Contact: doctor17@example.com</p>
     </div>
   </div>
+  <!-- Continue with other doctor cards with similar detailed information -->
 </div>
