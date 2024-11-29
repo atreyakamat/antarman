@@ -55,7 +55,13 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2V
   </main>
 
   <div class="container mx-auto px-4 py-12">
-    <form id="feedbackForm" class="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl" method="POST" action={GOOGLE_FORM_URL} target="_blank">
+    <form 
+      id="feedbackForm" 
+      action={GOOGLE_FORM_URL}
+      method="POST"
+      target="_blank"
+      class="max-w-4xl mx-auto bg-white/10 backdrop-blur-lg p-8 rounded-3xl shadow-2xl"
+    >
       <div class="form-steps">
         <!-- Step 1: Basic Information -->
         <div class="step" data-step="1">
@@ -164,25 +170,35 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2V
         <div class="step hidden" data-step="4">
           <h3 class="text-2xl text-white mb-6">Rate Your Clinician</h3>
           <div class="space-y-6">
-            {['Respect', 'Safety', 'Trust', 'Careful listening', 'Clarity', 'Professional', 'Easy to speak to', 'Friendly'].map((quality) => (
+            {[
+              { label: 'Respect', field: 'entry.1490215668' },
+              { label: 'Safety', field: 'entry.1307318965' },
+              { label: 'Trust', field: 'entry.326249819' },
+              { label: 'Careful listening', field: 'entry.1751086219' },
+              { label: 'Clarity', field: 'entry.705675417' },
+              { label: 'Professional', field: 'entry.250264551' },
+              { label: 'Easy to speak', field: 'entry.526599448' },
+              { label: 'Friendly', field: 'entry.1385893685' }
+            ].map(({ label, field }) => (
               <div class="group">
-                <label class="block text-white mb-2">{quality} <span class="text-red-500">*</span></label>
+                <label class="block text-white mb-2">{label} <span class="text-red-500">*</span></label>
                 <div class="flex justify-between items-center">
-                  <span class="text-white">Bad</span>
+                  <span class="text-white">Excellent</span>
                   <div class="flex gap-4">
-                    {[1, 2, 3, 4, 5].map((rating) => (
-                      <label class="flex items-center">
+                    {[5, 4, 3, 2, 1].map((rating) => (
+                      <label class="flex items-center cursor-pointer star-label">
                         <input 
                           type="radio" 
-                          name={FORM_FIELDS[quality.toLowerCase().replace(/ /g, '_') as keyof typeof FORM_FIELDS]} 
+                          name={field}
                           value={rating}
                           required
-                          class="form-radio text-purple-500 focus:ring-purple-500"
-                        >
+                          class="star-input hidden"
+                        />
+                        <span class="text-2xl text-yellow-400 star">★</span>
                       </label>
                     ))}
                   </div>
-                  <span class="text-white">Excellent</span>
+                  <span class="text-white">Bad</span>
                 </div>
               </div>
             ))}
@@ -316,9 +332,33 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2V
   input::placeholder, textarea::placeholder {
     color: rgba(255, 255, 255, 0.7);
   }
+
+  /* Star rating styles */
+  input[type="text"] + span {
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+  }
+
+  input[type="text"]:checked + span {
+    opacity: 1;
+  }
+
+  label:hover span,
+  label:hover ~ label span {
+    opacity: 1;
+  }
+
+  .star {
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+  }
+
+  .star-label {
+    cursor: pointer;
+  }
 </style>
 
-<script define:vars={{ FORM_FIELDS }}>
+<script define:vars={{ FORM_FIELDS, GOOGLE_FORM_URL }}>
   let currentStep = 1;
   const totalSteps = 5;
 
@@ -329,6 +369,53 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2V
   const steps = document.querySelectorAll('.step');
   const progressDots = document.querySelectorAll('.mt-6 span');
 
+  // Star rating functionality
+  document.querySelectorAll('.group').forEach(group => {
+    const stars = Array.from(group.querySelectorAll('.star-label'));
+    
+    stars.forEach((star, index) => {
+      const input = star.querySelector('input');
+      
+      star.addEventListener('click', () => {
+        const value = 5 - index;  // Convert index to 5-1 rating
+        
+        // Update visual state
+        stars.forEach((s, i) => {
+          const starSpan = s.querySelector('.star');
+          starSpan.style.opacity = i >= index ? '1' : '0.3';
+        });
+        
+        // Set the input value
+        input.checked = true;
+        console.log(`Setting value to: ${value} for ${input.name}`); // Debug log
+      });
+
+      star.addEventListener('mouseenter', () => {
+        stars.forEach((s, i) => {
+          const starSpan = s.querySelector('.star');
+          starSpan.style.opacity = i >= index ? '1' : '0.3';
+        });
+      });
+    });
+
+    group.addEventListener('mouseleave', () => {
+      const checkedInput = group.querySelector('input:checked');
+      if (checkedInput) {
+        const value = parseInt(checkedInput.value);
+        const index = 5 - value;
+        stars.forEach((s, i) => {
+          const starSpan = s.querySelector('.star');
+          starSpan.style.opacity = i >= index ? '1' : '0.3';
+        });
+      } else {
+        stars.forEach(s => {
+          const starSpan = s.querySelector('.star');
+          starSpan.style.opacity = '0.3';
+        });
+      }
+    });
+  });
+
   // Modal elements
   const successModal = document.getElementById('successModal');
   const successContent = document.getElementById('modalContent');
@@ -338,38 +425,36 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2V
   const validationOkayButton = document.getElementById('validationOkayButton');
 
   function validateCurrentStep() {
+    console.log(`Validating step ${currentStep}`);
     const currentStepElement = document.querySelector(`.step[data-step="${currentStep}"]`);
     if (!currentStepElement) return false;
 
-    const requiredFields = currentStepElement.querySelectorAll('[required]');
-    let isValid = true;
-
     if (currentStep === 4) {
-      // Special handling for radio button groups in step 4
-      const qualities = ['respect', 'safety', 'trust', 'careful_listening', 'clarity', 'professional', 'easy_to_speak', 'friendly'];
-      qualities.forEach(quality => {
-        const radioGroup = currentStepElement.querySelectorAll(`input[name="${FORM_FIELDS[quality]}"]`);
-        const checked = Array.from(radioGroup).some(radio => radio.checked);
-        if (!checked) isValid = false;
-      });
-      return isValid;
+      const ratingFields = [
+        { name: 'entry.1490215668', label: 'Respect' },
+        { name: 'entry.1307318965', label: 'Safety' },
+        { name: 'entry.326249819', label: 'Trust' },
+        { name: 'entry.1751086219', label: 'Careful listening' },
+        { name: 'entry.705675417', label: 'Clarity' },
+        { name: 'entry.250264551', label: 'Professional' },
+        { name: 'entry.526599448', label: 'Easy to speak' },
+        { name: 'entry.1385893685', label: 'Friendly' }
+      ];
+
+      for (const field of ratingFields) {
+        const ratingInput = document.querySelector(`input[name="${field.name}"]`);
+        console.log(`Checking ${field.label}: ${field.name} - Value: ${ratingInput?.value}`);
+        
+        if (!ratingInput?.value) {
+          console.log(`Missing rating for: ${field.label}`);
+          return false;
+        }
+      }
+      return true;
     }
 
-    requiredFields.forEach((field) => {
-      if (field.type === 'radio') {
-        const name = field.name;
-        const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
-        if (!checked) isValid = false;
-      } else if (field.type === 'checkbox') {
-        const name = field.name;
-        const checked = currentStepElement.querySelector(`input[name="${name}"]:checked`);
-        if (!checked) isValid = false;
-      } else if (!field.value) {
-        isValid = false;
-      }
-    });
-
-    return isValid;
+    const requiredFields = currentStepElement.querySelectorAll('[required]');
+    return Array.from(requiredFields).every(field => field.value.trim() !== '');
   }
 
   function showValidationMessage() {
@@ -449,14 +534,15 @@ const GOOGLE_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSdcGpU_cKogS2V
   }
 
   if (form) {
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
+      
       if (!validateCurrentStep()) {
         showValidationMessage();
         return;
       }
-
-      // Submit the form using standard JS
+      
+      // Submit the form directly
       form.submit();
       
       // Show success modal
