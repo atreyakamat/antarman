@@ -3,6 +3,32 @@ import Layout from '../layouts/HomeLayout.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
+
+// Google Form field IDs - Replace these with your actual Google Form field IDs
+
+// Define FORM_FIELDS at the top level
+const FORM_FIELDS = {
+  formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSc8VbFSSqLsaYz60FJd7k_ut1DTytLMOO-ugyBu6ENejCHOmw/formResponse',
+  email: 'entry.606465858',
+  clientName: 'entry.438280124',
+  relationship: 'entry.1943330587',
+  gender: 'entry.416775021',
+  age: 'entry.1658408476',
+  phone: 'entry.236756602',
+  problemDescription: 'entry.141945799',
+  problemDuration: 'entry.403838062',
+  pastHelp: 'entry.2031966814',
+  familyHistory: 'entry.1722001225',
+  allergies: 'entry.1097804708',
+  additionalInfo: 'entry.203117574',
+  urgency: 'entry.459213799',
+  preferredTime: 'entry.1208054538',
+  preferredLocation: 'entry.1485267282',
+  preferredProfessional: 'entry.1250629367',
+  reminderConsent: 'entry.1429278156',
+  newsletterConsent: 'entry.58207592'
+};
+
 ---
 
 <Layout title="Book Appointment | Antarman">
@@ -250,13 +276,8 @@ import ParticleBG from "../components/ParticleBG.astro";
   }
 </style>
 
-<script>
-  let currentStep = 1;
-  const totalSteps = 3;
-
-  // Google Form URL - Replace with your actual Google Form URL
-  const GOOGLE_FORM_URL = 'YOUR_GOOGLE_FORM_URL_HERE';
-
+<script define:vars={{ FORM_FIELDS }}>
+  // Now FORM_FIELDS is properly passed to the script
   const form = document.getElementById('appointmentForm');
   const nextBtn = document.getElementById('nextBtn');
   const prevBtn = document.getElementById('prevBtn');
@@ -272,6 +293,9 @@ import ParticleBG from "../components/ParticleBG.astro";
   const validationContent = document.getElementById('validationContent');
   const validationOkayButton = document.getElementById('validationOkayButton');
 
+  let currentStep = 1;
+  const totalSteps = 3;
+
   function validateCurrentStep() {
     const currentStepElement = document.querySelector(`.step[data-step="${currentStep}"]`);
     if (!currentStepElement) return false;
@@ -280,7 +304,7 @@ import ParticleBG from "../components/ParticleBG.astro";
     let isValid = true;
 
     requiredFields.forEach(field => {
-      if (!(field as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement).value) {
+      if (!field.value) {
         isValid = false;
       }
     });
@@ -328,7 +352,7 @@ import ParticleBG from "../components/ParticleBG.astro";
     });
   }
 
-  function showStep(stepNum: number) {
+  function showStep(stepNum) {
     steps.forEach((s, index) => {
       if (index + 1 === stepNum) {
         s.classList.remove('hidden');
@@ -340,12 +364,44 @@ import ParticleBG from "../components/ParticleBG.astro";
     updateProgress();
   }
 
-  async function submitToGoogleForm(formData: FormData) {
+  function formatFormDataForGoogleForm(formData) {
+    const formattedData = new FormData();
+
+    // Debugging: Log all keys in the FormData
+    for (let key of formData.keys()) {
+      console.log(key); // Check if 'email' and other keys are present
+    }
+
+    // Format each field into a paragraph style answer
+    formattedData.append(FORM_FIELDS.email, `Email: ${formData.get('email')}`);
+    formattedData.append(FORM_FIELDS.clientName, `Client Name: ${formData.get('client_name')}`);
+    formattedData.append(FORM_FIELDS.relationship, `Relationship with Client: ${formData.get('relationship') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.gender, `Gender: ${formData.get('gender')}`);
+    formattedData.append(FORM_FIELDS.age, `Age: ${formData.get('age')}`);
+    formattedData.append(FORM_FIELDS.phone, `Phone: ${formData.get('phone')}`);
+    formattedData.append(FORM_FIELDS.problemDescription, `Problem Description: ${formData.get('problem_description')}`);
+    formattedData.append(FORM_FIELDS.problemDuration, `Problem Duration: ${formData.get('problem_duration')}`);
+    formattedData.append(FORM_FIELDS.pastHelp, `Past Help: ${formData.get('past_help') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.familyHistory, `Family History: ${formData.get('family_history') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.allergies, `Allergies: ${formData.get('allergies') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.additionalInfo, `Additional Info: ${formData.get('additional_info') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.urgency, `Urgency: ${formData.get('urgency')}`);
+    formattedData.append(FORM_FIELDS.preferredTime, `Preferred Time: ${formData.get('preferred_time')}`);
+    formattedData.append(FORM_FIELDS.preferredLocation, `Preferred Location: ${formData.get('preferred_location')}`);
+    formattedData.append(FORM_FIELDS.preferredProfessional, `Preferred Professional: ${formData.get('preferred_professional') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.reminderConsent, `Reminder Consent: ${formData.get('reminder_consent')}`);
+    formattedData.append(FORM_FIELDS.newsletterConsent, `Newsletter Consent: ${formData.get('newsletter_consent')}`);
+
+    return formattedData;
+  }
+
+  async function submitToGoogleForm(formData) {
     try {
-      const response = await fetch(GOOGLE_FORM_URL, {
+      const formattedData = formatFormDataForGoogleForm(formData);
+      const response = await fetch(FORM_FIELDS.formUrl, {
         method: 'POST',
         mode: 'no-cors',
-        body: formData
+        body: formattedData
       });
       return true;
     } catch (error) {
@@ -385,7 +441,7 @@ import ParticleBG from "../components/ParticleBG.astro";
         return;
       }
 
-      const formData = new FormData(form as HTMLFormElement);
+      const formData = new FormData(form);
       const success = await submitToGoogleForm(formData);
 
       if (success && successModal && successContent) {
@@ -405,7 +461,7 @@ import ParticleBG from "../components/ParticleBG.astro";
       setTimeout(() => {
         successModal.classList.add('hidden');
         if (form) {
-          (form as HTMLFormElement).reset();
+          form.reset();
           currentStep = 1;
           showStep(1);
         }
