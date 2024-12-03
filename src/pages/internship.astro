@@ -83,13 +83,14 @@ const internImages = [
         <section class="mb-32">
             <div class="max-w-4xl mx-auto">
                 <h2 class="text-3xl font-bold text-white mb-8 text-center">Apply Now</h2>
-                <form id="internshipForm" class="bg-white/10 backdrop-blur-lg rounded-lg p-8 space-y-6">
+                <form id="internshipForm" class="bg-white/10 backdrop-blur-lg rounded-lg p-8 space-y-6" action="https://docs.google.com/forms/d/e/1FAIpQLSfQBhLI9lDUTX9pUPxGpKqZHHVHhPYWUlqkB6nrcF5P_Fz-Yw/formResponse" method="POST">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-gray-200 mb-2" for="firstName">First Name</label>
                             <input 
                                 type="text" 
-                                id="firstName" 
+                                id="firstName"
+                                name="entry.509267637"
                                 class="w-full bg-white/5 border border-gray-300/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 required
                             />
@@ -98,7 +99,8 @@ const internImages = [
                             <label class="block text-gray-200 mb-2" for="lastName">Last Name</label>
                             <input 
                                 type="text" 
-                                id="lastName" 
+                                id="lastName"
+                                name="entry.145340154" 
                                 class="w-full bg-white/5 border border-gray-300/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 required
                             />
@@ -110,7 +112,8 @@ const internImages = [
                             <label class="block text-gray-200 mb-2" for="email">Email</label>
                             <input 
                                 type="email" 
-                                id="email" 
+                                id="email"
+                                name="entry.1685765782"
                                 class="w-full bg-white/5 border border-gray-300/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 required
                             />
@@ -119,7 +122,8 @@ const internImages = [
                             <label class="block text-gray-200 mb-2" for="phone">Phone Number</label>
                             <input 
                                 type="tel" 
-                                id="phone" 
+                                id="phone"
+                                name="entry.34252276"
                                 class="w-full bg-white/5 border border-gray-300/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 required
                             />
@@ -130,7 +134,8 @@ const internImages = [
                         <div>
                             <label class="block text-gray-200 mb-2" for="course">Course</label>
                             <select 
-                                id="course" 
+                                id="course"
+                                name="entry.931255215"
                                 class="w-full bg-white/5 border border-gray-300/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500 [&>option]:bg-gray-800"
                                 required
                             >
@@ -148,7 +153,8 @@ const internImages = [
                             <label class="block text-gray-200 mb-2" for="college">Name of College</label>
                             <input 
                                 type="text" 
-                                id="college" 
+                                id="college"
+                                name="entry.286298854"
                                 class="w-full bg-white/5 border border-gray-300/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                                 required
                             />
@@ -159,7 +165,8 @@ const internImages = [
                         <label class="block text-gray-200 mb-2" for="startDate">Start Date of Internship</label>
                         <input 
                             type="date" 
-                            id="startDate" 
+                            id="startDate"
+                            name="entry.27519836"
                             class="w-full bg-white/5 border border-gray-300/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                             required
                         />
@@ -179,6 +186,81 @@ const internImages = [
     </div>
     <Footer />
 </Layout>
+<script>
+    // Google Form field IDs
+    const FORM_FIELDS = {
+        formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSfQBhLI9lDUTX9pUPxGpKqZHHVHhPYWUlqkB6nrcF5P_Fz-Yw/formResponse',
+        firstName: 'entry.509267637',
+        lastName: 'entry.145340154',
+        email: 'entry.1685765782',
+        phone: 'entry.34252276',
+        course: 'entry.931255215',
+        college: 'entry.286298854',
+        startDate: 'entry.27519836'
+    };
+
+    const form = document.getElementById('internshipForm') as HTMLFormElement;
+    const modal = document.getElementById('successModal');
+    const modalContent = document.getElementById('modalContent');
+    const okayButton = document.getElementById('okayButton');
+
+    async function submitToGoogleForm(formData: FormData) {
+        try {
+            const response = await fetch(FORM_FIELDS.formUrl, {
+                method: 'POST',
+                mode: 'no-cors',
+                body: formData
+            });
+            return true;
+        } catch (error) {
+            console.error('Error submitting form:', error);
+            return false;
+        }
+    }
+
+    function formatFormDataForGoogleForm(formData: FormData) {
+        const formattedData = new FormData();
+        
+        formattedData.append(FORM_FIELDS.firstName, formData.get('entry.509267637') as string);
+        formattedData.append(FORM_FIELDS.lastName, formData.get('entry.145340154') as string);
+        formattedData.append(FORM_FIELDS.email, formData.get('entry.1685765782') as string);
+        formattedData.append(FORM_FIELDS.phone, formData.get('entry.34252276') as string);
+        formattedData.append(FORM_FIELDS.course, formData.get('entry.931255215') as string);
+        formattedData.append(FORM_FIELDS.college, formData.get('entry.286298854') as string);
+        formattedData.append(FORM_FIELDS.startDate, formData.get('entry.27519836') as string);
+
+        return formattedData;
+    }
+
+    if (form && modal && modalContent && okayButton) {
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            const success = await submitToGoogleForm(formatFormDataForGoogleForm(formData));
+
+            if (success) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    modalContent.classList.remove('scale-0');
+                    modalContent.classList.add('scale-100');
+                }, 100);
+            } else {
+                // Handle error case
+                alert('There was an error submitting your application. Please try again.');
+            }
+        });
+
+        okayButton.addEventListener('click', () => {
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                form.reset();
+            }, 300);
+        });
+    }
+</script>
 
 <style>
     @keyframes fadeIn {
