@@ -373,24 +373,24 @@ const FORM_FIELDS = {
     }
 
     // Format each field into a paragraph style answer
-    formattedData.append(FORM_FIELDS.email, `Email: ${formData.get('email')}`);
-    formattedData.append(FORM_FIELDS.clientName, `Client Name: ${formData.get('client_name')}`);
-    formattedData.append(FORM_FIELDS.relationship, `Relationship with Client: ${formData.get('relationship') || 'N/A'}`);
-    formattedData.append(FORM_FIELDS.gender, `Gender: ${formData.get('gender')}`);
-    formattedData.append(FORM_FIELDS.age, `Age: ${formData.get('age')}`);
-    formattedData.append(FORM_FIELDS.phone, `Phone: ${formData.get('phone')}`);
-    formattedData.append(FORM_FIELDS.problemDescription, `Problem Description: ${formData.get('problem_description')}`);
-    formattedData.append(FORM_FIELDS.problemDuration, `Problem Duration: ${formData.get('problem_duration')}`);
-    formattedData.append(FORM_FIELDS.pastHelp, `Past Help: ${formData.get('past_help') || 'N/A'}`);
-    formattedData.append(FORM_FIELDS.familyHistory, `Family History: ${formData.get('family_history') || 'N/A'}`);
-    formattedData.append(FORM_FIELDS.allergies, `Allergies: ${formData.get('allergies') || 'N/A'}`);
-    formattedData.append(FORM_FIELDS.additionalInfo, `Additional Info: ${formData.get('additional_info') || 'N/A'}`);
-    formattedData.append(FORM_FIELDS.urgency, `Urgency: ${formData.get('urgency')}`);
-    formattedData.append(FORM_FIELDS.preferredTime, `Preferred Time: ${formData.get('preferred_time')}`);
-    formattedData.append(FORM_FIELDS.preferredLocation, `Preferred Location: ${formData.get('preferred_location')}`);
-    formattedData.append(FORM_FIELDS.preferredProfessional, `Preferred Professional: ${formData.get('preferred_professional') || 'N/A'}`);
-    formattedData.append(FORM_FIELDS.reminderConsent, `Reminder Consent: ${formData.get('reminder_consent')}`);
-    formattedData.append(FORM_FIELDS.newsletterConsent, `Newsletter Consent: ${formData.get('newsletter_consent')}`);
+    formattedData.append(FORM_FIELDS.email, `${formData.get('email')}`);
+    formattedData.append(FORM_FIELDS.clientName, `${formData.get('client_name')}`);
+    formattedData.append(FORM_FIELDS.relationship, `${formData.get('relationship') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.gender, `${formData.get('gender')}`);
+    formattedData.append(FORM_FIELDS.age, `${formData.get('age')}`);
+    formattedData.append(FORM_FIELDS.phone, `${formData.get('phone')}`);
+    formattedData.append(FORM_FIELDS.problemDescription, `${formData.get('problem_description')}`);
+    formattedData.append(FORM_FIELDS.problemDuration, `${formData.get('problem_duration')}`);
+    formattedData.append(FORM_FIELDS.pastHelp, `${formData.get('past_help') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.familyHistory, `${formData.get('family_history') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.allergies, `${formData.get('allergies') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.additionalInfo, `${formData.get('additional_info') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.urgency, `${formData.get('urgency')}`);
+    formattedData.append(FORM_FIELDS.preferredTime, `${formData.get('preferred_time')}`);
+    formattedData.append(FORM_FIELDS.preferredLocation, `${formData.get('preferred_location')}`);
+    formattedData.append(FORM_FIELDS.preferredProfessional, ` ${formData.get('preferred_professional') || 'N/A'}`);
+    formattedData.append(FORM_FIELDS.reminderConsent, ` ${formData.get('reminder_consent')}`);
+    formattedData.append(FORM_FIELDS.newsletterConsent, ` ${formData.get('newsletter_consent')}`);
 
     return formattedData;
   }
