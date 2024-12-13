@@ -19,7 +19,7 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(1.2);
+    transform: translate(-50%, -50%);
     max-width: 800px;
     width: 90%;
     height: 80vh;
@@ -28,6 +28,20 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    transition: none;
+    cursor: default;
+  }
+
+  /* Remove hover effects for expanded card */
+  .doctor-card.expanded::after,
+  .doctor-card.expanded:hover::after {
+    display: none;
+  }
+
+  .doctor-card.expanded:hover {
+    transform: translate(-50%, -50%);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    opacity: 1;
   }
 
   .doctor-card.expanded .doctor-image {
@@ -123,15 +137,16 @@
     background-color: white;
     color: #333;
     border-radius: 0 0 15px 15px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
   }
 
   .doctor-card.expanded .doctor-extra-info {
     display: block;
+  }
+
+  /* Remove blur effect on other cards when expanded */
+  .doctor-list:has(.doctor-card.expanded) .doctor-card:not(.expanded) {
     opacity: 1;
-    transform: translateY(0);
+    filter: none;
   }
 
   .doctor-extra-info h4 {
@@ -244,7 +259,6 @@
         card.classList.add('expanded');
         overlay.classList.add('active');
         body.style.overflow = 'hidden';
-        
       });
 
       const closeCard = () => {
@@ -264,7 +278,7 @@
       // Close when clicking outside the card
       document.addEventListener('click', (e) => {
         const expandedCard = document.querySelector('.doctor-card.expanded');
-        if (expandedCard && !expandedCard.contains(e.target as Node)) {
+        if (expandedCard && !expandedCard.contains(e.target instanceof Node ? e.target : null)) {
           closeCard();
         }
       });
@@ -282,302 +296,313 @@
 <h1>Our Doctors</h1>
 <div class="doctor-list">
   <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 1" class="doctor-image" width="300" height="400">
+    <img src="../scraped-images/DrRavindraAgrawal.jpg" alt="Dr Ravindra Agrawal" class="doctor-image" width="300" height="400">
     <div class="doctor-info">
-      <h3>Dr. John Smith</h3>
-      <p>Specialty: Cardiology</p>
+      <h3>Dr Ravindra Agrawal</h3>
+      <p>Psychiatrist</p>
       <a href="#" class="view-more-button">View More</a>
     </div>
     <div class="doctor-extra-info">
-      <h4>Professional Background</h4>
-      <p>Dr. Smith is a board-certified cardiologist with over 10 years of experience in treating complex cardiac conditions.</p>
+      <h4>Consultation Fees</h4>
+      <p>Standard Consultation: Rs 1500 (20 mins)</p>
+      <p>Extended Consultation: Rs 3000 (40 mins)</p>
+      <p>Hourly Consultation: Rs 4500</p>
       
-      <h4>Education</h4>
-      <p>MD from Harvard Medical School</p>
-      <p>Residency at Mayo Clinic</p>
-      <p>Fellowship in Interventional Cardiology at Cleveland Clinic</p>
+      <h4>Other Services</h4>
+      <p>Therapy Session: Rs 2000 (50 mins)</p>
+      <p>Marriage Counselling: Rs 2000</p>
       
-      <h4>Areas of Expertise</h4>
-      <ul>
-        <li>Interventional Cardiology</li>
-        <li>Heart Disease Prevention</li>
-        <li>Cardiac Rehabilitation</li>
-        <li>Advanced Cardiac Imaging</li>
-      </ul>
+      <h4>Home Visit Charges</h4>
+      <p>Inside Panjim: Rs 2500</p>
+      <p>Nearby Panjim City: Rs 3500</p>
+    </div>
+  </div>
 
-      <h4>Languages</h4>
-      <p>English, Spanish</p>
+  <div class="doctor-card">
+    <img src="../scraped-images/Nitasha  Borah.jpg" alt="Nitasha Borah" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Nitasha Borah</h3>
+      <p>Psychologist</p>
+      <a href="#" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <h4>Session Fees</h4>
+      <p>Individual: Rs 2000 per session (50 mins)</p>
+      <p>Couples: Rs 2500 per session (1 hour 15 mins)</p>
+      <p>Group: Rs 800 - 1000 (1 hour 30 mins)</p>
+      
+      <h4>Assessments</h4>
+      <p>IQ Assessment: Rs 5000</p>
+      <p>Learning Disability Assessment: Rs 4500 - Rs 7500</p>
+      <p>Autism Assessment: Rs 4500</p>
+      <p>ADHD Assessment: Rs 4000</p>
+    </div>
+  </div>
 
-      <h4>Publications & Research</h4>
-      <p>Author of numerous peer-reviewed articles in leading cardiology journals</p>
-      
-      <h4>Contact Information</h4>
-      <p>Email: dr.smith@example.com</p>
-      <p>Office: New York Medical Center</p>
-      <p>Phone: (555) 123-4567</p>
-    </div>
-  </div>
   <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 2" class="doctor-image" width="300" height="400">
+    <img src="../scraped-images/Tanushri Sharma.jpeg" alt="Tanushri Sharma" class="doctor-image" width="300" height="400">
     <div class="doctor-info">
-      <h3>Dr. Sarah Johnson</h3>
-      <p>Specialty: Neurology</p>
+      <h3>Tanushri Sharma</h3>
+      <p>Counsellor</p>
       <a href="#" class="view-more-button">View More</a>
     </div>
     <div class="doctor-extra-info">
-      <h4>Professional Background</h4>
-      <p>Dr. Johnson is a renowned neurologist specializing in movement disorders and neurodegenerative diseases.</p>
-      
-      <h4>Education</h4>
-      <p>MD from Johns Hopkins University</p>
-      <p>Neurology Residency at Stanford Medical Center</p>
-      
-      <h4>Areas of Expertise</h4>
-      <ul>
-        <li>Movement Disorders</li>
-        <li>Parkinson's Disease</li>
-        <li>Multiple Sclerosis</li>
-        <li>Neurological Rehabilitation</li>
-      </ul>
-      
-      <h4>Contact Information</h4>
-      <p>Email: dr.johnson@example.com</p>
-      <p>Office: Los Angeles Neurology Center</p>
-      <p>Phone: (555) 987-6543</p>
+      <h4>Services & Fees</h4>
+      <p>Consultation/Therapy: Rs 1200 (50 mins)</p>
+      <p>Home/School Visit: Rs 2000</p>
+      <p>Assessment For Cognitive Impairment: Rs 1200</p>
     </div>
   </div>
+
   <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 3" class="doctor-image" width="300" height="400">
+    <img src="../scraped-images/Dr Samina Khan.jpg" alt="Dr Samina Khan" class="doctor-image" width="300" height="400">
     <div class="doctor-info">
-      <h3>Dr. Michael Chen</h3>
-      <p>Specialty: Pediatrics</p>
+      <h3>Dr Samina Khan</h3>
+      <p>Psychiatrist</p>
       <a href="#" class="view-more-button">View More</a>
     </div>
     <div class="doctor-extra-info">
-      <h4>Professional Background</h4>
-      <p>Dr. Chen is a compassionate pediatrician with extensive experience in child healthcare and development.</p>
-      
-      <h4>Education</h4>
-      <p>MD from Yale School of Medicine</p>
-      <p>Pediatric Residency at Children's Hospital of Philadelphia</p>
-      
-      <h4>Areas of Expertise</h4>
-      <ul>
-        <li>General Pediatrics</li>
-        <li>Child Development</li>
-        <li>Preventive Care</li>
-        <li>Adolescent Medicine</li>
-      </ul>
-      
-      <h4>Contact Information</h4>
-      <p>Email: dr.chen@example.com</p>
-      <p>Office: Chicago Children's Clinic</p>
-      <p>Phone: (555) 234-5678</p>
+      <h4>Consultation</h4>
+      <p>Standard Session: Rs 800 (20 mins)</p>
     </div>
   </div>
+
   <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 2" class="doctor-image" width="300" height="400">
+    <img src="../scraped-images/Shobhika Jaju.png" alt="Shobhika Jaju" class="doctor-image" width="300" height="400">
     <div class="doctor-info">
-      <h3>Doctor 2</h3>
-      <p>Specialty: Neurology</p>
-      <a href="https://example.com/doctor2" class="view-more-button">View More</a>
+      <h3>Shobhika Jaju</h3>
+      <p>Psychologist</p>
+      <a href="#" class="view-more-button">View More</a>
     </div>
     <div class="doctor-extra-info">
-      <p>Experience: 8 years</p>
-      <p>Location: Los Angeles</p>
-      <p>Contact: doctor2@example.com</p>
+      <h4>Consultation/Therapy</h4>
+      <p>Standard Session: Rs 1000 (50 mins)</p>
     </div>
   </div>
+
   <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 3" class="doctor-image" width="300" height="400">
+    <img src="../scraped-images/Sharika Fernandes E Pereira.jpeg" alt="Sharika Fernandes E Pereira" class="doctor-image" width="300" height="400">
     <div class="doctor-info">
-      <h3>Doctor 3</h3>
-      <p>Specialty: Pediatrics</p>
-      <a href="https://example.com/doctor3" class="view-more-button">View More</a>
+      <h3>Sharika Fernandes E Pereira</h3>
+      <p>Counsellor</p>
+      <a href="#" class="view-more-button">View More</a>
     </div>
     <div class="doctor-extra-info">
-      <p>Experience: 12 years</p>
-      <p>Location: Chicago</p>
-      <p>Contact: doctor3@example.com</p>
+      <h4>Consultation/Therapy</h4>
+      <p>Standard Session: Rs 1200 (50 mins)</p>
     </div>
   </div>
+
   <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 4" class="doctor-image" width="300" height="400">
+    <img src="../scraped-images/Dr Akshada Amonkar.jpeg" alt="Dr Akshada Amonkar" class="doctor-image" width="300" height="400">
     <div class="doctor-info">
-      <h3>MA Psychology</h3>
-      <p>
-        a
-      </p>
-      <a href="https://example.com/doctor4" class="view-more-button">View More</a>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 5" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Samir</h3>
-      <p>M.A. Psychology</p>
-      <a href="https://example.com/doctor5" class="view-more-button">View More</a>
+      <h3>Dr Akshada Amonkar</h3>
+      <p>Psychiatrist</p>
+      <a href="#" class="view-more-button">View More</a>
     </div>
     <div class="doctor-extra-info">
-      <p>Samir is a psychologist, psychotherapist and leadership trainer.
-        He is a trained REBT therapist and has industry experience in team handling skills. </p>
+      <h4>Services & Fees</h4>
+      <p>Consultation: Rs 800 (20 mins)</p>
+      <p>Home Visit (Panjim City): Rs 2000</p>
     </div>
   </div>
+
   <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 6" class="doctor-image" width="300" height="400">
+    <img src="../scraped-images/Sifti Bajwa.jpeg" alt="Sifti Bajwa" class="doctor-image" width="300" height="400">
     <div class="doctor-info">
-      <h3>Doctor 6</h3>
-      <p>Specialty: Orthopedics</p>
-      <a href="https://example.com/doctor6" class="view-more-button">View More</a>
+      <h3>Sifti Bajwa</h3>
+      <p>Counsellor</p>
+      <a href="#" class="view-more-button">View More</a>
     </div>
     <div class="doctor-extra-info">
-      <p>Experience: 11 years</p>
-      <p>Location: Philadelphia</p>
-      <p>Contact: doctor6@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 7" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 7</h3>
-      <p>Specialty: Psychiatry</p>
-      <a href="https://example.com/doctor7" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 7 years</p>
-      <p>Location: San Antonio</p>
-      <p>Contact: doctor7@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 8" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 8</h3>
-      <p>Specialty: Gastroenterology</p>
-      <a href="https://example.com/doctor8" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 13 years</p>
-      <p>Location: San Diego</p>
-      <p>Contact: doctor8@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 9" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 9</h3>
-      <p>Specialty: Endocrinology</p>
-      <a href="https://example.com/doctor9" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 6 years</p>
-      <p>Location: Dallas</p>
-      <p>Contact: doctor9@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 10" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 10</h3>
-      <p>Specialty: Nephrology</p>
-      <a href="https://example.com/doctor10" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 14 years</p>
-      <p>Location: San Jose</p>
-      <p>Contact: doctor10@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 11" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 11</h3>
-      <p>Specialty: Rheumatology</p>
-      <a href="https://example.com/doctor11" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 5 years</p>
-      <p>Location: Austin</p>
-      <p>Contact: doctor11@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 12" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 12</h3>
-      <p>Specialty: Urology</p>
-      <a href="https://example.com/doctor12" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 10 years</p>
-      <p>Location: Jacksonville</p>
-      <p>Contact: doctor12@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 13" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 13</h3>
-      <p>Specialty: Ophthalmology</p>
-      <a href="https://example.com/doctor13" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 8 years</p>
-      <p>Location: Fort Worth</p>
-      <p>Contact: doctor13@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 14" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 14</h3>
-      <p>Specialty: Otolaryngology</p>
-      <a href="https://example.com/doctor14" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 12 years</p>
-      <p>Location: Columbus</p>
-      <p>Contact: doctor14@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 15" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 15</h3>
-      <p>Specialty: Pulmonology</p>
-      <a href="https://example.com/doctor15" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 9 years</p>
-      <p>Location: Charlotte</p>
-      <p>Contact: doctor15@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 16" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 16</h3>
-      <p>Specialty: Hematology</p>
-      <a href="https://example.com/doctor16" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 11 years</p>
-      <p>Location: San Francisco</p>
-      <p>Contact: doctor16@example.com</p>
-    </div>
-  </div>
-  <div class="doctor-card">
-    <img src="https://via.placeholder.com/300x400" alt="Doctor 17" class="doctor-image" width="300" height="400">
-    <div class="doctor-info">
-      <h3>Doctor 17</h3>
-      <p>Specialty: Immunology</p>
-      <a href="https://example.com/doctor17" class="view-more-button">View More</a>
-    </div>
-    <div class="doctor-extra-info">
-      <p>Experience: 13 years</p>
-      <p>Location: Indianapolis</p>
-      <p>Contact: doctor17@example.com</p>
-    </div>
-  </div>
   <!-- Continue with other doctor cards with similar detailed information -->
+   </div>
+   </div>
+   
+   <div class="doctor-card">
+    <img src="../scraped-images/SamirWalavalkar.jpeg" alt="SamirWalavalkar" class="doctor-image" width="300" height="400">
+    <div class="doctor-info">
+      <h3>Samir Walavalkar</h3>
+      <p>Psychologist</p>
+      <a href="#" class="view-more-button">View More</a>
+    </div>
+    <div class="doctor-extra-info">
+      <h4>Session Fees</h4>
+      <p>Individual: Rs 2000 per session (50 mins)</p>
+      <p>Couples: Rs 2500 per session (1 hour 15 mins)</p>
+      <p>Group: Rs 800 - 1000 (1 hour 30 mins)</p>
+      
+      <h4>Assessments</h4>
+      <p>IQ Assessment: Rs 5000</p>
+      <p>Learning Disability Assessment: Rs 4500 - Rs 7500</p>
+      <p>Autism Assessment: Rs 4500</p>
+      <p>ADHD Assessment: Rs 4000</p>
+    </div>
+  </div>
+    <div class="doctor-card">
+      <img src="../scraped-images/KalpaGoverkar.jpeg" alt="KalpaGovekar" class="doctor-image" width="300" height="400">
+      <div class="doctor-info">
+        <h3>Kalpa Govekar</h3>
+        <p>Psychologist</p>
+        <a href="#" class="view-more-button">View More</a>
+      </div>
+      <div class="doctor-extra-info">
+        <h4>Session Fees</h4>
+        <p>Individual: Rs 2000 per session (50 mins)</p>
+        <p>Couples: Rs 2500 per session (1 hour 15 mins)</p>
+        <p>Group: Rs 800 - 1000 (1 hour 30 mins)</p>
+        
+        <h4>Assessments</h4>
+        <p>IQ Assessment: Rs 5000</p>
+        <p>Learning Disability Assessment: Rs 4500 - Rs 7500</p>
+        <p>Autism Assessment: Rs 4500</p>
+        <p>ADHD Assessment: Rs 4000</p>
+      </div>
+    </div>
+    
+    <div class="doctor-card">
+      <img src="../scraped-images/Preetha Mathew.jpeg" alt="Preetha Mathew" class="doctor-image" width="300" height="400">
+      <div class="doctor-info">
+        <h3>Preetha Mathew</h3>
+        <p>Psychologist</p>
+        <a href="#" class="view-more-button">View More</a>
+      </div>
+      <div class="doctor-extra-info">
+        <h4>Session Fees</h4>
+        <p>Individual: Rs 2000 per session (50 mins)</p>
+        <p>Couples: Rs 2500 per session (1 hour 15 mins)</p>
+        <p>Group: Rs 800 - 1000 (1 hour 30 mins)</p>
+        
+        <h4>Assessments</h4>
+        <p>IQ Assessment: Rs 5000</p>
+        <p>Learning Disability Assessment: Rs 4500 - Rs 7500</p>
+        <p>Autism Assessment: Rs 4500</p>
+        <p>ADHD Assessment: Rs 4000</p>
+      </div>
+    </div>
+
+    <div class="doctor-card">
+      <img src="../scraped-images/RichelleCarvalho.jpg" alt="Richelle Carvalho" class="doctor-image" width="300" height="400">
+      <div class="doctor-info">
+        <h3>Richelle Carvalho</h3>
+        <p>Psychologist</p>
+        <a href="#" class="view-more-button">View More</a>
+      </div>
+      <div class="doctor-extra-info">
+        <h4>Session Fees</h4>
+        <p>Individual: Rs 2000 per session (50 mins)</p>
+        <p>Couples: Rs 2500 per session (1 hour 15 mins)</p>
+        <p>Group: Rs 800 - 1000 (1 hour 30 mins)</p>
+        
+        <h4>Assessments</h4>
+        <p>IQ Assessment: Rs 5000</p>
+        <p>Learning Disability Assessment: Rs 4500 - Rs 7500</p>
+        <p>Autism Assessment: Rs 4500</p>
+        <p>ADHD Assessment: Rs 4000</p>
+      </div>
+    </div>
+
+    <div class="doctor-card">
+      <img src="../scraped-images/ElsaCosta.png" alt="Elsa Costa" class="doctor-image" width="300" height="400">
+      <div class="doctor-info">
+        <h3>Elsa Costa</h3>
+        <p>Psychologist</p>
+        <a href="#" class="view-more-button">View More</a>
+      </div>
+      <div class="doctor-extra-info">
+        <h4>Session Fees</h4>
+        <p>Individual: Rs 2000 per session (50 mins)</p>
+        <p>Couples: Rs 2500 per session (1 hour 15 mins)</p>
+        <p>Group: Rs 800 - 1000 (1 hour 30 mins)</p>
+        
+        <h4>Assessments</h4>
+        <p>IQ Assessment: Rs 5000</p>
+        <p>Learning Disability Assessment: Rs 4500 - Rs 7500</p>
+        <p>Autism Assessment: Rs 4500</p>
+        <p>ADHD Assessment: Rs 4000</p>
+      </div>
+    </div>
+
+    <div class="doctor-card">
+      <img src="../scraped-images/MeenaMujumdar.jpg" alt="Meena Mujumdar" class="doctor-image" width="300" height="400">
+      <div class="doctor-info">
+        <h3>Dr. Meena Mujumdar</h3>
+        <p>Psychologist</p>
+        <a href="#" class="view-more-button">View More</a>
+      </div>
+      <div class="doctor-extra-info">
+        <h4>Session Fees</h4>
+        <p>Individual: Rs 2000 per session (50 mins)</p>
+        <p>Couples: Rs 2500 per session (1 hour 15 mins)</p>
+        <p>Group: Rs 800 - 1000 (1 hour 30 mins)</p>
+        
+        <h4>Assessments</h4>
+        <p>IQ Assessment: Rs 5000</p>
+        <p>Learning Disability Assessment: Rs 4500 - Rs 7500</p>
+        <p>Autism Assessment: Rs 4500</p>
+        <p>ADHD Assessment: Rs 4000</p>
+      </div>
+    </div>
+
+    <div class="doctor-card">
+      <img src="../scraped-images/NishaCarvalhoCosta.jpg" alt="Nisha Costa Carvalho" class="doctor-image" width="300" height="400">
+      <div class="doctor-info">
+        <h3>Nisha Carvalho Costa</h3>
+        <p>Psychologist</p>
+        <a href="#" class="view-more-button">View More</a>
+      </div>
+      <div class="doctor-extra-info">
+        <h4>Session Fees</h4>
+        <p>Individual: Rs 2000 per session (50 mins)</p>
+        <p>Couples: Rs 2500 per session (1 hour 15 mins)</p>
+        <p>Group: Rs 800 - 1000 (1 hour 30 mins)</p>
+        
+        <h4>Assessments</h4>
+        <p>IQ Assessment: Rs 5000</p>
+        <p>Learning Disability Assessment: Rs 4500 - Rs 7500</p>
+        <p>Autism Assessment: Rs 4500</p>
+        <p>ADHD Assessment: Rs 4000</p>
+      </div>
+    </div>
+    <div class="doctor-card">
+      <img src="../scraped-images/ShamaKeny.jpeg" alt="Shama Keny" class="doctor-image" width="300" height="400">
+      <div class="doctor-info">
+        <h3>Shama Keny</h3>
+        <p>Psychologist</p>
+        <a href="#" class="view-more-button">View More</a>
+      </div>
+      <div class="doctor-extra-info">
+        <h4>Session Fees</h4>
+        <p>Individual: Rs 2000 per session (50 mins)</p>
+        <p>Couples: Rs 2500 per session (1 hour 15 mins)</p>
+        <p>Group: Rs 800 - 1000 (1 hour 30 mins)</p>
+        
+        <h4>Assessments</h4>
+        <p>IQ Assessment: Rs 5000</p>
+        <p>Learning Disability Assessment: Rs 4500 - Rs 7500</p>
+        <p>Autism Assessment: Rs 4500</p>
+        <p>ADHD Assessment: Rs 4000</p>
+      </div>
+    </div>
+
+    <div class="doctor-card">
+      <img src="../scraped-images/NehaKhaunte.png" alt="Neha Khaunte" class="doctor-image" width="300" height="400">
+      <div class="doctor-info">
+        <h3>Neha Khaunte</h3>
+        <p>Psychologist</p>
+        <a href="#" class="view-more-button">View More</a>
+      </div>
+      <div class="doctor-extra-info">
+        <h4>Session Fees</h4>
+        <p>Individual: Rs 2000 per session (50 mins)</p>
+        <p>Couples: Rs 2500 per session (1 hour 15 mins)</p>
+        <p>Group: Rs 800 - 1000 (1 hour 30 mins)</p>
+        
+        <h4>Assessments</h4>
+        <p>IQ Assessment: Rs 5000</p>
+        <p>Learning Disability Assessment: Rs 4500 - Rs 7500</p>
+        <p>Autism Assessment: Rs 4500</p>
+        <p>ADHD Assessment: Rs 4000</p>
+      </div>
+    </div>
 </div>
