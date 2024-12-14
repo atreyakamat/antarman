@@ -11,15 +11,15 @@
       <div class="aspect-[16/12]">
         <iframe 
           class="w-full h-full"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          src="https://www.youtube.com/embed/3CMd9z_f-yw"
           title="Introduction to Mental Health"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
       </div>
       <div class="p-6">
-        <h3 class="text-2xl font-bold text-white mb-3">Understanding Mental Health</h3>
-        <p class="text-gray-200 text-lg">A comprehensive guide to mental health awareness and its importance in our daily lives.</p>
+        <h3 class="text-2xl font-bold text-white mb-3">6 Tips To Handle After Exam Related Stress</h3>
+        <p class="text-gray-200 text-lg"> Samir Walavalkar, Psychologist</p>
       </div>
     </div>
 
@@ -28,15 +28,15 @@
       <div class="aspect-video">
         <iframe 
           class="w-full h-full"
-          src="https://www.youtube.com/embed/xvFZjo5PgG0"
+          src="https://www.youtube.com/embed/sWGg_-NmSQM"
           title="Meditation Basics"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
       </div>
       <div class="p-4">
-        <h3 class="text-lg font-bold text-white mb-1">Meditation Basics</h3>
-        <p class="text-sm text-gray-200">Learn simple meditation techniques for beginners.</p>
+        <h3 class="text-lg font-bold text-white mb-1">Depression - Signs And Symptoms</h3>
+        <p class="text-sm text-gray-200">By Samir Walavalkar, Psychologist</p>
       </div>
     </div>
 
@@ -45,15 +45,15 @@
       <div class="aspect-[16/10]">
         <iframe 
           class="w-full h-full"
-          src="https://www.youtube.com/embed/xvFZjo5PgG0"
+          src="https://www.youtube.com/embed/cDyvnBDlCzM"
           title="Stress Management"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
       </div>
       <div class="p-5">
-        <h3 class="text-xl font-bold text-white mb-2">Stress Management</h3>
-        <p class="text-gray-200">Effective strategies to cope with daily stress.</p>
+        <h3 class="text-xl font-bold text-white mb-2">What Is Depression</h3>
+        <p class="text-gray-200">By Samir Walavalkar, Psychologist</p>
       </div>
     </div>
 
@@ -62,15 +62,17 @@
       <div class="aspect-video">
         <iframe 
           class="w-full h-full"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+          src="https://www.youtube.com/embed/xQuQq8WV6Wk"
           title="Anxiety Relief Techniques"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
       </div>
       <div class="p-4">
-        <h3 class="text-lg font-bold text-white mb-1">Anxiety Relief Techniques</h3>
-        <p class="text-sm text-gray-200">Discover practical methods to manage anxiety.</p>
+        <h3 class="text-lg font-bold text-white mb-1">Depression and suicide</h3>
+        <p class="text-sm text-gray-200">A video depicting the struggle of a young person with Depression.</p>
+        <p class="text-sm text-gray-200">This video has been acted in and created by interns of psychology.</p>
+         
       </div>
     </div>
 
@@ -79,51 +81,93 @@
       <div class="aspect-[16/12]">
         <iframe 
           class="w-full h-full"
-          src="https://www.youtube.com/embed/xvFZjo5PgG0"
+          src="https://www.youtube.com/embed/HsGNZIxWa0Y"
           title="Sleep Hygiene Tips"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
       </div>
       <div class="p-6">
-        <h3 class="text-2xl font-bold text-white mb-3">Sleep Hygiene Tips</h3>
-        <p class="text-gray-200 text-lg">Improve your sleep quality with these essential tips.</p>
+        <h3 class="text-2xl font-bold text-white mb-3">Stress Management During Covid19 Pandemic</h3>
+        <p class="text-gray-200 text-lg">Dr Ravindra Agrawal at Doordarshan. Interview with Anita Kavlekar on the mental health impact of COVID 19 Pandemic.</p>
       </div>
     </div>
 
-    <!-- Video 6 - Medium -->
+    <!-- Video Switcher -->
     <div class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid">
       <div class="aspect-[16/10]">
         <iframe 
+          id="videoPlayer"
           class="w-full h-full"
           src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-          title="Mindfulness Practice"
+          title="Mental Health Videos"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
         </iframe>
       </div>
       <div class="p-5">
-        <h3 class="text-xl font-bold text-white mb-2">Mindfulness Practice</h3>
-        <p class="text-gray-200">Learn how to stay present and mindful in your daily activities.</p>
+        <h3 id="videoTitle" class="text-xl font-bold text-white mb-2">Introduction to REBT </h3>
+        <p id="videoDescription" class="text-gray-200">5 part video series by Sofia Dhamani, an intern at Antarman</p>
+        
+        <div class="flex flex-wrap gap-2 mt-4">
+          <button onclick="window.changeVideo(0)" class="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg active:bg-purple-800 transition-colors">
+            Part 1
+          </button>
+          <button onclick="window.changeVideo(1)" class="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg active:bg-purple-800 transition-colors">
+            Part 2
+          </button>
+          <button onclick="window.changeVideo(2)" class="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg active:bg-purple-800 transition-colors">
+           Part 3
+          </button>
+          <button onclick="window.changeVideo(3)" class="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg active:bg-purple-800 transition-colors">
+            Part 4
+          </button>
+          <button onclick="window.changeVideo(4)" class="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg active:bg-purple-800 transition-colors">
+            Part 5
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Video 7 - Small -->
-    <div class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid">
-      <div class="aspect-video">
-        <iframe 
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/xvFZjo5PgG0"
-          title="Self-Care Routines"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="p-4">
-        <h3 class="text-lg font-bold text-white mb-1">Self-Care Routines</h3>
-        <p class="text-sm text-gray-200">Essential self-care practices for mental wellness.</p>
-      </div>
-    </div>
+    <script is:inline>
+      const videos = [
+        {
+          url: "https://www.youtube.com/embed/u1zav0-g0_g",
+          title: "REBT Part 1",
+          description: "5 part video series by Sofia Dhamani, an intern at Antarman"
+        },
+        {
+          url: "https://www.youtube.com/embed/Wd9jIih5bSA",
+          title: "REBT Part 2",
+          description: "5 part video series by Sofia Dhamani, an intern at Antarman"
+        },
+        {
+          url: "https://www.youtube.com/embed/73hrqSqND-A",
+          title: "REBT Part 3", 
+          description: "5 part video series by Sofia Dhamani, an intern at Antarman"
+        },
+        {
+          url: "https://www.youtube.com/embed/LeuD5cj4a_4",
+          title: "REBT Part 4",
+          description: "5 part video series by Sofia Dhamani, an intern at Antarman"
+        },
+        {
+          url: "https://www.youtube.com/embed/FtOX5AKj0OE",
+          title: "REBT Part 5", 
+          description: "5 part video series by Sofia Dhamani, an intern at Antarman"
+        }
+      ];
+
+      window.changeVideo = function(index) {
+        const video = videos[index];
+        document.getElementById('videoPlayer').src = video.url;
+        document.getElementById('videoTitle').textContent = video.title;
+        document.getElementById('videoDescription').textContent = video.description;
+      }
+
+      // Set initial video
+      window.changeVideo(0);
+    </script>
 
   </div>
 </section>

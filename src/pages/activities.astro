@@ -45,7 +45,13 @@ import ShimmerButton from "../components/ui/shimmer-button";
             <p class="text-gray-300 mb-4">An introductory workshop by Prof. Ruth Baer 2nd Nov 2019.  
               Organised in association with Sangath.</p>
             <div class="w-full">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Resources</ShimmerButton>
+              <ShimmerButton   client:load 
+              shimmerColor="#F5EDF0" 
+              background="#7E01B3" 
+              shimmerDuration="2.5s" 
+              shimmerSize="2.5px" 
+              onClick={() => window.open('./PDFs/goa_mbct_workshop_2019.pdf', '_blank')}
+              >Download Resources</ShimmerButton>
             </div>
           </div>
         </div>
