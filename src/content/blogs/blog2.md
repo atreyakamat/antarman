@@ -3,7 +3,7 @@ title: "Understanding Depression and Coping Strategies"
 date: "2023-07-20"
 image: "/images/depression-coping.jpg"
 excerpt: "Learn about depression, its triggers, and effective coping strategies. This comprehensive guide provides practical steps for managing depression and seeking help."
-order: 2
+author: "Saumitra Nemlekar"
 ---
 
 <div class="text-white text-2xl">

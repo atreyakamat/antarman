@@ -8,6 +8,7 @@ const blogsCollection = defineCollection({
     image: z.string(),
     excerpt: z.string(),
     order: z.number().optional(),
+    author: z.string()
   }),
 });
 

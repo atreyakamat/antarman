@@ -3,25 +3,34 @@ import { getCollection } from 'astro:content';
 import BlogCard from './BlogCard.astro';
 import type { CollectionEntry } from 'astro:content';
 
+interface Props {
+  selectedPsychologist: string | null;
+}
+
+const { selectedPsychologist } = Astro.props;
+
 const blogPosts = await getCollection('blogs');
-const sortedPosts = blogPosts.sort((a: CollectionEntry<'blogs'>, b: CollectionEntry<'blogs'>) => {
-  // First try to sort by order if it exists
-  if (a.data.order && b.data.order) {
-    return a.data.order - b.data.order;
-  }
-  // Fall back to date sorting
-  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
-});
+
+// Filter posts based on selected psychologist
+const filteredPosts = !selectedPsychologist 
+  ? blogPosts 
+  : blogPosts.filter(post => post.data.author === selectedPsychologist);
+
+// Sort by date
+const sortedPosts = filteredPosts.sort((a, b) => 
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
 ---
 
 <div class="grid gap-8 max-w-6xl mx-auto mb-32">
-  {sortedPosts.map((post: CollectionEntry<'blogs'>) => (
+  {sortedPosts.map((post) => (
     <BlogCard 
       title={post.data.title}
       date={post.data.date}
       image={post.data.image}
       excerpt={post.data.excerpt}
       slug={post.slug}
+      author={post.data.author}
     />
   ))}
 </div>

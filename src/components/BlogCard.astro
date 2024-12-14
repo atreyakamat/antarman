@@ -5,9 +5,10 @@ interface Props {
   image: string;
   excerpt: string;
   slug: string;
+  author: string;
 }
 
-const { title, date, image, excerpt, slug } = Astro.props;
+const { title, date, image, excerpt, slug, author } = Astro.props;
 ---
 
 <a href={`/blogs/${slug}`} class="block">
@@ -20,7 +21,8 @@ const { title, date, image, excerpt, slug } = Astro.props;
     <h2 class="text-3xl font-bold text-white mb-4 hover:text-purple-400 transition-colors">
       {title}
     </h2>
-    <p class="text-purple-300 mb-4">{date}</p>
+    <p class="text-purple-300 mb-2">{date}</p>
+    <p class="text-purple-400 mb-4">By {author}</p>
     <p class="text-gray-200 leading-relaxed">{excerpt}</p>
   </article>
-</a> 
+</a>

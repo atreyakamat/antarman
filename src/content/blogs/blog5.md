@@ -3,7 +3,7 @@ title: "Headaches and Migraines"
 date: "2023-07-15"
 image: "/images/mental-wellness.jpg"
 excerpt: "Explore the holistic journey of mental wellness, from emotional balance to mindfulness practices, and discover how to cultivate lasting inner harmony."
-order: 5
+author: "Interns 2019"
 ---
 ### **Mental Wellness: A Path to Inner Harmony**
 

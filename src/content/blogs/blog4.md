@@ -3,7 +3,7 @@ title: "Headaches and Migraines"
 date: "2023-07-15"
 image: "/images/headaches-and-migraines.jpg"
 excerpt: "Explore the holistic journey of mental wellness, from emotional balance to mindfulness practices, and discover how to cultivate lasting inner harmony."
-order: 4
+author: "Ravindra Agarwal"
 ---
 # Understanding Headaches and Migraines: More Than Just Pain
 
