@@ -45,13 +45,12 @@ import ShimmerButton from "../components/ui/shimmer-button";
             <p class="text-gray-300 mb-4">An introductory workshop by Prof. Ruth Baer 2nd Nov 2019.  
               Organised in association with Sangath.</p>
             <div class="w-full">
-              <ShimmerButton   client:load 
-              shimmerColor="#F5EDF0" 
-              background="#7E01B3" 
-              shimmerDuration="2.5s" 
-              shimmerSize="2.5px" 
-              onClick={() => window.open('./PDFs/goa_mbct_workshop_2019.pdf', '_blank')}
-              >Download Resources</ShimmerButton>
+              <button 
+              onclick="handlePDFClick('/PDFs/goa_mbct_workshop_2019.pdf')"
+              class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700"
+              >
+              Download Resources
+              </button>
             </div>
           </div>
         </div>
@@ -68,7 +67,12 @@ import ShimmerButton from "../components/ui/shimmer-button";
             <h3 class="text-xl font-semibold text-white mb-2">Distress to..de-stress</h3>
             <p class="text-gray-300 mb-4">Talk at Dental College 1st Oct 2019.</p>
             <div class="w-full">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Resources</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('/PDFs/distress_to_de-stress.pdf')"
+              >
+                Download Resources
+              </button>
             </div>
           </div>
         </div>
@@ -194,41 +198,96 @@ import ShimmerButton from "../components/ui/shimmer-button";
           <!-- Left Column -->
           <div class="space-y-4">
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 1: Mindfulness & Mental Health</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('/PDFs/workshop-1.pdf')"
+              >
+                Part 1/5 - Visual Processing
+              </button>
             </div>
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 2: Stress Management Techniques</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('/PDFs/understanding_ld_-_part_2-_difficulty_in_reading.pdf')"
+              >
+                Part 2/5 - Difficulty in Reading
+              </button>
             </div>
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 3: Emotional Intelligence</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('/PDFs/understanding_ld_-_part_3_-_difficulties_with_oral_language.pdf')"
+              >
+                Part 3/5 - Difficulties with Oral Language
+              </button>
             </div>
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 4: Mental Health First Aid</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('PDFs/understanding_ld_-_part_4-_mathematics.pdf')"
+              >
+                Part 4/5 - Mathematics
+              </button>
             </div>
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 5: Anxiety Management</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('PDFs/understanding_ld_-_part_5_-_slow_learners.pdf')"
+              >
+                Part 5/5 - Slow Learners
+              </button>
             </div>
           </div>
 
           <!-- Right Column -->
           <div class="space-y-4">
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 6: Depression Awareness</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('PDFs/adhd_in_the_community.pdf')"
+              >
+                Management of ADHD in The Community
+              </button>
             </div>
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 7: Work-Life Balance</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('PDFs/medical_management_of_adhd.pdf')"
+              >
+                Medical Management of ADHD
+              </button>
             </div>
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 8: Self-Care Practices</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('PDFs/indicators_for_specific_learning_disability.pdf')"
+              >
+                Indicators for Specific Learning Disabilities
+              </button>
             </div>
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 9: Relationship Building</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('PDFs/indicators_for_concessions_recommendations.pdf')"
+              >
+              Indicators for Concessions/ Recommendations
+              </button>
             </div>
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 10: Stress Relief Techniques</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('PDFs/table_of_concessions.pdf')"
+              >
+              Table of Concessions
+              </button>
             </div>
             <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-              <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px" className="w-full">Workshop 11: Mental Wellness Guide</ShimmerButton>
+              <button 
+                class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                onclick="handlePDFClick('PDFs/checklist_for_math.pdf')"
+              >
+              Checklist for Math
+              </button>
             </div>
           </div>
         </div>
@@ -242,38 +301,105 @@ import ShimmerButton from "../components/ui/shimmer-button";
           </div>
           <div class="p-6">
             <h3 class="text-2xl font-semibold text-white mb-4">Counselling in Clinical Practice (CICP)</h3>
-            <p class="text-gray-300 mb-6">A comprehensive workshop series focusing on practical counselling techniques and their application in clinical settings.</p>
+            <p class="text-gray-300 mb-6">This 5 day workshop was conducted by the Antarman team from 30th May to 4th June 2016.</p>
+            <p class="text-gray-300 mb-6">This workshop received enthusiastic participation from the students of Masters of Psychology.</p>
             <!-- Speaker 1 -->
             <div class="mb-6">
-              <h4 class="text-xl text-white mb-3">Dr. Sarah Johnson</h4>
+              <h4 class="text-xl text-white mb-3">Meischa Cholera</h4>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Lecture 1: Introduction</ShimmerButton>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Lecture 2: Methods</ShimmerButton>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Lecture 3: Case Studies</ShimmerButton>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/counselling_process.pdf')"
+                >
+                  The Counselling Process
+                </button>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/cbt_and_depression.pdf')"
+                >
+                  CBT for Depression
+                </button>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/motivational_enhancement_therapy.pdf')"
+                >
+                  Motivational Enhancement Therapy
+                </button>
               </div>
             </div>
 
             <!-- Speaker 2 -->
             <div class="mb-6">
-              <h4 class="text-xl text-white mb-3">Prof. Michael Chen</h4>
+              <h4 class="text-xl text-white mb-3">Aresh Naik
+              </h4>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Session 1: Techniques</ShimmerButton>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Session 2: Practice</ShimmerButton>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Session 3: Applications</ShimmerButton>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Session 4: Advanced Topics</ShimmerButton>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/suicide_prevention_aresh__1_.pdf')"
+                >
+                  Suicide Prevention
+                </button>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/cbt_for_anxiety_aresh.pdf')"
+                >
+                  CBT for Anxiety
+                </button>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('antarman\public\PDFs\mindfulness_aresh.pdf')"
+                >
+                  Mindfulness
+                </button>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/rebt_aresh.pdf')"
+                >
+                  REBT
+                </button>
               </div>
             </div>
 
             <!-- Speaker 3 -->
             <div class="mb-6">
-              <h4 class="text-xl text-white mb-3">Dr. Emily Roberts</h4>
+              <h4 class="text-xl text-white mb-3">Dr. Ravindra Agrawal</h4>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Module 1: Foundations</ShimmerButton>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Module 2: Assessment</ShimmerButton>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Module 3: Intervention</ShimmerButton>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Module 4: Ethics</ShimmerButton>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Module 5: Research</ShimmerButton>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Module 6: Integration</ShimmerButton>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/how_therapy_works_ra.pdf')"
+                >
+                  How Therapy Works
+                </button>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/ipt.pdf')"
+                >
+                  Interpersonal Therapy
+                </button>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/panic_ra.pdf')"
+                >
+                  CBT for Panic
+                </button>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('antarman\public\PDFs\ocd_ra.pdf')"
+                >
+                  CBT for OCD
+                </button>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/dbt_ra.pdf')"
+                >
+                  Dialectical Behaviour Therapy
+                </button>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/psychodrama_ra.pdf')"
+                >
+                  Psychodrama
+                </button>
               </div>
             </div>
           </div>
@@ -287,27 +413,47 @@ import ShimmerButton from "../components/ui/shimmer-button";
             
             <div class="space-y-4">
               <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-                <h4 class="text-white mb-2">Understanding Anxiety in Modern Times</h4>
-                <p class="text-gray-300 mb-3">By Dr. Rachel Thompson</p>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Lecture</ShimmerButton>
+                <h4 class="text-white mb-2">LECTURE ON MARITAL HARMONY </h4>
+                <p class="text-gray-300 mb-3">By Dr Ravindra Agrawal</p>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/marital_harmony_dr_agrawal.pdf')"
+                >
+                  Download Lecture
+                </button>
               </div>
 
               <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-                <h4 class="text-white mb-2">Mental Health in the Workplace</h4>
-                <p class="text-gray-300 mb-3">By Prof. David Anderson</p>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Lecture</ShimmerButton>
+                <h4 class="text-white mb-2">LECTURE ON AUTISM AWARENESS</h4>
+                <p class="text-gray-300 mb-3">By Dr Ravindra Agrawal</p>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/autism_awareness_dr_agrawal.pdf')"
+                >
+                  Download Lecture
+                </button>
               </div>
 
               <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-                <h4 class="text-white mb-2">Building Resilience in Children</h4>
-                <p class="text-gray-300 mb-3">By Dr. Maria Garcia</p>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Lecture</ShimmerButton>
+                <h4 class="text-white mb-2">LECTURE ON CHILD SEXUAL ABUSE</h4>
+                <p class="text-gray-300 mb-3">By Neha Khaunte,​Meischa Cholera</p>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/neha_and_meisha_-_child_sexual_abuse.pdf')"
+                >
+                  Download Lecture
+                </button>
               </div>
 
               <div class="bg-purple-900/30 p-4 rounded-lg backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all">
-                <h4 class="text-white mb-2">Digital Age and Mental Health</h4>
-                <p class="text-gray-300 mb-3">By Dr. James Wilson</p>
-                <ShimmerButton client:load shimmerColor="#F5EDF0" background="#7E01B3" shimmerDuration="2.5s" shimmerSize="2.5px">Download Lecture</ShimmerButton>
+                <h4 class="text-white mb-2">LECTURE ON CHILD SEXUAL ABUSE AWARENESS</h4>
+                <p class="text-gray-300 mb-3">By Dr Ravindra Agrawal</p>
+                <button 
+                  class="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors duration-200 ease-in-out"
+                  onclick="handlePDFClick('PDFs/csa_talk_dr_agrawal.pdf')"
+                >
+                  Download Resources
+                </button>
               </div>
             </div>
           </div>
@@ -341,5 +487,25 @@ import ShimmerButton from "../components/ui/shimmer-button";
     </style>
   </div>
 
+ 
   <Footer />
 </Layout>
+
+<script>
+  declare global {
+    interface Window {
+      handlePDFClick: (pdfPath: string) => void;
+    }
+  }
+
+  window.handlePDFClick = function(pdfPath) {
+    try {
+      const newWindow = window.open(pdfPath, '_blank');
+      if (!newWindow) {
+        console.log('Popup was blocked');
+      }
+    } catch (error) {
+      console.error('Error opening PDF:', error);
+    }
+  }
+</script>

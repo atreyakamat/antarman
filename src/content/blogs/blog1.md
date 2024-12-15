@@ -2,8 +2,8 @@
 title: "Mental Wellness: A Path to Inner Harmony"
 date: "2023-07-15"
 image: "/images/mental-wellness.jpg"
-excerpt: "Explore the holistic journey of mental wellness, from emotional balance to mindfulness practices, and discover how to cultivate lasting inner harmony."
 author: "Interns 2019"
+excerpt: "Explore the holistic journey of mental wellness, from emotional balance to mindfulness practices, and discover how to cultivate lasting inner harmony."
 ---
 
 <div class="text-white text-2xl">

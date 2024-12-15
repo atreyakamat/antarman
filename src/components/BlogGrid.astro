@@ -1,36 +1,27 @@
 ---
 import { getCollection } from 'astro:content';
 import BlogCard from './BlogCard.astro';
-import type { CollectionEntry } from 'astro:content';
 
-interface Props {
-  selectedPsychologist: string | null;
-}
+// Get all blog posts
+const allPosts = await getCollection('blogs');
 
-const { selectedPsychologist } = Astro.props;
-
-const blogPosts = await getCollection('blogs');
-
-// Filter posts based on selected psychologist
-const filteredPosts = !selectedPsychologist 
-  ? blogPosts 
-  : blogPosts.filter(post => post.data.author === selectedPsychologist);
-
-// Sort by date
-const sortedPosts = filteredPosts.sort((a, b) => 
+// Sort posts by date (most recent first)
+const sortedPosts = allPosts.sort((a, b) => 
   new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
 );
 ---
 
 <div class="grid gap-8 max-w-6xl mx-auto mb-32">
-  {sortedPosts.map((post) => (
-    <BlogCard 
-      title={post.data.title}
-      date={post.data.date}
-      image={post.data.image}
-      excerpt={post.data.excerpt}
-      slug={post.slug}
-      author={post.data.author}
-    />
-  ))}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    {sortedPosts.map((post) => (
+      <BlogCard 
+        title={post.data.title}
+        date={post.data.date}
+        image={post.data.image}
+        excerpt={post.data.excerpt}
+        slug={post.slug}
+        author={post.data.author}
+      />
+    ))}
+  </div>
 </div>

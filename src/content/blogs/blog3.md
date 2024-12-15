@@ -2,8 +2,8 @@
 title: "Therapies for Depression"
 date: "2023-07-15"
 image: "/images/therapies-for-depression.jpg"
-excerpt: "Explore the holistic journey of mental wellness, from emotional balance to mindfulness practices, and discover how to cultivate lasting inner harmony."
 author: "Meischa Cholera"
+excerpt: "Explore the holistic journey of mental wellness, from emotional balance to mindfulness practices, and discover how to cultivate lasting inner harmony."
 ---
 # Understanding Different Therapies for Depression
 
