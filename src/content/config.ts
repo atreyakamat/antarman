@@ -19,6 +19,11 @@ const clinicsCollection = defineCollection({
       phone: z.string(),
       email: z.string(),
     })),
+    doctors: z.array(z.object({
+      name: z.string(),
+      image: z.string(),
+      fees: z.record(z.string(), z.any())
+    })).optional(),
   }),
 });
 
