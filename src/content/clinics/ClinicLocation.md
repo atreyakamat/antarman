@@ -1,0 +1,20 @@
+---
+title: "Our Clinic Locations"
+locations:
+  - name: "PANAJI"
+    address: "401/B ( 4th floor, B Wing) Sunteck Kanaka Towers Patto Plaza(Opp. Shramshakti Bhavan), Panaji"
+    phone: "7028784807"
+    email: "antarman.goa@gmail.com"
+  - name: "VASCO"
+    address: "C/o Mesquita Hospital Vasco City Centre, Nr. Vasco Railway station (Opposite Saibaba temple) Vasco"
+    phone: "0832-2513696"
+    email: "antarman.goa@gmail.com"
+  - name: "MARGAO"
+    address: "Behind Kiran EnterprisesNext to Lawande Hospital ​Nr. Powerhouse Junction ​Aquem - Margao"
+    phone: "9689283726"
+    email: "antarman.margao@gmail.com"
+  - name: "PONDA"
+    address: "C/O Savaikar Nsg Home Warkhandem Ponda"
+    phone: "0832-2311031"
+    email: "antarman.ponda@gmail.com"
+---

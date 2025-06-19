@@ -10,6 +10,19 @@ const blogsCollection = defineCollection({
   }),
 });
 
+const clinicsCollection = defineCollection({
+  schema: z.object({
+    title: z.string(),
+    locations: z.array(z.object({
+      name: z.string(),
+      address: z.string(),
+      phone: z.string(),
+      email: z.string(),
+    })),
+  }),
+});
+
 export const collections = {
   'blogs': blogsCollection,
-}; 
+  'clinics': clinicsCollection,
+};
