@@ -3,7 +3,25 @@ import Layout from '../layouts/HomeLayout.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
-
+import fs from 'fs/promises';
+import path from 'path';
+let doctors = [];
+let title = "Fee Schedule";
+try {
+  const mdFilePath = path.join(process.cwd(), 'src', 'content', 'clinics', 'FeeSchedule.md');
+  const fileContent = await fs.readFile(mdFilePath, 'utf8');
+  const frontmatterMatch = fileContent.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (frontmatterMatch && frontmatterMatch[1]) {
+    const yaml = await import('js-yaml');
+    const parsed = yaml.load(frontmatterMatch[1]);
+    if (parsed) {
+      title = parsed.title || title;
+      doctors = parsed.doctors || [];
+    }
+  }
+} catch (err) {
+  console.error('Error reading FeeSchedule.md:', err);
+}
 ---
 <Layout title="Fee Schedule | Antarman">
     <Header />
@@ -22,197 +40,60 @@ import ParticleBG from "../components/ParticleBG.astro";
         </div>
     </main>
 
-    
     <main class="container mx-auto p-4" id="main-content">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {[...Array(11)].map((_, index) => {
-                const doctors = [
-                    {name: "Dr Ravindra Agrawal", image: "../scraped-images/DrRavindraAgrawal.jpg", fees: {
-                        "Consultation": {
-                            "Standard": "Rs 1500",
-                            "Extended": "Rs 3000",
-                            "Hourly": "Rs 4500",
-                            "Notes": "Standard consultation is 20 mins, Extended is 40 mins. The session cost remains same irrespective of in-person or online session"
-                        },
-                        "Therapy": {
-                            "Standard": "Rs 2000",
-                            "Notes": "A typical psychotherapy session lasts about 40 mins + 10 mins for making notes"
-                        },
-                        "Marriage Counselling Sessions": {
-                            "Standard": "Rs 2000",
-                            "Notes": "This includes a detailed psychiatric assessment, diagnosis, opinion BUT does not include the cost of any psychological assessment such as Rorsach, MMPI, 16PF etc which may be needed in order to arrive at a diagnosis. Referral to a psychologist for psychological assessment will be at the discretion of the psychiatrist"
-                        },
-                        "Medico Legal Report": {
-                            "Notes": "To be communicated after obtaining details of the case. This includes a report to be provided to the court/ lawyer for the purpose of providing an expert opinion. The costing for the above report will depend on the work needed to be done in preparing the report"
-                        },
-                        "Home Visit": {
-                            "Inside Panjim": "Rs 2500",
-                            "Nearby Panjim City": "Rs 3500", 
-                            "Notes": "Should the home visit be requested at places far-off, the fee needs to be discussed in advance with the visiting psychiatrist"
-                        }
-                    }},
-                    {name: "Nitasha Borah", image: "../scraped-images/Nitasha  Borah.jpg", fees: {
-                        "Consultation/Therapy": {
-                            "Individual": "Rs 2000 per session (50 mins)",
-                            "Couples": "Rs 2500 per session (1 hour 15 mins)",
-                            "Group": "Rs 800 - 1000 (1 hour 30 mins)",
-                            "Notes": "Please check booking, cancellation and rescheduling policy with therapist"
-                        },
-                        "IQ Assessment": {
-                            "Standard": "Rs 5000",
-                            "Notes": "Tests included: MISIC, VSMS"
-                        },
-                        "Learning Disability Assessment": {
-                            "If IQ Test Has Been Done": "Rs 4500",
-                            "Comprehensive SLD Assessment": "Rs 7500",
-                            "Notes": "Tests used: NIMHANS Battery, Bender Gestalt Test, MISIC, NIMHANS SLD Battery"
-                        },
-                        "Assessment For Autism": {
-                            "Standard": "Rs 4500",
-                            "Notes": "Tests: INCLEN Indian Scale for Assessment of Autism"
-                        },
-                        "ADHD Assessment": {
-                            "Standard": "Rs 4000",
-                            "Notes": "1. Bender Gestalt Test 2. SNAP-IV 3. Vanderbilt Assessment Scales/ Conner's Scales"
-                        },
-                        "Assessment Of Emotional & Behavioural Disorders In Children": {
-                            "Standard": "Rs 6000",
-                            "Notes": "1. Bender Gestalt Test 2. Child Behavior Checklist/ Developmental Checklist 3. SNAP-IV 4. Strengths & Difficulties Questionnaire 5. Rorshach/House-Tree-Person/ Children's Apperception Test/ Kinetic Drawing Test"
-                        },
-                        "Diagnostic Profile For Adults": {
-                            "Standard": "Rs 6000",
-                            "Notes": "Bender Gestalt test, Rorsach using Exner compehensive system & MMPI"
-                        },
-                        "Personality Profile For Adults": {
-                            "Standard": "Rs 6000",
-                            "Notes": "16 PF Questionnaire & Rorsach using Exner comprehensive system"
-                        },
-                        "Others": {
-                            "Note 1": "Other assessment tools and customized reports are also available for specific client needs. Please feel free to enquire.",
-                            "Note 2": "The cost of assessment is calculated as cost of tests + session charges for time taken for assessment + interpretation and report writing charges."
-                        }
-                    }},
-                    {name: "Tanushri Sharma", image: "../scraped-images/Tanushri Sharma.jpeg", fees: {
-                        "Consultation/Therapy Session": {
-                            "Standard": "Rs 1200",
-                            "Notes": "A typical counselling/ therapy session lasts about 40 mins (+ 10 mins for writing notes)"
-                        },
-                        "Home/School Visit": {
-                            "Standard": "Rs 2000"
-                        },
-                        "Assessment For Cognitive Impairment": {
-                            "Standard": "Rs 1200"
-                        }
-                    }},
-                    {name: "Dr Samina Khan", image: "../scraped-images/Dr Samina Khan.jpg", fees: {
-                        "Consultation": {
-                            "Standard": "Rs 800",
-                            "Notes": "Typical session duration is 20 min"
-                        }
-                    }},
-                    {name: "Shobhika Jaju", image: "../scraped-images/Shobhika Jaju.png", fees: {
-                        "Consultation/Therapy": {
-                            "Standard": "Rs 1000",
-                            "Notes": "Typical Session duration is 40 mins + 10 mins for notes"
-                        }
-                    }},
-                    {name: "Sharika Fernandes E Pereira", image: "../scraped-images/Sharika Fernandes E Pereira.jpeg", fees: {
-                        "Consultation/Therapy Session": {
-                            "Standard": "Rs 1200",
-                            "Notes": "A typical counselling/ therapy session lasts about 40 mins (+ 10 mins for writing notes)"
-                        }
-                    }},
-                    {name: "Dr Akshada Amonkar", image: "../scraped-images/Dr Akshada Amonkar.jpeg", fees: {
-                        "Consultation": {
-                            "Standard": "Rs 800",
-                            "Notes": "Typical Session duration is 20 mins"
-                        },
-                        "Home Visit": {
-                            "Standard": "Rs 2000",
-                            "Notes": "In Panjim City"
-                        }
-                    }},
-                    {name: "Sifti Bajwa", image: "../scraped-images/Sifti Bajwa.jpeg", fees: {
-                        "Consultation/Therapy Session": {
-                            "Standard": "Rs 1200",
-                            "Notes": "A typical counselling/ therapy session lasts about 40 mins (+ 10 mins for writing notes)"
-                        },
-                        "Home/School Visit": {
-                            "Standard": "Rs 2000"
-                        }
-                    }},
-                    {name: "Preetha Mathew", image: "../scraped-images/Preetha Mathew.jpeg", fees: {
-                        "Consultation/Therapy Session": {
-                            "Standard": "Rs 1200",
-                            "Notes": "A typical counselling/ therapy session lasts about 40 mins (+ 10 mins for writing notes)"
-                        }
-                    }},
-                    {name: "Samir Walavalkar", image: "../scraped-images/SamirWalavalkar.jpeg", fees: {
-                        "Consultation/Therapy Session": {
-                            "Standard": "Rs 1200",
-                            "Notes": "A typical counselling/ therapy session lasts about 40 mins (+ 10 mins for writing notes)"
-                        },
-                        "Home/School Visit": {
-                            "Standard": "Rs 2000"
-                        }
-                    }},
-                    {name: "Meischa Cholera", image: "../scraped-images/MeischaCholera.png", fees: {
-                        "Consultation/Therapy Session": {
-                            "Standard": "Rs 1200",
-                            "Notes": "A typical counselling/ therapy session lasts about 40 mins (+ 10 mins for writing notes) The session cost remains same irrespective of in-person or online session"
-                        },
-                        "Home/School Visit": {
-                            "Standard": "Rs 2000"
-                        }
-                    }}
-                ];
-                const doctor = doctors[index] || doctors[0]; // Fallback to first doctor if index exceeds array
-              
-                return (
-                    <div class="group relative">
-                        <div class="doctor-card bg-purple-900/30 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-500 ease-in-out hover:shadow-lg hover:shadow-purple-500/20">
-                            <button class="close-btn absolute top-2 right-2 bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center transition-all duration-500 ease-in-out z-50 hover:bg-purple-600 transform hover:scale-110 opacity-0">
-                                ✕
-                            </button>
-                            <div class="relative w-full h-64 overflow-hidden">
-                                <img 
-                                    src={doctor.image} 
-                                    alt={doctor.name} 
-                                    class="w-full h-full object-cover object-center transition-transform duration-500 ease-in-out group-hover:scale-105"
-                                    loading="lazy"
-                                >
-                                <div class="absolute inset-0 bg-gradient-to-t from-purple-950/40 to-transparent"></div>
-                            </div>
-                            <div class="p-4">
-                                <h3 class="text-3xl font-bold text-white text-center mb-2 transition-colors duration-300 ease-in-out hover:text-purple-200">{doctor.name}</h3>
-                                
-                                <div class="fee-structure hidden opacity-0 transition-all duration-500 ease-in-out transform translate-y-4">
-                                    <div class="text-gray-300 space-y-2 mt-4">
-                                        {Object.entries(doctor.fees).map(([category, details]) => (
-                                            <div class="fee-category">
-                                                <button class="fee-toggle w-full flex justify-between items-center py-2 px-4 rounded-lg bg-purple-800/50 hover:bg-purple-700/50 transition-colors duration-300">
-                                                    <span class="font-medium text-lg text-white">{category.charAt(0).toUpperCase() + category.slice(1)}</span>
-                                                    <svg class="w-6 h-6 text-white transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                                                    </svg>
-                                                </button>
-                                                <div class="fee-details max-h-0 overflow-hidden transition-all duration-500 ease-in-out mt-2 ml-4 space-y-2">
-                                                    {Object.entries(details).map(([type, value]) => (
-                                                        <div class="flex justify-between items-start text-base">
-                                                            <span class="text-white font-bold text-lg min-w-[100px]">{type.charAt(0).toUpperCase() + type.slice(1)}:</span>
+            {doctors.length > 0 ? doctors.map((doctor, index) => (
+                <div class="group relative" key={doctor.name}>
+                    <div class="doctor-card bg-purple-900/30 rounded-2xl overflow-hidden backdrop-blur-sm transition-all duration-500 ease-in-out hover:shadow-lg hover:shadow-purple-500/20">
+                        <button class="close-btn absolute top-2 right-2 bg-purple-500 text-white rounded-full w-8 h-8 flex items-center justify-center transition-all duration-500 ease-in-out z-50 hover:bg-purple-600 transform hover:scale-110 opacity-0">
+                            ✕
+                        </button>
+                        <div class="relative w-full h-64 overflow-hidden">
+                            <img 
+                                src={doctor.image} 
+                                alt={doctor.name} 
+                                class="w-full h-full object-cover object-center transition-transform duration-500 ease-in-out group-hover:scale-105"
+                                loading="lazy"
+                            />
+                            <div class="absolute inset-0 bg-gradient-to-t from-purple-950/40 to-transparent"></div>
+                        </div>
+                        <div class="p-4">
+                            <h3 class="text-3xl font-bold text-white text-center mb-2 transition-colors duration-300 ease-in-out hover:text-purple-200">{doctor.name}</h3>
+                            <div class="fee-structure hidden opacity-0 transition-all duration-500 ease-in-out transform translate-y-4">
+                                <div class="text-gray-300 space-y-2 mt-4">
+                                    {doctor.fees && Object.entries(doctor.fees).map(([category, details]) => (
+                                        <div class="fee-category" key={category}>
+                                            <button class="fee-toggle w-full flex justify-between items-center py-2 px-4 rounded-lg bg-purple-800/50 hover:bg-purple-700/50 transition-colors duration-300">
+                                                <span class="font-medium text-lg text-white">{category}</span>
+                                                <svg class="w-6 h-6 text-white transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                                                </svg>
+                                            </button>
+                                            <div class="fee-details max-h-0 overflow-hidden transition-all duration-500 ease-in-out mt-2 ml-4 space-y-2">
+                                                {typeof details === 'object' && details !== null ? (
+                                                    Object.entries(details).map(([type, value]) => (
+                                                        <div class="flex justify-between items-start text-base" key={type}>
+                                                            <span class="text-white font-bold text-lg min-w-[100px]">{type}:</span>
                                                             <span class="text-white font-bold text-lg text-right flex-1 ml-4">{value}</span>
                                                         </div>
-                                                    ))}
-                                                </div>
+                                                    ))
+                                                ) : (
+                                                    <div class="flex justify-between items-start text-base">
+                                                        <span class="text-white font-bold text-lg min-w-[100px]">Fee:</span>
+                                                        <span class="text-white font-bold text-lg text-right flex-1 ml-4">{details}</span>
+                                                    </div>
+                                                )}
                                             </div>
-                                        ))}
-                                    </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
                         </div>
                     </div>
-                )
-            })}
+                </div>
+            )) : (
+                <div class="col-span-full text-center text-white">No doctor data available.</div>
+            )}
         </div>
 
         <div id="modal-overlay" class="fixed inset-0 bg-black/50 hidden backdrop-blur-sm transition-all duration-500 ease-in-out"></div>

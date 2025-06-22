@@ -4,25 +4,10 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
 import Marquee from "../components/ui/marquee";
+import { getEntryBySlug } from 'astro:content';
 
-const internImages = [
-    "../scraped-images/Internship1.jpeg",
-    "../scraped-images/Internship2.jpeg", 
-    "../scraped-images/Internship3.jpg",
-    "../scraped-images/Internship4.jpg",
-    
-    "../scraped-images/Internship6.jpeg",
-    "../scraped-images/Internship7.jpeg",
-    
-    "../scraped-images/Internship9.jpeg",
-    "../scraped-images/Internship10.jpeg",
-    "../scraped-images/Internship11.jpeg",
-    "../scraped-images/Internship12.jpeg",
-    "../scraped-images/Internship13.jpeg",
-].map((src) => ({
-    src,
-    alt: "Intern working at Antarman"
-}));
+const internImagesEntry = await getEntryBySlug('clinics', 'intern-images');
+const internImages = internImagesEntry?.data.images || [];
 ---
 <Layout title="Internship | Antarman">
     <ParticleBG />
