@@ -1,173 +1,122 @@
 ---
+import { getCollection } from 'astro:content';
+
+// Fetch all videos with error handling
+let videos = [];
+try {
+  videos = await getCollection('home-media');
+  console.log(`Successfully loaded ${videos.length} videos`);
+} catch (error) {
+  console.error("Error fetching videos:", error);
+}
+
+// Group videos by type for display
+const featuredVideos = videos.filter(video => video.data.featured === true);
+const regularVideos = videos.filter(video => !video.data.featured && !video.data.seriesId);
+
+// Process series videos
+const seriesMap = {};
+videos
+  .filter(video => video.data.seriesId)
+  .forEach(video => {
+    const id = video.data.seriesId;
+    if (!seriesMap[id]) seriesMap[id] = [];
+    seriesMap[id].push(video);
+  });
+
+// Sort series videos by order
+Object.keys(seriesMap).forEach(id => {
+  seriesMap[id].sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
+});
+
+// Create display list - prioritizing featured videos
+const seriesFirstVideos = Object.values(seriesMap).map(series => series[0]);
+const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos].slice(0, 6);
 ---
 
 <section class="py-16">
   <h2 class="text-4xl font-bold text-center mb-12 text-white">Media Gallery</h2>
 
+  {/* Masonry layout with CSS columns */}
   <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 max-w-7xl mx-auto px-4 space-y-6">
-    
-    <!-- Featured Video - Large -->
-    <div class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid">
-      <div class="aspect-[16/12]">
-        <iframe 
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/3CMd9z_f-yw"
-          title="Introduction to Mental Health"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="p-6">
-        <h3 class="text-2xl font-bold text-white mb-3">6 Tips To Handle After Exam Related Stress</h3>
-        <p class="text-gray-200 text-lg"> Samir Walavalkar, Psychologist</p>
-      </div>
-    </div>
-
-    <!-- Video 2 - Small -->
-    <div class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid">
-      <div class="aspect-video">
-        <iframe 
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/sWGg_-NmSQM"
-          title="Meditation Basics"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="p-4">
-        <h3 class="text-lg font-bold text-white mb-1">Depression - Signs And Symptoms</h3>
-        <p class="text-sm text-gray-200">By Samir Walavalkar, Psychologist</p>
-      </div>
-    </div>
-
-    <!-- Video 3 - Medium -->
-    <div class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid">
-      <div class="aspect-[16/10]">
-        <iframe 
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/cDyvnBDlCzM"
-          title="Stress Management"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="p-5">
-        <h3 class="text-xl font-bold text-white mb-2">What Is Depression</h3>
-        <p class="text-gray-200">By Samir Walavalkar, Psychologist</p>
-      </div>
-    </div>
-
-    <!-- Video 4 - Small -->
-    <div class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid">
-      <div class="aspect-video">
-        <iframe 
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/xQuQq8WV6Wk"
-          title="Anxiety Relief Techniques"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="p-4">
-        <h3 class="text-lg font-bold text-white mb-1">Depression and suicide</h3>
-        <p class="text-sm text-gray-200">A video depicting the struggle of a young person with Depression.</p>
-        <p class="text-sm text-gray-200">This video has been acted in and created by interns of psychology.</p>
-         
-      </div>
-    </div>
-
-    <!-- Video 5 - Large -->
-    <div class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid">
-      <div class="aspect-[16/12]">
-        <iframe 
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/HsGNZIxWa0Y"
-          title="Sleep Hygiene Tips"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="p-6">
-        <h3 class="text-2xl font-bold text-white mb-3">Stress Management During Covid19 Pandemic</h3>
-        <p class="text-gray-200 text-lg">Dr Ravindra Agrawal at Doordarshan. Interview with Anita Kavlekar on the mental health impact of COVID 19 Pandemic.</p>
-      </div>
-    </div>
-
-    <!-- Video Switcher -->
-    <div class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid">
-      <div class="aspect-[16/10]">
-        <iframe 
-          id="videoPlayer"
-          class="w-full h-full"
-          src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-          title="Mental Health Videos"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen>
-        </iframe>
-      </div>
-      <div class="p-5">
-        <h3 id="videoTitle" class="text-xl font-bold text-white mb-2">Introduction to REBT </h3>
-        <p id="videoDescription" class="text-gray-200">5 part video series by Sofia Dhamani, an intern at Antarman</p>
+    {displayVideos.length > 0 ? (
+      displayVideos.map(video => {
+        const isSeries = video.data.seriesId && seriesMap[video.data.seriesId]?.length > 1;
+        const series = isSeries ? seriesMap[video.data.seriesId] : null;
+        const isLarge = video.data.featured;
         
-        <div class="flex flex-wrap gap-2 mt-4">
-          <button onclick="window.changeVideo(0)" class="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg active:bg-purple-800 transition-colors">
-            Part 1
-          </button>
-          <button onclick="window.changeVideo(1)" class="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg active:bg-purple-800 transition-colors">
-            Part 2
-          </button>
-          <button onclick="window.changeVideo(2)" class="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg active:bg-purple-800 transition-colors">
-           Part 3
-          </button>
-          <button onclick="window.changeVideo(3)" class="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg active:bg-purple-800 transition-colors">
-            Part 4
-          </button>
-          <button onclick="window.changeVideo(4)" class="px-4 py-2 bg-purple-700 hover:bg-purple-600 text-white rounded-lg active:bg-purple-800 transition-colors">
-            Part 5
-          </button>
-        </div>
+        return (
+          <div class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid mb-6">
+            {/* Video Player */}
+            <div class={isLarge ? "aspect-[16/9]" : "aspect-video"}>
+              <iframe
+                id={isSeries ? `series-${video.data.seriesId}` : `video-${video.slug}`}
+                class="w-full h-full"
+                src={`https://www.youtube.com/embed/${video.data.youtubeId}`}
+                title={video.data.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+              </iframe>
+            </div>
+            
+            {/* Video Info */}
+            <div class={isLarge ? "p-6" : "p-4"}>
+              <h3 class={`font-bold text-white ${isLarge ? "text-2xl mb-3" : "text-lg mb-2"}`}>
+                {isSeries ? video.data.seriesName || video.data.title : video.data.title}
+              </h3>
+              <p class={`text-gray-200 ${isLarge ? "text-lg" : "text-sm"}`}>
+                {video.data.description}
+              </p>
+              
+              {/* Series Navigation */}
+              {isSeries && (
+                <div class="flex flex-wrap gap-2 mt-4">
+                  {series.map((seriesVideo, index) => (
+                    <button
+                      class="px-3 py-1 bg-purple-700 hover:bg-purple-600 text-white rounded text-sm"
+                      data-series-id={video.data.seriesId}
+                      data-video-id={seriesVideo.data.youtubeId}
+                      data-index={index}
+                    >
+                      Part {seriesVideo.data.seriesOrder || index + 1}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      })
+    ) : (
+      <div class="text-center text-gray-400 col-span-full">
+        <p>No videos found. Please add video content files to the home-media collection.</p>
       </div>
-    </div>
-
-    <script is:inline>
-      const videos = [
-        {
-          url: "https://www.youtube.com/embed/u1zav0-g0_g",
-          title: "REBT Part 1",
-          description: "5 part video series by Sofia Dhamani, an intern at Antarman"
-        },
-        {
-          url: "https://www.youtube.com/embed/Wd9jIih5bSA",
-          title: "REBT Part 2",
-          description: "5 part video series by Sofia Dhamani, an intern at Antarman"
-        },
-        {
-          url: "https://www.youtube.com/embed/73hrqSqND-A",
-          title: "REBT Part 3", 
-          description: "5 part video series by Sofia Dhamani, an intern at Antarman"
-        },
-        {
-          url: "https://www.youtube.com/embed/LeuD5cj4a_4",
-          title: "REBT Part 4",
-          description: "5 part video series by Sofia Dhamani, an intern at Antarman"
-        },
-        {
-          url: "https://www.youtube.com/embed/FtOX5AKj0OE",
-          title: "REBT Part 5", 
-          description: "5 part video series by Sofia Dhamani, an intern at Antarman"
-        }
-      ];
-
-      window.changeVideo = function(index) {
-        const video = videos[index];
-        document.getElementById('videoPlayer').src = video.url;
-        document.getElementById('videoTitle').textContent = video.title;
-        document.getElementById('videoDescription').textContent = video.description;
-      }
-
-      // Set initial video
-      window.changeVideo(0);
-    </script>
-
+    )}
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Add click handlers for series buttons
+      document.querySelectorAll('[data-series-id]').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const btn = e.currentTarget;
+          const seriesId = btn.getAttribute('data-series-id');
+          const videoId = btn.getAttribute('data-video-id');
+          const player = document.getElementById(`series-${seriesId}`);
+          
+          if (player && videoId) {
+            player.src = `https://www.youtube.com/embed/${videoId}`;
+            
+            // Highlight active button
+            document.querySelectorAll(`[data-series-id="${seriesId}"]`).forEach(b => {
+              b.classList.remove('bg-purple-500');
+              b.classList.add('bg-purple-700');
+            });
+            btn.classList.remove('bg-purple-700');
+            btn.classList.add('bg-purple-500');
+          }
+        });
+      });
+    });
+  </script>
 </section>

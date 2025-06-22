@@ -1,88 +1,107 @@
+an\src\pages\about.astro
 ---
 import Layout from '../layouts/HomeLayout.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
+import { getCollection } from 'astro:content';
+
+// Fetch about page content with error handling
+let aboutSections = [];
+try {
+  aboutSections = await getCollection('about');
+  console.log(`Successfully loaded ${aboutSections.length} about sections`);
+} catch (error) {
+  console.error("Error loading about collection:", error);
+}
+
+if (aboutSections.length === 0) {
+  console.error("The collection 'about' does not exist or is empty. Ensure a collection directory with this name exists.");
+}
+
+// Sort sections
+const sortedSections = aboutSections.sort((a, b) => a.data.order - b.data.order);
+
+// Extract sections by type
+const header = sortedSections.find(s => s.data.section === 'header');
+const mission = sortedSections.find(s => s.data.section === 'mission');
+const meaning = sortedSections.find(s => s.data.section === 'meaning');
+const contact = sortedSections.find(s => s.data.section === 'contact');
+
+// Check if all sections exist
+const hasAllSections = header && mission && meaning && contact;
 ---
 
 <Layout title="About | Antarman">
     <ParticleBG />
     <Header />
-    <main class="relative">
-        <div class="absolute inset-0 bg-gradient-to-b from-purple-900/50 via-purple-800/30 to-transparent"></div>
-        <div class="relative z-10">
-          <div class="container mx-auto px-6 py-16 text-center md:py-20 lg:px-0 lg:py-28">
-            <h1 class="text-5xl font-extrabold leading-tight text-white md:text-6xl lg:text-7xl animate-fade-in">
-              About Antarman
-            </h1>
-            <p class="mx-auto mt-6 max-w-3xl text-xl text-purple-100 md:text-2xl animate-slide-up">
-              Your Partner in Mental Wellness Journey
-            </p>
-          </div>
-        </div>
-    </main>
+    
+    {hasAllSections ? (
+      <>
+        <main class="relative">
+            <div class="absolute inset-0 bg-gradient-to-b from-purple-900/50 via-purple-800/30 to-transparent"></div>
+            <div class="relative z-10">
+              <div class="container mx-auto px-6 py-16 text-center md:py-20 lg:px-0 lg:py-28">
+                <h1 class="text-5xl font-extrabold leading-tight text-white md:text-6xl lg:text-7xl animate-fade-in">
+                  {header.data.title}
+                </h1>
+                <p class="mx-auto mt-6 max-w-3xl text-xl text-purple-100 md:text-2xl animate-slide-up">
+                  {header.data.subtitle}
+                </p>
+              </div>
+            </div>
+        </main>
 
         <div class="container mx-auto px-4">
-            <!-- About Us Section -->
+            {/* About Us Section */}
             <section class="mb-32">
-                <h2 class="text-4xl font-bold text-white mb-12 text-center">Our Mission</h2>
+                <h2 class="text-4xl font-bold text-white mb-12 text-center">{mission.data.title}</h2>
                 <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-8 hover:transform hover:scale-105 transition-all duration-300">
-                        <div class="mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-purple-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
-                            </svg>
-                            <p class="text-gray-200 leading-relaxed">
-                                Antarman is a mental health welfare organisation. At Antarman our focus is to provide the highest quality of Mental health care and provide a safe space for individuals for self exploration. The awareness of ones own inner experience is given a central role in building an individuals capacity for logical and curious thinking and for self regulation.          </p>
+                    {mission.data.content.map((paragraph, index) => (
+                        <div class="bg-white/10 backdrop-blur-lg rounded-lg p-8 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-purple-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={index === 0 ? "M12 6v6m0 0v6m0-6h6m-6 0H6" : "M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"} />
+                                </svg>
+                                <p class="text-gray-200 leading-relaxed">
+                                    {paragraph}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="bg-white/10 backdrop-blur-lg rounded-lg p-8 hover:transform hover:scale-105 transition-all duration-300">
-                        <div class="mb-6">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-purple-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                            </svg>
-                            <p class="text-gray-200 leading-relaxed">
-                                We at Antarman are a team of skilled professionals from the fields of Psychiatry and Psychology that together provide a holistic and comprehensive approach to Mental health issues. By working as a team our doctors and therapists are able to provide a large number of options for the client to choose from. The client also benefits from the collective pooling of resources for arriving at a better diagnosis and management plan.We are the largest collaboration and team of Psychiatrist and psychologist in Goa with clinics in Panjim, Margoa and Vasco.          </p>                        </div>
-                    </div>
+                    ))}
                 </div>
             </section>
 
-            <!-- Brand Name Meaning Section -->
+            {/* Brand Name Meaning Section */}
             <section class="mb-32 bg-gradient-to-r from-purple-900/40 via-transparent to-purple-900/40 py-20">
                 <div class="max-w-4xl mx-auto text-center px-4">
-                    <h2 class="text-4xl font-bold text-white mb-12">The Meaning Behind Antarman</h2>
+                    <h2 class="text-4xl font-bold text-white mb-12">{meaning.data.title}</h2>
                     <div class="bg-white/10 backdrop-blur-lg rounded-lg p-12 transform hover:scale-105 transition-all duration-300">
-                        <p class="text-2xl text-purple-300 mb-8 font-semibold">
-                            "अंतर्मन" - The Inner Mind
-                        </p>
-                        <p class="text-gray-200 leading-relaxed mb-6">
-                            Rooted in Sanskrit, Antarman translates to "inner mind." The inner mind serves as the foundation of our emotions, thoughts, decisions, and perceptions. By nurturing and strengthening this core aspect of ourselves, we can build resilience—the ability to adapt and thrive in the face of adversity.                        </p>
-                        <p class="text-gray-200 leading-relaxed">
-                            Scientific research underscores the profound impact of resilience on mental and physical health. Resilient individuals not only cope better with challenges but also experience faster recovery and improved overall well-being. At Antarman, we strive to empower individuals to harness their inner strength and lead healthier, more fulfilling lives.                        </p>
+                        {meaning.data.content.map((paragraph, index) => (
+                            <p class={index === 0 ? "text-2xl text-purple-300 mb-8 font-semibold" : "text-gray-200 leading-relaxed mb-6"}>
+                                {paragraph}
+                            </p>
+                        ))}
                     </div>
                 </div>
             </section>
 
-            <!-- Contact Section -->
+            {/* Contact Section */}
             <section class="mb-20">
-                <h2 class="text-4xl font-bold text-white mb-12 text-center">Begin Your Journey Today</h2>
+                <h2 class="text-4xl font-bold text-white mb-12 text-center">{contact.data.title}</h2>
                 <div class="bg-white/10 backdrop-blur-lg rounded-lg p-12 max-w-4xl mx-auto">
                     <div class="text-center mb-12">
                         <div class="text-4xl font-bold text-purple-300 mb-4 hover:text-purple-400 transition-colors">
-                            <a href="tel:+917028784807">+91 7028784807</a>
+                            <a href={`tel:${contact.data.phone}`}>{contact.data.phone}</a>
                         </div>
-                        <p class="text-gray-300">Available 24/7 for your support</p>
+                        <p class="text-gray-300">{contact.data.phoneDescription}</p>
                     </div>
                     
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="space-y-6">
                             <h3 class="text-2xl font-semibold text-white mb-6">What to Expect</h3>
                             <div class="space-y-4">
-                                {[
-                                    "A team member will receive your call and gather basic information about your concerns and the help you seek.",
-                                    "You will be asked to provide contact details, language preferences, and the urgency of your appointment.",
-                                    "Based on your needs, you will receive a follow-up call with an appointment for the most suitable doctor or counselor."
-                                ].map(text => (
+                                {contact.data.expectations.map(text => (
                                     <div class="flex items-center space-x-4 bg-purple-900/30 p-4 rounded-lg">
                                         <div class="bg-purple-500 rounded-full p-2 flex-shrink-0">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -97,53 +116,61 @@ import ParticleBG from "../components/ParticleBG.astro";
                         <div class="bg-purple-900/30 p-8 rounded-lg">
                             <h3 class="text-2xl font-semibold text-white mb-6">Our Commitment</h3>
                             <ul class="space-y-4 text-gray-200">
-                                <li class="flex items-center space-x-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                    </svg>
-                                    <span>Confidential and secure environment</span>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span>Flexible scheduling options</span>
-                                </li>
-                                <li class="flex items-center space-x-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                    <span>Expert team of professionals</span>
-                                </li>
+                                {contact.data.commitments.map(commitment => (
+                                    <li class="flex items-center space-x-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={commitment.icon} />
+                                        </svg>
+                                        <span>{commitment.text}</span>
+                                    </li>
+                                ))}
                             </ul>
                         </div>
                     </div>
                 </div>
             </section>
-            <style>
-                @keyframes fadeIn {
-                  from { opacity: 0; }
-                  to { opacity: 1; }
-                }
-          
-                @keyframes slideUp {
-                  from { transform: translateY(20px); opacity: 0; }
-                  to { transform: translateY(0); opacity: 1; }
-                }
-          
-                .animate-fade-in {
-                  animation: fadeIn 1s ease-out;
-                }
-          
-                .animate-slide-up {
-                  animation: slideUp 1s ease-out;
-                }
-          
-                .workshop-card {
-                  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-                  border: 1px solid rgba(255, 255, 255, 0.1);
-                }
-              </style>
         </div>
+      </>
+    ) : (
+      <div class="container mx-auto py-20 px-4 text-center">
+        <h1 class="text-4xl font-bold text-white mb-8">Content Loading Error</h1>
+        <p class="text-xl text-purple-200 mb-4">
+          The about page content could not be loaded. Please check that:
+        </p>
+        <ul class="text-left text-purple-100 max-w-lg mx-auto space-y-2 mb-8">
+          <li>• The "about" collection is defined in your content config</li>
+          <li>• The "about" directory exists in src/content</li>
+          <li>• Markdown files are properly formatted</li>
+          <li>• Required fields are present in each file</li>
+        </ul>
+        <p class="text-gray-400">Check the console for more detailed error information.</p>
+      </div>
+    )}
+    
     <Footer />
 </Layout>
+
+<style>
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .animate-fade-in {
+      animation: fadeIn 1s ease-out;
+    }
+
+    .animate-slide-up {
+      animation: slideUp 1s ease-out;
+    }
+
+    .workshop-card {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+</style>

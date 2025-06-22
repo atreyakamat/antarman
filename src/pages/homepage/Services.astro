@@ -1,24 +1,32 @@
 ---
 // Services.astro
 import { BorderBeam } from "@/components/ui/border-beam";
+import { getCollection } from 'astro:content';
+
+// Fetch all services and sort them by order
+let services = [];
+try {
+  const allServices = await getCollection('home-service');
+  services = allServices.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+  console.log(`Successfully loaded ${services.length} services`);
+} catch (error) {
+  console.error("Error loading services:", error.message);
+}
+
+// Extract services by category
+const categoryService = services.find(s => s.data.category === 'category');
+const mainService = services.find(s => s.data.category === 'main-service');
+const evaluationService = services.find(s => s.data.category === 'evaluation');
+const psychopharmacologyService = services.find(s => s.data.category === 'psychopharmacology');
+const otherService = services.find(s => s.data.category === 'other');
 ---
 
 <section class="container mx-auto p-4 mt-24 overflow-x-hidden">
-  <h2 class="text-4xl font-bold text-center mb-12 text-white">Our Medical Services</h2>
+  <h2 class="text-4xl font-bold text-center mb-12 text-white">{categoryService?.data.title}</h2>
 
- 
+  {/* Service Categories */}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-    {[
-      "Physiotherapy",
-      "Occupational Therapy", 
-      "Speech Therapy",
-      "Developmental Therapy",
-      "Psychological Services",
-      "Early Intervention",
-      "Sensory Integration",
-      "Special Education",
-      "Behavioral Management"
-    ].map((service, index) => (
+    {categoryService?.data.items?.map((service, index) => (
       <div class="relative bg-[#1a1a1a] p-6 rounded-lg shadow-lg backdrop-blur-sm hover:scale-105 transition-transform duration-300">
         <BorderBeam 
           size={150}
@@ -32,73 +40,67 @@ import { BorderBeam } from "@/components/ui/border-beam";
     ))}
   </div>
 
-  
+  {/* Main Grid Services */}
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     
-    <div class="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] p-8 rounded-lg shadow-xl backdrop-blur-sm lg:col-span-2 lg:row-span-2 border border-purple-500/30 relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#631d76]/10 to-[#603A88]/10"></div>
-      <h3 class="text-2xl font-semibold mb-6 text-white bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">Psychotherapies/Counselling :</h3>
-      <ul class="list-disc pl-6 text-white grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
-        {[
-          "Therapy for depression (CBT) and other psychological issues",
-          "Therapy for anxiety disorders and Obsessive compulsive disorder",
-          "Therapy for managing interpersonal / intrapersonal stress and coping with traumas",
-          "Therapy for managing everyday stress",
-          "Counselling for motivational enhancement ",
-          "Couple's therapy for relationship issues",
-          "Therapy for sexual problems due to emotional causes",
-          "Counseling and psychotherapy to enhance youth resilience and address adjustment issues.",
-          "Positive parenting counseling",
-          "Play therapy",
-          "Behaviour management counseling for parents of children with intellectual disability or Autistic spectrum disorders",
-          "Bereavement counseling",
-          "Therapy for survivors of abuse",
-          "Counseling for personality development, addressing procrastination and time management",
-          "Anger management",
-          "Career Counselling",
-          "Relaxation techniques & Biofeedback"
-        ].map((item) => (
-          <li class="text-purple-100 leading-relaxed break-words">{item}</li>
-        ))}
-      </ul>
-    </div>
+    {/* Psychotherapy Services - Large Card */}
+    {mainService && (
+      <div class="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] p-8 rounded-lg shadow-xl backdrop-blur-sm lg:col-span-2 lg:row-span-2 border border-purple-500/30 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#631d76]/10 to-[#603A88]/10"></div>
+        <h3 class="text-2xl font-semibold mb-6 text-white bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+          {mainService.data.title}
+        </h3>
+        <ul class="list-disc pl-6 text-white grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+          {mainService.data.items?.map((item) => (
+            <li class="text-purple-100 leading-relaxed break-words">{item}</li>
+          ))}
+        </ul>
+      </div>
+    )}
 
-  
-    <div class="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] p-8 rounded-lg shadow-xl backdrop-blur-sm border border-blue-500/30 relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#631d76]/10 to-[#603A88]/10"></div>
-      <h3 class="text-xl font-semibold mb-6 text-white bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-400">Comprehensive evaluation and assessment:</h3>
-      <ul class="list-disc pl-6 text-white space-y-3 relative z-10">
-        <li class="text-blue-100 break-words">Psychiatric Assessment</li>
-        <li class="text-blue-100 break-words">Neuropsychological assessment</li>
-        <li class="text-blue-100 break-words">Psychological testing for IQ, Learning disability, ADHD and Autistic spectrum disorders</li>
-        <li class="text-blue-100 break-words">Objective psych assessment for personality, organicity and confirmation of clinical diagnosis</li>
-      </ul>
-    </div>
+    {/* Evaluation Services */}
+    {evaluationService && (
+      <div class="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] p-8 rounded-lg shadow-xl backdrop-blur-sm border border-purple-500/30 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#631d76]/10 to-[#603A88]/10"></div>
+        <h3 class="text-xl font-semibold mb-6 text-white bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+          {evaluationService.data.title}
+        </h3>
+        <ul class="list-disc pl-6 text-white space-y-3 relative z-10">
+          {evaluationService.data.items?.map((item) => (
+            <li class="text-purple-100 break-words">{item}</li>
+          ))}
+        </ul>
+      </div>
+    )}
 
-    
-    <div class="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] p-8 rounded-lg shadow-xl backdrop-blur-sm border border-pink-500/30 relative overflow-hidden">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#631d76]/10 to-[#603A88]/10"></div>
-      <h3 class="text-xl font-semibold mb-6 text-white bg-clip-text text-transparent bg-gradient-to-r from-pink-400 to-purple-400">Psychopharmacology</h3>
-      <ul class="list-disc pl-6 text-white space-y-3 relative z-10">
-        <li class="text-pink-100 break-words">Medical management of severe mental illnesses </li>
-        <li class="text-pink-100 break-words">Management of behavioural problems in intellectual disability and dementias</li>
-        <li class="text-pink-100 break-words">Management of ADHD and other childhood disorders</li>
-        <li class="text-pink-100 break-words">Alcohol and Drugs (addictions) : Management of withdrawal (detoxification) and de-addiction.</li>
-      </ul>
-    </div>
+    {/* Psychopharmacology Services */}
+    {psychopharmacologyService && (
+      <div class="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] p-8 rounded-lg shadow-xl backdrop-blur-sm border border-purple-500/30 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#631d76]/10 to-[#603A88]/10"></div>
+        <h3 class="text-xl font-semibold mb-6 text-white bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+          {psychopharmacologyService.data.title}
+        </h3>
+        <ul class="list-disc pl-6 text-white space-y-3 relative z-10">
+          {psychopharmacologyService.data.items?.map((item) => (
+            <li class="text-purple-100 break-words">{item}</li>
+          ))}
+        </ul>
+      </div>
+    )}
 
-    
-    <div class="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] p-8 rounded-lg shadow-xl backdrop-blur-sm border border-indigo-500/30 relative overflow-hidden lg:col-span-3">
-      <div class="absolute inset-0 bg-gradient-to-br from-[#631d76]/10 to-[#603A88]/10"></div>
-      <h3 class="text-xl font-semibold mb-6 text-white bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">Other Services & Expert Consultations</h3>
-      <ul class="list-disc pl-6 text-white grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
-        <li class="text-indigo-100 break-words">Corporate Workshops</li>
-        <li class="text-indigo-100 break-words">School Workshops</li>
-        <li class="text-indigo-100 break-words">Training for Psychologists</li>
-        <li class="text-indigo-100 break-words">Public Seminars</li>
-        <li class="text-indigo-100 break-words">Psychopharmacology Consults</li>
-        <li class="text-indigo-100 break-words">Medico-legal & Forensic Opinions</li>
-      </ul>
-    </div>
+    {/* Other Services - Full Width Bottom */}
+    {otherService && (
+      <div class="bg-gradient-to-br from-[#1a1a1a] to-[#2a2a2a] p-8 rounded-lg shadow-xl backdrop-blur-sm border border-purple-500/30 relative overflow-hidden lg:col-span-3">
+        <div class="absolute inset-0 bg-gradient-to-br from-[#631d76]/10 to-[#603A88]/10"></div>
+        <h3 class="text-xl font-semibold mb-6 text-white bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
+          {otherService.data.title}
+        </h3>
+        <ul class="list-disc pl-6 text-white grid grid-cols-1 md:grid-cols-2 gap-4 relative z-10">
+          {otherService.data.items?.map((item) => (
+            <li class="text-purple-100 break-words">{item}</li>
+          ))}
+        </ul>
+      </div>
+    )}
   </div>
 </section>

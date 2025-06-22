@@ -1,0 +1,26 @@
+---
+title: "Psychotherapies/Counselling"
+category: "main-service"
+colorFrom: "purple-400"
+colorTo: "pink-400"
+borderColor: "purple-500/30"
+order: 2
+items:
+  - "Therapy for depression (CBT) and other psychological issues"
+  - "Therapy for anxiety disorders and Obsessive compulsive disorder"
+  - "Therapy for managing interpersonal / intrapersonal stress and coping with traumas"
+  - "Therapy for managing everyday stress"
+  - "Counselling for motivational enhancement"
+  - "Couple's therapy for relationship issues"
+  - "Therapy for sexual problems due to emotional causes"
+  - "Counseling and psychotherapy to enhance youth resilience and address adjustment issues."
+  - "Positive parenting counseling"
+  - "Play therapy"
+  - "Behaviour management counseling for parents of children with intellectual disability or Autistic spectrum disorders"
+  - "Bereavement counseling"
+  - "Therapy for survivors of abuse"
+  - "Counseling for personality development, addressing procrastination and time management"
+  - "Anger management"
+  - "Career Counselling"
+  - "Relaxation techniques & Biofeedback"
+---
