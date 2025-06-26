@@ -1,13 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+// Define types
+type MediaEntry = CollectionEntry<'home-media'>;
+type SeriesMap = Record<string, MediaEntry[]>;
 
 // Fetch all videos with error handling
-let videos = [];
+let videos: MediaEntry[] = [];
 try {
   videos = await getCollection('home-media');
   console.log(`Successfully loaded ${videos.length} videos`);
 } catch (error) {
-  console.error("Error fetching videos:", error);
+  console.error("Error fetching videos:", error instanceof Error ? error.message : String(error));
 }
 
 // Group videos by type for display
@@ -15,22 +20,24 @@ const featuredVideos = videos.filter(video => video.data.featured === true);
 const regularVideos = videos.filter(video => !video.data.featured && !video.data.seriesId);
 
 // Process series videos
-const seriesMap = {};
+const seriesMap: SeriesMap = {};
 videos
   .filter(video => video.data.seriesId)
   .forEach(video => {
     const id = video.data.seriesId;
-    if (!seriesMap[id]) seriesMap[id] = [];
-    seriesMap[id].push(video);
+    if (id) {
+      if (!seriesMap[id]) seriesMap[id] = [];
+      seriesMap[id].push(video);
+    }
   });
 
 // Sort series videos by order
 Object.keys(seriesMap).forEach(id => {
-  seriesMap[id].sort((a, b) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
+  seriesMap[id].sort((a: MediaEntry, b: MediaEntry) => (a.data.seriesOrder || 0) - (b.data.seriesOrder || 0));
 });
 
 // Create display list - prioritizing featured videos
-const seriesFirstVideos = Object.values(seriesMap).map(series => series[0]);
+const seriesFirstVideos = Object.values(seriesMap).map((series: MediaEntry[]) => series[0]);
 const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos].slice(0, 6);
 ---
 
@@ -41,8 +48,8 @@ const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos
   <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 max-w-7xl mx-auto px-4 space-y-6">
     {displayVideos.length > 0 ? (
       displayVideos.map(video => {
-        const isSeries = video.data.seriesId && seriesMap[video.data.seriesId]?.length > 1;
-        const series = isSeries ? seriesMap[video.data.seriesId] : null;
+        const isSeries = video.data.seriesId && video.data.seriesId in seriesMap && seriesMap[video.data.seriesId]?.length > 1;
+        const series = isSeries && video.data.seriesId ? seriesMap[video.data.seriesId] : null;
         const isLarge = video.data.featured;
         
         return (
@@ -50,7 +57,7 @@ const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos
             {/* Video Player */}
             <div class={isLarge ? "aspect-[16/9]" : "aspect-video"}>
               <iframe
-                id={isSeries ? `series-${video.data.seriesId}` : `video-${video.slug}`}
+                id={isSeries && video.data.seriesId ? `series-${video.data.seriesId}` : `video-${video.slug}`}
                 class="w-full h-full"
                 src={`https://www.youtube.com/embed/${video.data.youtubeId}`}
                 title={video.data.title}
@@ -69,9 +76,9 @@ const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos
               </p>
               
               {/* Series Navigation */}
-              {isSeries && (
+              {isSeries && series && (
                 <div class="flex flex-wrap gap-2 mt-4">
-                  {series.map((seriesVideo, index) => (
+                  {series.map((seriesVideo: MediaEntry, index: number) => (
                     <button
                       class="px-3 py-1 bg-purple-700 hover:bg-purple-600 text-white rounded text-sm"
                       data-series-id={video.data.seriesId}
@@ -94,7 +101,7 @@ const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos
     )}
   </div>
 
-  <script>
+  <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
       // Add click handlers for series buttons
       document.querySelectorAll('[data-series-id]').forEach(button => {

@@ -1,14 +1,18 @@
 ---
 import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+
+// Define types
+type DoctorEntry = CollectionEntry<'doctors'>;
 
 // Fetch all doctors from the collection
-let doctors = [];
+let doctors: DoctorEntry[] = [];
 
 try {
   doctors = await getCollection('doctors');
   console.log(`Successfully loaded ${doctors.length} doctors`);
 } catch (error) {
-  console.error("Error fetching doctors:", error.message);
+  console.error("Error fetching doctors:", error instanceof Error ? error.message : String(error));
 }
 ---
 
@@ -249,7 +253,7 @@ try {
   }
 </style>
 
-<script>
+<script is:inline>
   document.addEventListener('DOMContentLoaded', () => {
     const doctorCards = document.querySelectorAll('.doctor-card');
     const body = document.body;
@@ -266,14 +270,16 @@ try {
 
       const viewMoreBtn = card.querySelector('.view-more-button');
       
-      viewMoreBtn?.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        
-        card.classList.add('expanded');
-        overlay.classList.add('active');
-        body.style.overflow = 'hidden';
-      });
+      if (viewMoreBtn) {
+        viewMoreBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          
+          card.classList.add('expanded');
+          overlay.classList.add('active');
+          body.style.overflow = 'hidden';
+        });
+      }
 
       const closeCard = () => {
         const expandedCard = document.querySelector('.doctor-card.expanded');
@@ -292,7 +298,7 @@ try {
       // Close when clicking outside the card
       document.addEventListener('click', (e) => {
         const expandedCard = document.querySelector('.doctor-card.expanded');
-        if (expandedCard && !expandedCard.contains(e.target instanceof Node ? e.target : null)) {
+        if (expandedCard && e.target && !expandedCard.contains(e.target instanceof Node ? e.target : null)) {
           closeCard();
         }
       });
@@ -309,7 +315,7 @@ try {
 
 <h1>Our Doctors</h1>
 <div class="doctor-list">
-  {doctors.map((doctor) => (
+  {doctors.map((doctor: DoctorEntry) => (
     <div class="doctor-card">
       <img src={doctor.data.image} alt={doctor.data.name} class="doctor-image" width="300" height="400">
       <div class="doctor-info">
