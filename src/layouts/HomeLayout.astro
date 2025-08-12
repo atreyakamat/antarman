@@ -1,23 +1,95 @@
 ---
 interface Props {
 	title: string;
+	description?: string;
 }
 
-const { title } = Astro.props;
+const { title, description = "Professional psychological and psychiatric services at Antarman clinic. Expert care for mental health, counseling, and wellness." } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#603A88" />
+		
+		<!-- Preconnect to external domains -->
+		<link rel="preconnect" href="https://www.youtube.com" />
+		<link rel="preconnect" href="https://www.googletagmanager.com" />
+		
+		<!-- Critical resource hints -->
+		<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+		
+		<!-- Critical CSS inline -->
+		<style>
+			/* Critical CSS for immediate render */
+			:root {
+				--accent: 136, 58, 234;
+				--accent-light: 224, 204, 250;
+				--accent-dark: 49, 10, 101;
+				--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
+			}
+			html {
+				font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+				background: #000000;
+				scroll-behavior: smooth;
+			}
+			body {
+				margin: 0;
+				padding: 0;
+				line-height: 1.6;
+				color: #ffffff;
+				-webkit-font-smoothing: antialiased;
+				text-rendering: optimizeLegibility;
+			}
+			.nav-button {
+				color: white;
+				transition: color 0.2s ease;
+				padding: 0.5rem 0.75rem;
+				border-radius: 0.25rem;
+				text-decoration: none;
+			}
+			.nav-button:hover { color: #c084fc; }
+			.nav-button.active { color: #c084fc; background-color: rgba(126, 1, 179, 0.3); }
+		</style>
+		
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		
+		<!-- Structured data for healthcare provider -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "MedicalClinic",
+			"name": "Antarman",
+			"description": "Professional psychological and psychiatric services",
+			"url": "https://antarman.in",
+			"medicalSpecialty": ["Psychology", "Psychiatry", "Mental Health"],
+			"hasOfferCatalog": {
+				"@type": "OfferCatalog",
+				"name": "Mental Health Services",
+				"itemListElement": [
+					{
+						"@type": "Offer",
+						"itemOffered": {
+							"@type": "MedicalTherapy",
+							"name": "Psychological Counseling"
+						}
+					}
+				]
+			}
+		}
+		</script>
 	</head>
 	<body>
 		<slot />
+		
+		<!-- Performance optimization script -->
+		<script src="/js/performance.js" async></script>
 	</body>
 </html>
 <style is:global>

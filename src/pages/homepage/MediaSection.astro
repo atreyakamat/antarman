@@ -41,10 +41,9 @@ const seriesFirstVideos = Object.values(seriesMap).map((series: MediaEntry[]) =>
 const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos].slice(0, 6);
 ---
 
-<section class="py-16">
-  <h2 class="text-4xl font-bold text-center mb-12 text-white">Media Gallery</h2>
+<section class="py-16" aria-labelledby="media-heading">
+  <h2 id="media-heading" class="text-4xl font-bold text-center mb-12 text-white">Media Gallery</h2>
 
-  {/* Masonry layout with CSS columns */}
   <div class="columns-1 sm:columns-2 lg:columns-3 gap-6 max-w-7xl mx-auto px-4 space-y-6">
     {displayVideos.length > 0 ? (
       displayVideos.map(video => {
@@ -53,20 +52,21 @@ const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos
         const isLarge = video.data.featured;
         
         return (
-          <div class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid mb-6">
-            {/* Video Player */}
+          <article class="bg-[#603A88] hover:bg-[#7E01B3] transition-all duration-300 rounded-xl overflow-hidden break-inside-avoid mb-6">
             <div class={isLarge ? "aspect-[16/9]" : "aspect-video"}>
               <iframe
                 id={isSeries && video.data.seriesId ? `series-${video.data.seriesId}` : `video-${video.slug}`}
                 class="w-full h-full"
-                src={`https://www.youtube.com/embed/${video.data.youtubeId}`}
+                src={`https://www.youtube-nocookie.com/embed/${video.data.youtubeId}?rel=0&modestbranding=1&enablejsapi=1`}
                 title={video.data.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen>
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                loading="lazy"
+                width={isLarge ? "640" : "480"}
+                height={isLarge ? "360" : "270"}>
               </iframe>
             </div>
             
-            {/* Video Info */}
             <div class={isLarge ? "p-6" : "p-4"}>
               <h3 class={`font-bold text-white ${isLarge ? "text-2xl mb-3" : "text-lg mb-2"}`}>
                 {isSeries ? video.data.seriesName || video.data.title : video.data.title}
@@ -75,23 +75,23 @@ const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos
                 {video.data.description}
               </p>
               
-              {/* Series Navigation */}
               {isSeries && series && (
-                <div class="flex flex-wrap gap-2 mt-4">
+                <nav class="flex flex-wrap gap-2 mt-4" aria-label="Video series navigation">
                   {series.map((seriesVideo: MediaEntry, index: number) => (
                     <button
-                      class="px-3 py-1 bg-purple-700 hover:bg-purple-600 text-white rounded text-sm"
+                      class="px-3 py-1 bg-purple-700 hover:bg-purple-600 text-white rounded text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 transition-colors"
                       data-series-id={video.data.seriesId}
                       data-video-id={seriesVideo.data.youtubeId}
                       data-index={index}
+                      aria-label={`Play part ${seriesVideo.data.seriesOrder || index + 1} of ${video.data.seriesName || video.data.title}`}
                     >
                       Part {seriesVideo.data.seriesOrder || index + 1}
                     </button>
                   ))}
-                </div>
+                </nav>
               )}
             </div>
-          </div>
+          </article>
         );
       })
     ) : (
@@ -103,10 +103,10 @@ const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos
 
   <script is:inline>
     document.addEventListener('DOMContentLoaded', () => {
-      // Add click handlers for series buttons
-      document.querySelectorAll('[data-series-id]').forEach(button => {
-        button.addEventListener('click', (e) => {
-          const btn = e.currentTarget;
+      // Use event delegation for better performance
+      document.addEventListener('click', (e) => {
+        const btn = e.target;
+        if (btn.matches('[data-series-id]')) {
           const seriesId = btn.getAttribute('data-series-id');
           const videoId = btn.getAttribute('data-video-id');
           const player = document.getElementById(`series-${seriesId}`);
@@ -114,7 +114,7 @@ const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos
           if (player && videoId) {
             player.src = `https://www.youtube.com/embed/${videoId}`;
             
-            // Highlight active button
+            // Update button states
             document.querySelectorAll(`[data-series-id="${seriesId}"]`).forEach(b => {
               b.classList.remove('bg-purple-500');
               b.classList.add('bg-purple-700');
@@ -122,7 +122,7 @@ const displayVideos = [...featuredVideos, ...regularVideos, ...seriesFirstVideos
             btn.classList.remove('bg-purple-700');
             btn.classList.add('bg-purple-500');
           }
-        });
+        }
       });
     });
   </script>

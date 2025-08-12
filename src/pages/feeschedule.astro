@@ -72,9 +72,12 @@ try {
                         <div class="relative w-full h-64 overflow-hidden">
                             <img 
                                 src={doctor.image} 
-                                alt={doctor.name} 
+                                alt={`${doctor.name} - Mental health professional`}
                                 class="w-full h-full object-cover object-center transition-transform duration-500 ease-in-out group-hover:scale-105"
                                 loading="lazy"
+                                width="300"
+                                height="256"
+                                decoding="async"
                             />
                             <div class="absolute inset-0 bg-gradient-to-t from-purple-950/40 to-transparent"></div>
                         </div>

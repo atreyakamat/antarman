@@ -1,0 +1,115 @@
+/* Critical CSS for above-the-fold content */
+:root {
+	--accent: 136, 58, 234;
+	--accent-light: 224, 204, 250;
+	--accent-dark: 49, 10, 101;
+	--accent-gradient: linear-gradient(
+		45deg,
+		rgb(var(--accent)),
+		rgb(var(--accent-light)) 30%,
+		white 60%
+	);
+}
+
+/* Base styles that must load immediately */
+html {
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+	background: #000000;
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	line-height: 1.6;
+	color: #ffffff;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+/* Header critical styles */
+header {
+	will-change: transform;
+	contain: layout;
+}
+
+/* Navigation critical styles */
+.nav-button {
+	color: white;
+	transition: color 0.2s ease;
+	padding: 0.5rem 0.75rem;
+	border-radius: 0.25rem;
+	text-decoration: none;
+	outline: none;
+}
+
+.nav-button:hover {
+	color: #c084fc;
+}
+
+.nav-button:focus {
+	outline: 2px solid #a855f7;
+	outline-offset: 2px;
+}
+
+.nav-button.active {
+	color: #c084fc;
+	background-color: rgba(126, 1, 179, 0.3);
+}
+
+/* Main content area */
+main {
+	contain: layout;
+	min-height: 50vh;
+}
+
+/* Loading states */
+.loading {
+	opacity: 0;
+	transform: translateY(20px);
+	transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.loaded {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Performance optimizations */
+.hero-section {
+	will-change: transform;
+	transform: translateZ(0); /* Force hardware acceleration */
+}
+
+/* Reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+	
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+	.bg-purple-900\/30 {
+		background-color: rgba(96, 58, 136, 0.8) !important;
+	}
+}
+
+/* Preload important resources */
+.preload-image {
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.preload-image.loaded {
+	opacity: 1;
+}

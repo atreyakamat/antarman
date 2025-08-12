@@ -2,47 +2,53 @@
 // Header.astro
 import ShimmerButton from "@/components/ui/shimmer-button";
 ---
-<header class="fixed top-0 left-0 right-0 z-50">
-  <nav class="flex items-center justify-center py-4 px-6 relative backdrop-blur-lg" style="background-color: rgba(96, 58, 136, 0.4);">
+<header class="fixed top-0 left-0 right-0 z-50" role="banner">
+  <nav class="flex items-center justify-center py-4 px-6 relative backdrop-blur-lg" style="background-color: rgba(96, 58, 136, 0.4);" role="navigation" aria-label="Main navigation">
     <!-- Mobile Menu Button -->
-    <button id="mobile-menu-button" class="absolute left-6 lg:hidden text-white">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <button 
+      id="mobile-menu-button" 
+      class="absolute left-6 lg:hidden text-white focus:outline-none focus:ring-2 focus:ring-purple-400"
+      aria-label="Toggle mobile menu"
+      aria-expanded="false"
+      aria-controls="nav-links"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
       </svg>
     </button>
 
     <!-- Navigation Links -->
-    <div id="nav-links" class="hidden lg:flex lg:items-center lg:justify-center lg:gap-4 absolute lg:relative top-full left-0 right-0 lg:top-auto bg-purple-900/90 lg:bg-transparent p-4 lg:p-0">
+    <div id="nav-links" class="hidden lg:flex lg:items-center lg:justify-center lg:gap-4 absolute lg:relative top-full left-0 right-0 lg:top-auto bg-purple-900/90 lg:bg-transparent p-4 lg:p-0" role="menu">
       <div class="flex flex-col lg:flex-row items-center gap-4">
-        <a href="/" class={`nav-button ${Astro.url.pathname === "/" ? "active" : ""}`}>
+        <a href="/" class={`nav-button ${Astro.url.pathname === "/" ? "active" : ""}`} role="menuitem" aria-current={Astro.url.pathname === "/" ? "page" : undefined}>
           Home
         </a>
 
-        <a href="/about" class={`nav-button ${Astro.url.pathname.includes("/about") ? "active" : ""}`}>
+        <a href="/about" class={`nav-button ${Astro.url.pathname.includes("/about") ? "active" : ""}`} role="menuitem" aria-current={Astro.url.pathname.includes("/about") ? "page" : undefined}>
           About
         </a>
 
-        <a href="/activities" class={`nav-button ${Astro.url.pathname.includes("/activities") ? "active" : ""}`}>
+        <a href="/activities" class={`nav-button ${Astro.url.pathname.includes("/activities") ? "active" : ""}`} role="menuitem" aria-current={Astro.url.pathname.includes("/activities") ? "page" : undefined}>
           Activities
         </a>
 
-        <a href="/internship" class={`nav-button ${Astro.url.pathname.includes("/internship") ? "active" : ""}`}>
+        <a href="/internship" class={`nav-button ${Astro.url.pathname.includes("/internship") ? "active" : ""}`} role="menuitem" aria-current={Astro.url.pathname.includes("/internship") ? "page" : undefined}>
           Internship
         </a>
 
-        <a href="/blogs" class={`nav-button ${Astro.url.pathname.includes("/blogs") ? "active" : ""}`}>
+        <a href="/blogs" class={`nav-button ${Astro.url.pathname.includes("/blogs") ? "active" : ""}`} role="menuitem" aria-current={Astro.url.pathname.includes("/blogs") ? "page" : undefined}>
           Blogs
         </a>
 
-        <a href="/feeschedule" class={`nav-button ${Astro.url.pathname.includes("/feeschedule") ? "active" : ""}`}>
+        <a href="/feeschedule" class={`nav-button ${Astro.url.pathname.includes("/feeschedule") ? "active" : ""}`} role="menuitem" aria-current={Astro.url.pathname.includes("/feeschedule") ? "page" : undefined}>
           Fee Schedule
         </a>
 
-        <a href="/onlineform" class={`nav-button ${Astro.url.pathname.includes("/onlineform") ? "active" : ""}`}>
+        <a href="/onlineform" class={`nav-button ${Astro.url.pathname.includes("/onlineform") ? "active" : ""}`} role="menuitem" aria-current={Astro.url.pathname.includes("/onlineform") ? "page" : undefined}>
           Online Consult
         </a>
 
-        <a href="/bookappointment" class={`nav-button ${Astro.url.pathname.includes("/bookappointment") ? "active" : ""}`}>
+        <a href="/bookappointment" class={`nav-button ${Astro.url.pathname.includes("/bookappointment") ? "active" : ""}`} role="menuitem" aria-current={Astro.url.pathname.includes("/bookappointment") ? "page" : undefined}>
           Book An Appointment
         </a>
        

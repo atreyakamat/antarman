@@ -7,18 +7,34 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), tailwind()],
-  outDir: './dist', // Keep this to specify output directory
+  outDir: './dist',
+  compressHTML: true,
+  build: {
+    inlineStylesheets: 'auto', // Auto-inline small CSS files
+  },
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'hover'
+  },
   vite: {
     ssr: {
-      external: ['@splinetool/react-spline'], // Exclude Spline from SSR
+      external: ['@splinetool/react-spline'],
     },
     build: {
-      minify: false, // Optional: Disable minification for debugging
-      sourcemap: false, // Optional: Generate sourcemaps for easier debugging
+      minify: 'esbuild', // Enable minification for production
+      sourcemap: false,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['react', 'react-dom'],
+            ui: ['@astrojs/tailwind']
+          }
+        }
+      }
     },
     server: {
       fs: {
-        strict: false, // Allow serving files outside root if needed
+        strict: false,
       },
     },
   },
