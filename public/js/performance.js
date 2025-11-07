@@ -1,5 +1,5 @@
 // Performance monitoring and optimization
-(function() {
+(function() {  
   'use strict';
   
   // Performance observer for Core Web Vitals
