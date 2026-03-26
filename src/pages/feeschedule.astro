@@ -262,10 +262,9 @@ try {
                     card.querySelectorAll('.fee-toggle').forEach(toggle => {
                         toggle.addEventListener('click', (e) => {
                             e.stopPropagation();
-                            
+
                             const details = toggle.nextElementSibling;
-                            const isExpanding = !toggle.classList.contains('active');
-                            
+
                             // Close all other fee details in this card
                             const allToggles = card.querySelectorAll('.fee-toggle');
                             const allDetails = card.querySelectorAll('.fee-details');
