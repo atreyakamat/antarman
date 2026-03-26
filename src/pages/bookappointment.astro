@@ -398,7 +398,7 @@ const FORM_FIELDS = {
   async function submitToGoogleForm(formData) {
     try {
       const formattedData = formatFormDataForGoogleForm(formData);
-      const response = await fetch(FORM_FIELDS.formUrl, {
+      await fetch(FORM_FIELDS.formUrl, {
         method: 'POST',
         mode: 'no-cors',
         body: formattedData

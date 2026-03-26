@@ -47,7 +47,6 @@ Dock.displayName = "Dock";
 
 const DockIcon = ({ className, children, mouseX, ...props }: DockIconProps & { mouseX?: number }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
 
   const calculateHeight = () => {
     if (!ref.current || !mouseX) return 40;
@@ -64,8 +63,6 @@ const DockIcon = ({ className, children, mouseX, ...props }: DockIconProps & { m
   return (
     <motion.div
       ref={ref}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       style={{ 
         height: `${height}px`,
         width: `${height}px`,
