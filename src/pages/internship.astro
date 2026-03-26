@@ -4,9 +4,9 @@ import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import ParticleBG from "../components/ParticleBG.astro";
 import Marquee from "../components/ui/marquee";
-import { getEntryBySlug } from 'astro:content';
+import { getEntry } from 'astro:content';
 
-const internImagesEntry = await getEntryBySlug('clinics', 'intern-images');
+const internImagesEntry = await getEntry('clinics', 'intern-images');
 const internImages = internImagesEntry?.data.images || [];
 ---
 <Layout title="Internship | Antarman">
@@ -199,7 +199,7 @@ const internImages = internImagesEntry?.data.images || [];
 
     async function submitToGoogleForm(formData: FormData) {
         try {
-            const response = await fetch(FORM_FIELDS.formUrl, {
+            await fetch(FORM_FIELDS.formUrl, {
                 method: 'POST',
                 mode: 'no-cors',
                 body: formData
