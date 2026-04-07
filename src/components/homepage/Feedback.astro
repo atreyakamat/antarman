@@ -5,7 +5,7 @@ import ShineBorder from "../../components/ui/shine-border"
 <div class="relative">
   <div class="absolute left-0 w-32 h-full z-10 bg-gradient-to-r from-black to-transparent pointer-events-none"></div>
   <div class="absolute right-0 w-32 h-full z-10 bg-gradient-to-l from-black to-transparent pointer-events-none"></div>
-  <Marquee class="p-4" pauseOnHover reverse fade fadeWidth={200}>
+  <Marquee class="p-4" pauseOnHover reverse fade fadeWidth={200} client:load>
     <div class="flex space-x-4">
       {[
         { color: 'red-300', text: "Epic Website BTW", user: "Aryan" },
@@ -38,7 +38,7 @@ import ShineBorder from "../../components/ui/shine-border"
 <div class="relative">
   <div class="absolute left-0 w-32 h-full z-10 bg-gradient-to-r from-black to-transparent pointer-events-none"></div>
   <div class="absolute right-0 w-32 h-full z-10 bg-gradient-to-l from-black to-transparent pointer-events-none"></div>
-  <Marquee class="p-4" pauseOnHover fade fadeWidth={200}>
+  <Marquee class="p-4" pauseOnHover fade fadeWidth={200} client:load>
     <div class="flex space-x-4">
       {[
         { color: 'red-300', text: "WATERMARK COMMENT ", user: "Aryan" },
